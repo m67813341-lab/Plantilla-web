@@ -87,7 +87,7 @@ const CONFIG = {
 
         textoSuave: "#777777",
 
-        acento: "#ff0000"
+        acento: "#0066ff"
 
     },
 
