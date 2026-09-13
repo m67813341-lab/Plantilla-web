@@ -6,7 +6,7 @@ const CONFIG = {
 
     negocio: {
 
-        nombre: "NOMBRE.",
+        nombre: "ALMA BOHO",
 
         slogan: "Tu negocio merece verse increíble.",
 
