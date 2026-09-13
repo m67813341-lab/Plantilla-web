@@ -24,7 +24,7 @@ const CONFIG = {
 
     imagenes: {
 
-        principal: "img/IMG-20260503-WA0083.jpg?prueba=1",
+        principal: "img/IMG-20260503-WA0087.jpg",
 
         nosotros: "img/IMG-20260503-WA0083.jpg",
 
