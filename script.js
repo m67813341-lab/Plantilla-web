@@ -1,36 +1,65 @@
-// =========================
-// ANIMACIÓN AL APARECER
-// =========================
+document.addEventListener("DOMContentLoaded", () => {
 
-const elementos = document.querySelectorAll(
-    ".seccion, .tarjeta, .contacto"
-);
+    // =========================
+    // ANIMACIONES AL HACER SCROLL
+    // =========================
 
-const observador = new IntersectionObserver(
-    (entradas) => {
-        entradas.forEach((entrada) => {
-            if (entrada.isIntersecting) {
-                entrada.target.classList.add("visible");
-            }
-        });
-    },
-    {
-        threshold: 0.15
+    const elementos = document.querySelectorAll(
+        ".seccion, .contacto"
+    );
+
+    const observador = new IntersectionObserver(
+        (entradas) => {
+
+            entradas.forEach((entrada) => {
+
+                if (entrada.isIntersecting) {
+                    entrada.target.classList.add("visible");
+                    observador.unobserve(entrada.target);
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+
+    elementos.forEach((elemento) => {
+        observador.observe(elemento);
+    });
+
+
+    // =========================
+    // AÑO AUTOMÁTICO
+    // =========================
+
+    const footer = document.querySelector("footer p");
+
+    if (footer) {
+        footer.textContent =
+            `© ${new Date().getFullYear()} Nombre del Negocio`;
     }
-);
 
-elementos.forEach((elemento) => {
-    observador.observe(elemento);
+
+    // =========================
+    // EFECTO SUAVE EN BOTONES
+    // =========================
+
+    const botones = document.querySelectorAll(".boton");
+
+    botones.forEach((boton) => {
+
+        boton.addEventListener("mouseenter", () => {
+            boton.style.transform = "translateY(-3px)";
+        });
+
+        boton.addEventListener("mouseleave", () => {
+            boton.style.transform = "";
+        });
+
+    });
+
 });
-
-
-// =========================
-// AÑO AUTOMÁTICO DEL FOOTER
-// =========================
-
-const footer = document.querySelector("footer p");
-
-if (footer) {
-    footer.textContent =
-        `© ${new Date().getFullYear()} Nombre del Negocio`;
-}
