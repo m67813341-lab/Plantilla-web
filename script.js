@@ -64,7 +64,18 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =====================================================
        INFORMACIÓN DEL NEGOCIO
     ===================================================== */
+    // Aplicar colores desde CONFIG
+    const root = document.documentElement;
 
+    if (CONFIG.colores) {
+        root.style.setProperty("--black", CONFIG.colores.principal);
+        root.style.setProperty("--dark", CONFIG.colores.principal);
+        root.style.setProperty("--white", CONFIG.colores.fondo);
+        root.style.setProperty("--cream", CONFIG.colores.secundario);
+        root.style.setProperty("--gray", CONFIG.colores.textoSuave);
+        root.style.setProperty("--acento", CONFIG.colores.acento);
+        root.style.setProperty("--text", CONFIG.colores.texto);
+    }
     setText(
         "[data-negocio]",
         CONFIG.negocio.nombre
