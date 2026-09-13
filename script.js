@@ -1,180 +1,406 @@
+/* =========================================================
+   SCRIPT.JS — PLANTILLA PREMIUM
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================
-       HEADER AL HACER SCROLL
-    ========================= */
-
-    const header = document.querySelector("header");
-
-    function actualizarHeader() {
-        if (window.scrollY > 30) {
-            header?.classList.add("scrolled");
-        } else {
-            header?.classList.remove("scrolled");
-        }
-    }
-
-    window.addEventListener("scroll", actualizarHeader);
-    actualizarHeader();
-
-
-    /* =========================
-       BARRA DE PROGRESO
-    ========================= */
-
+    const body = document.body;
+    const header = document.querySelector(".header");
+    const nav = document.querySelector(".nav");
+    const menuBtn = document.querySelector(".menu-btn");
+    const backTop = document.querySelector(".back-top");
     const progress = document.querySelector(".scroll-progress");
 
-    function actualizarProgreso() {
+    /* =====================================================
+       HEADER AL HACER SCROLL
+       ===================================================== */
 
-        if (!progress) return;
+    function updateHeader() {
+        if (!header) return;
 
-        const altura =
-            document.documentElement.scrollHeight -
-            document.documentElement.clientHeight;
-
-        const porcentaje =
-            altura > 0
-                ? (window.scrollY / altura) * 100
-                : 0;
-
-        progress.style.width = `${porcentaje}%`;
+        if (window.scrollY > 30) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
     }
 
-    window.addEventListener("scroll", actualizarProgreso);
 
+    /* =====================================================
+       BARRA DE PROGRESO
+       ===================================================== */
 
-    /* =========================
-       MENU MOBILE
-    ========================= */
+    function updateProgress() {
+        if (!progress) return;
 
-    const menuBtn = document.querySelector(".menu-btn");
-    const nav = document.querySelector("nav");
+        const scrollTop = window.scrollY;
+        const documentHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
 
-    menuBtn?.addEventListener("click", () => {
-
-        menuBtn.classList.toggle("active");
-        nav?.classList.toggle("open");
-        document.body.classList.toggle("menu-open");
-
-    });
-
-
-    document.querySelectorAll("nav a").forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            menuBtn?.classList.remove("active");
-            nav?.classList.remove("open");
-            document.body.classList.remove("menu-open");
-
-        });
-
-    });
-
-
-    /* =========================
-       ANIMACIONES
-    ========================= */
-
-    const elementos = document.querySelectorAll(".reveal");
-
-    const observador = new IntersectionObserver(
-        entradas => {
-
-            entradas.forEach(entrada => {
-
-                if (entrada.isIntersecting) {
-
-                    entrada.target.classList.add("active");
-
-                    observador.unobserve(entrada.target);
-
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.12
+        if (documentHeight <= 0) {
+            progress.style.width = "0%";
+            return;
         }
-    );
 
-    elementos.forEach(elemento => {
-        observador.observe(elemento);
-    });
+        const percentage = (scrollTop / documentHeight) * 100;
+
+        progress.style.width = `${percentage}%`;
+    }
 
 
-    /* =========================
-       BOTON VOLVER ARRIBA
-    ========================= */
+    /* =====================================================
+       BOTÓN VOLVER ARRIBA
+       ===================================================== */
 
-    const backTop = document.querySelector(".back-top");
-
-    window.addEventListener("scroll", () => {
-
+    function updateBackTop() {
         if (!backTop) return;
 
-        if (window.scrollY > 600) {
+        if (window.scrollY > 500) {
             backTop.classList.add("show");
         } else {
             backTop.classList.remove("show");
         }
+    }
+
+    if (backTop) {
+        backTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    }
+
+
+    /* =====================================================
+       MENÚ MOBILE
+       ===================================================== */
+
+    function closeMenu() {
+        if (!nav || !menuBtn) return;
+
+        nav.classList.remove("open");
+        body.classList.remove("menu-open");
+
+        menuBtn.setAttribute("aria-expanded", "false");
+    }
+
+    if (menuBtn && nav) {
+
+        menuBtn.setAttribute("aria-expanded", "false");
+
+        menuBtn.addEventListener("click", () => {
+
+            const isOpen = nav.classList.toggle("open");
+
+            body.classList.toggle("menu-open", isOpen);
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+        });
+
+        /* Cerrar al tocar un enlace */
+
+        nav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                closeMenu();
+            });
+        });
+
+    }
+
+
+    /* =====================================================
+       CERRAR MENÚ CON ESC
+       ===================================================== */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+            closeMenu();
+        }
 
     });
 
-    backTop?.addEventListener("click", () => {
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+    /* =====================================================
+       ANIMACIONES REVEAL
+       ===================================================== */
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) return;
+
+                    entry.target.classList.add("active");
+
+                    observer.unobserve(entry.target);
+
+                });
+
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
+            }
+        );
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
+    } else {
+
+        revealElements.forEach(element => {
+            element.classList.add("active");
+        });
+
+    }
+
+
+    /* =====================================================
+       ANIMACIÓN ESCALONADA DE TARJETAS
+       ===================================================== */
+
+    const groups = [
+        ".services-grid",
+        ".testimonials-grid",
+        ".process-grid",
+        ".stats-grid"
+    ];
+
+    groups.forEach(selector => {
+
+        const container = document.querySelector(selector);
+
+        if (!container) return;
+
+        const items = container.children;
+
+        Array.from(items).forEach((item, index) => {
+
+            item.style.setProperty(
+                "--delay",
+                `${index * 0.08}s`
+            );
+
         });
 
     });
 
 
-    /* =========================
-       AÑO AUTOMATICO
-    ========================= */
-
-    document.querySelectorAll("[data-year]").forEach(elemento => {
-
-        elemento.textContent = new Date().getFullYear();
-
-    });
-
-
-    /* =========================
-       BOTONES CON MOVIMIENTO
-    ========================= */
-
-    document.querySelectorAll(".btn").forEach(btn => {
-
-        btn.addEventListener("mouseenter", () => {
-            btn.style.transform = "translateY(-4px)";
-        });
-
-        btn.addEventListener("mouseleave", () => {
-            btn.style.transform = "";
-        });
-
-    });
-
-
-    /* =========================
-       PARALLAX SUAVE EN HERO
-    ========================= */
+    /* =====================================================
+       PARALLAX SUAVE DEL HERO
+       ===================================================== */
 
     const heroImage = document.querySelector(".hero-image img");
 
-    window.addEventListener("scroll", () => {
+    const prefersReducedMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        if (!heroImage || window.innerWidth < 700) return;
+    if (heroImage && !prefersReducedMotion) {
 
-        const movimiento = Math.min(window.scrollY * 0.05, 35);
+        let ticking = false;
 
-        heroImage.style.transform =
-            `scale(1.02) translateY(${movimiento}px)`;
+        function updateParallax() {
+
+            if (!ticking) {
+
+                window.requestAnimationFrame(() => {
+
+                    const scroll = window.scrollY;
+
+                    if (scroll < window.innerHeight) {
+
+                        const movement = scroll * 0.08;
+
+                        heroImage.style.transform =
+                            `translateY(${movement}px) scale(1.02)`;
+
+                    }
+
+                    ticking = false;
+
+                });
+
+                ticking = true;
+            }
+
+        }
+
+        window.addEventListener("scroll", updateParallax, {
+            passive: true
+        });
+
+    }
+
+
+    /* =====================================================
+       CONTADORES DE ESTADÍSTICAS
+       ===================================================== */
+
+    const stats = document.querySelectorAll(".stat strong");
+
+    function animateCounter(element) {
+
+        const original = element.textContent.trim();
+
+        const match = original.match(/^(\D*)(\d+)(.*)$/);
+
+        if (!match) return;
+
+        const prefix = match[1];
+        const target = Number(match[2]);
+        const suffix = match[3];
+
+        if (target <= 0) return;
+
+        let current = 0;
+        const duration = 1200;
+        const startTime = performance.now();
+
+        function updateCounter(currentTime) {
+
+            const elapsed = currentTime - startTime;
+            const progressValue =
+                Math.min(elapsed / duration, 1);
+
+            const eased =
+                1 - Math.pow(1 - progressValue, 3);
+
+            current = Math.floor(target * eased);
+
+            element.textContent =
+                `${prefix}${current}${suffix}`;
+
+            if (progressValue < 1) {
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent =
+                    `${prefix}${target}${suffix}`;
+            }
+        }
+
+        requestAnimationFrame(updateCounter);
+    }
+
+
+    if (stats.length && "IntersectionObserver" in window) {
+
+        const statsObserver = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) return;
+
+                    const element = entry.target;
+
+                    if (element.dataset.animated === "true") {
+                        return;
+                    }
+
+                    element.dataset.animated = "true";
+
+                    animateCounter(element);
+
+                    statsObserver.unobserve(element);
+
+                });
+
+            },
+            {
+                threshold: 0.5
+            }
+        );
+
+        stats.forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+    }
+
+
+    /* =====================================================
+       AÑO AUTOMÁTICO DEL FOOTER
+       ===================================================== */
+
+    document.querySelectorAll("[data-year]").forEach(element => {
+        element.textContent = new Date().getFullYear();
+    });
+
+
+    /* =====================================================
+       SUAVIZAR LINKS INTERNOS
+       ===================================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", event => {
+
+            const targetId = link.getAttribute("href");
+
+            if (!targetId || targetId === "#") return;
+
+            const target = document.querySelector(targetId);
+
+            if (!target) return;
+
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        });
 
     });
+
+
+    /* =====================================================
+       EVENTOS DE SCROLL
+       ===================================================== */
+
+    function handleScroll() {
+        updateHeader();
+        updateProgress();
+        updateBackTop();
+    }
+
+    window.addEventListener("scroll", handleScroll, {
+        passive: true
+    });
+
+
+    /* =====================================================
+       ESTADO INICIAL
+       ===================================================== */
+
+    handleScroll();
+
+
+    /* =====================================================
+       CAMBIO DE TAMAÑO DE VENTANA
+       ===================================================== */
+
+    window.addEventListener("resize", () => {
+
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+
+    });
+
+
+    console.log("✨ Plantilla premium cargada correctamente.");
 
 });
