@@ -13,7 +13,7 @@ const CONFIG = {
         descripcion:
             "Soluciones profesionales pensadas para negocios que quieren crecer, destacarse y conectar con sus clientes.",
 
-        categoria: "Servicios profesionales",
+        categoria: "PRUEBA ALMA BOHO",
 
         etiquetaHero: "ESTUDIO / SERVICIOS",
 
@@ -33,7 +33,7 @@ const CONFIG = {
     seo: {
 
         titulo:
-            "NOMBRE. — Soluciones que hacen la diferencia",
+            "ALMA BOHO — Soluciones que hacen la diferencia",
 
         descripcion:
             "Tu negocio merece verse increíble. Conocé nuestros servicios y trabajemos juntos.",
