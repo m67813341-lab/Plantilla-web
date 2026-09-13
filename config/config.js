@@ -1,6 +1,6 @@
 const CONFIG = {
     negocio: {
-        nombre: "NOMBRE.",
+        nombre: "MI NEGOCIO.",
         descripcion: "Tu negocio merece verse increíble."
     },
 
