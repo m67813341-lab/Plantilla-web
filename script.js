@@ -404,3 +404,36 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("✨ Plantilla premium cargada correctamente.");
 
 });
+/* =====================================================
+   CONFIGURACIÓN DEL NEGOCIO
+   ===================================================== */
+
+document.querySelectorAll("[data-negocio]").forEach(element => {
+    element.textContent = CONFIG.negocio.nombre;
+});
+
+document.querySelectorAll("[data-descripcion]").forEach(element => {
+    element.textContent = CONFIG.negocio.descripcion;
+});
+
+document.querySelectorAll("[data-whatsapp]").forEach(element => {
+    element.href = `https://wa.me/${CONFIG.contacto.whatsapp}`;
+});
+
+document.querySelectorAll("[data-email]").forEach(element => {
+    element.href = `mailto:${CONFIG.contacto.email}`;
+    element.textContent = CONFIG.contacto.email;
+});
+
+document.querySelectorAll("[data-telefono]").forEach(element => {
+    element.href = `tel:${CONFIG.contacto.telefono}`;
+    element.textContent = CONFIG.contacto.telefono;
+});
+
+document.querySelectorAll("[data-instagram]").forEach(element => {
+    element.href = CONFIG.redes.instagram;
+});
+
+document.querySelectorAll("[data-ciudad]").forEach(element => {
+    element.textContent = CONFIG.sitio.ciudad;
+});
