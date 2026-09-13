@@ -10,9 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        NOMBRE. — Soluciones que hacen la diferencia
-    </title>
+    <title>NOMBRE.</title>
 
     <meta
         name="description"
@@ -23,8 +21,6 @@
         name="theme-color"
         content="#111111"
     >
-
-    <!-- OPEN GRAPH -->
 
     <meta
         property="og:type"
@@ -46,9 +42,6 @@
         content="img/IMG-20260503-WA0083.jpg"
     >
 
-
-    <!-- FUENTES -->
-
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -61,12 +54,9 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap"
         rel="stylesheet"
     >
-
-
-    <!-- ESTILOS -->
 
     <link
         rel="stylesheet"
@@ -78,16 +68,10 @@
 
 <body>
 
-
-<!-- =====================================================
-     BARRA DE PROGRESO
-====================================================== -->
-
 <div
     class="scroll-progress"
     aria-hidden="true"
 ></div>
-
 
 
 <!-- =====================================================
@@ -98,17 +82,14 @@
 
     <div class="container header-inner">
 
-
         <a
             href="#inicio"
             class="logo"
             aria-label="Inicio"
         >
-
             <span data-negocio>
                 NOMBRE.
             </span>
-
         </a>
 
 
@@ -117,29 +98,17 @@
             aria-label="Navegación principal"
         >
 
-            <a href="#inicio">
-                Inicio
-            </a>
+            <a href="#inicio">Inicio</a>
 
-            <a href="#servicios">
-                Servicios
-            </a>
+            <a href="#servicios">Servicios</a>
 
-            <a href="#nosotros">
-                Nosotros
-            </a>
+            <a href="#nosotros">Nosotros</a>
 
-            <a href="#proceso">
-                Proceso
-            </a>
+            <a href="#proceso">Proceso</a>
 
-            <a href="#galeria">
-                Galería
-            </a>
+            <a href="#galeria">Galería</a>
 
-            <a href="#contacto">
-                Contacto
-            </a>
+            <a href="#contacto">Contacto</a>
 
         </nav>
 
@@ -148,7 +117,10 @@
             href="#contacto"
             class="header-cta"
         >
-            Hablemos
+            <span data-boton="header">
+                Hablemos
+            </span>
+
             <span>↗</span>
         </a>
 
@@ -170,11 +142,6 @@
 </header>
 
 
-
-<!-- =====================================================
-     CONTENIDO PRINCIPAL
-====================================================== -->
-
 <main>
 
 
@@ -189,9 +156,7 @@
 
     <div class="container hero-grid">
 
-
         <div class="hero-content reveal">
-
 
             <div class="hero-kicker">
 
@@ -204,46 +169,32 @@
             </div>
 
 
-            <h1>
-
-                <span>
-                    Tu negocio
-                </span>
-
-                <em>
-                    merece verse
-                </em>
-
-                <span>
-                    increíble.
-                </span>
-
+            <h1 data-slogan>
+                Tu negocio merece verse increíble.
             </h1>
 
 
             <p
                 class="hero-description"
-                data-descripcion
+                data-mensaje-hero
             >
-                Soluciones profesionales pensadas
-                para negocios que quieren crecer
-                y destacarse.
+                Creamos experiencias que hacen que tu negocio
+                se vea tan bien como el trabajo que hacés.
             </p>
 
 
             <div class="hero-actions">
-
 
                 <a
                     href="#contacto"
                     class="btn btn-dark"
                 >
 
-                    Empezar un proyecto
-
-                    <span>
-                        ↗
+                    <span data-boton="heroPrincipal">
+                        Empezar un proyecto
                     </span>
+
+                    <span>↗</span>
 
                 </a>
 
@@ -253,25 +204,23 @@
                     class="btn btn-outline"
                 >
 
-                    Ver servicios
-
-                    <span>
-                        ↓
+                    <span data-boton="heroSecundario">
+                        Ver servicios
                     </span>
 
-                </a>
+                    <span>↓</span>
 
+                </a>
 
             </div>
 
 
             <div class="hero-meta">
 
-
                 <div class="hero-meta-item">
 
-                    <strong>
-                        +100
+                    <strong data-hero-estadistica="clientes">
+                        100+
                     </strong>
 
                     <span>
@@ -286,7 +235,7 @@
 
                 <div class="hero-meta-item">
 
-                    <strong>
+                    <strong data-hero-estadistica="experiencia">
                         5+
                     </strong>
 
@@ -296,40 +245,34 @@
 
                 </div>
 
-
             </div>
-
 
         </div>
 
 
-
         <div class="hero-image-wrapper reveal">
-
 
             <div class="hero-image">
 
-
                 <img
-                    src="img/IMG-20260503-WA0083.jpg"
+                    src="img/IMG-20260503-WA0087.jpg"
                     data-imagen="principal"
                     alt="Imagen principal del negocio"
                     loading="eager"
                 >
-
 
             </div>
 
 
             <div class="hero-badge">
 
-                <span class="hero-badge-number">
-                    +
-                </span>
+                <strong data-hero-badge>
+                    100+
+                </strong>
 
                 <span>
-                    Calidad<br>
-                    en cada detalle
+                    Clientes<br>
+                    satisfechos
                 </span>
 
             </div>
@@ -337,19 +280,15 @@
 
             <div class="hero-image-caption">
 
-                <span>
-                    01
-                </span>
+                <span>01</span>
 
-                <span>
+                <span data-etiqueta-hero>
                     ESTUDIO / SERVICIOS
                 </span>
 
             </div>
 
-
         </div>
-
 
     </div>
 
@@ -360,14 +299,11 @@
             Scroll para descubrir
         </span>
 
-        <span>
-            ↓
-        </span>
+        <span>↓</span>
 
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -379,54 +315,38 @@
     aria-label="Especialidades"
 >
 
-    <div class="marquee-track">
+    <div
+        class="marquee-track"
+        data-marquee
+    >
 
-        <span>
-            CALIDAD
-        </span>
-
+        <span>CALIDAD</span>
         <i>✦</i>
 
-        <span>
-            EXPERIENCIA
-        </span>
-
+        <span>EXPERIENCIA</span>
         <i>✦</i>
 
-        <span>
-            PROFESIONALISMO
-        </span>
-
+        <span>PROFESIONALISMO</span>
         <i>✦</i>
 
-        <span>
-            DETALLE
-        </span>
-
+        <span>DETALLE</span>
         <i>✦</i>
 
-        <span>
-            CALIDAD
-        </span>
-
+        <span>CALIDAD</span>
         <i>✦</i>
 
-        <span>
-            EXPERIENCIA
-        </span>
-
+        <span>EXPERIENCIA</span>
         <i>✦</i>
 
-        <span>
-            PROFESIONALISMO
-        </span>
+        <span>PROFESIONALISMO</span>
+        <i>✦</i>
 
+        <span>DETALLE</span>
         <i>✦</i>
 
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -440,158 +360,42 @@
 
     <div class="container">
 
-
         <div class="section-heading reveal">
-
 
             <div>
 
-                <span class="eyebrow">
+                <span
+                    class="eyebrow"
+                    data-texto="serviciosEtiqueta"
+                >
                     LO QUE HACEMOS
                 </span>
 
-                <h2>
-                    Todo lo que tu<br>
-                    negocio necesita.
+                <h2 data-texto="tituloServicios">
+                    Todo lo que tu negocio necesita.
                 </h2>
 
             </div>
 
 
             <p data-texto="subtituloServicios">
-
-                Soluciones pensadas para ayudarte
-                a crecer, destacar y conectar
-                con tus clientes.
-
+                Soluciones pensadas para ayudarte a crecer,
+                destacar y conectar con tus clientes.
             </p>
 
-
         </div>
 
 
-
-        <div class="services-grid">
-
-
-            <article class="service-card reveal">
-
-
-                <div class="service-top">
-
-                    <span class="service-number">
-                        01
-                    </span>
-
-                    <span class="service-icon">
-                        ↗
-                    </span>
-
-                </div>
-
-
-                <h3>
-                    Servicio principal
-                </h3>
-
-
-                <p>
-                    Una solución profesional
-                    adaptada a las necesidades
-                    de cada cliente.
-                </p>
-
-
-                <a href="#contacto">
-                    Saber más
-                    <span>→</span>
-                </a>
-
-
-            </article>
-
-
-
-            <article class="service-card reveal">
-
-
-                <div class="service-top">
-
-                    <span class="service-number">
-                        02
-                    </span>
-
-                    <span class="service-icon">
-                        ◇
-                    </span>
-
-                </div>
-
-
-                <h3>
-                    Soluciones a medida
-                </h3>
-
-
-                <p>
-                    Trabajamos cada proyecto
-                    buscando el mejor resultado
-                    posible.
-                </p>
-
-
-                <a href="#contacto">
-                    Saber más
-                    <span>→</span>
-                </a>
-
-
-            </article>
-
-
-
-            <article class="service-card reveal">
-
-
-                <div class="service-top">
-
-                    <span class="service-number">
-                        03
-                    </span>
-
-                    <span class="service-icon">
-                        +
-                    </span>
-
-                </div>
-
-
-                <h3>
-                    Atención personalizada
-                </h3>
-
-
-                <p>
-                    Acompañamiento cercano desde
-                    el primer contacto hasta el
-                    resultado final.
-                </p>
-
-
-                <a href="#contacto">
-                    Saber más
-                    <span>→</span>
-                </a>
-
-
-            </article>
-
-
-        </div>
+        <div
+            class="services-grid"
+            data-servicios
+        ></div>
 
     </div>
 
 </section>
+
+
 <!-- =====================================================
      NOSOTROS
 ====================================================== -->
@@ -602,7 +406,6 @@
 >
 
     <div class="container featured-grid">
-
 
         <div class="featured-image reveal">
 
@@ -620,9 +423,7 @@
 
             <div class="featured-label">
 
-                <span>
-                    02
-                </span>
+                <span>02</span>
 
                 <strong>
                     SOBRE NOSOTROS
@@ -633,34 +434,31 @@
         </div>
 
 
-
         <div class="featured-content reveal">
 
-
-            <span class="eyebrow">
+            <span
+                class="eyebrow"
+                data-texto="nosotrosEtiqueta"
+            >
                 QUIÉNES SOMOS
             </span>
 
 
             <h2 data-texto="tituloNosotros">
-                Una presencia que habla
-                por tu negocio.
+                Una presencia que habla por tu negocio.
             </h2>
 
 
-            <p data-descripcion>
-                Creamos soluciones pensadas para
-                transmitir profesionalismo, confianza
-                y personalidad.
+            <p data-texto="nosotrosTexto1">
+                Creamos soluciones pensadas para transmitir
+                profesionalismo, confianza y personalidad.
             </p>
 
 
-            <p>
-                Cada proyecto comienza entendiendo
-                qué necesita realmente cada negocio.
-                Después convertimos esa idea en una
-                experiencia clara, atractiva y
-                profesional.
+            <p data-texto="nosotrosTexto2">
+                Cada proyecto comienza entendiendo qué necesita
+                realmente cada negocio. Después convertimos esa
+                idea en una experiencia clara, atractiva y profesional.
             </p>
 
 
@@ -669,19 +467,16 @@
 
                 <div class="featured-point">
 
-                    <span>
-                        01
-                    </span>
+                    <span>01</span>
 
                     <div>
 
-                        <strong>
+                        <strong data-texto="nosotrosPunto1Titulo">
                             Pensado para vos
                         </strong>
 
-                        <p>
-                            Cada detalle se adapta
-                            a tu identidad.
+                        <p data-texto="nosotrosPunto1Texto">
+                            Cada detalle se adapta a tu identidad.
                         </p>
 
                     </div>
@@ -689,51 +484,42 @@
                 </div>
 
 
-
                 <div class="featured-point">
 
-                    <span>
-                        02
-                    </span>
+                    <span>02</span>
 
                     <div>
 
-                        <strong>
+                        <strong data-texto="nosotrosPunto2Titulo">
                             Atención cercana
                         </strong>
 
-                        <p>
-                            Estamos presentes durante
-                            todo el proceso.
+                        <p data-texto="nosotrosPunto2Texto">
+                            Estamos presentes durante todo el proceso.
                         </p>
 
                     </div>
 
                 </div>
-
 
 
                 <div class="featured-point">
 
-                    <span>
-                        03
-                    </span>
+                    <span>03</span>
 
                     <div>
 
-                        <strong>
+                        <strong data-texto="nosotrosPunto3Titulo">
                             Calidad y detalle
                         </strong>
 
-                        <p>
-                            Buscamos resultados que
-                            realmente destaquen.
+                        <p data-texto="nosotrosPunto3Texto">
+                            Buscamos resultados que realmente destaquen.
                         </p>
 
                     </div>
 
                 </div>
-
 
             </div>
 
@@ -743,21 +529,19 @@
                 class="text-link"
             >
 
-                Conocé más sobre nosotros
-
-                <span>
-                    ↗
+                <span data-boton="nosotros">
+                    Conocé más sobre nosotros
                 </span>
 
-            </a>
+                <span>↗</span>
 
+            </a>
 
         </div>
 
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -766,73 +550,12 @@
 
 <section class="section stats-section">
 
-    <div class="container">
-
-
-        <div class="stats-grid">
-
-
-            <div class="stat reveal">
-
-                <strong data-estadistica="clientes">
-                    100+
-                </strong>
-
-                <span>
-                    Clientes
-                </span>
-
-            </div>
-
-
-
-            <div class="stat reveal">
-
-                <strong data-estadistica="proyectos">
-                    150+
-                </strong>
-
-                <span>
-                    Proyectos realizados
-                </span>
-
-            </div>
-
-
-
-            <div class="stat reveal">
-
-                <strong data-estadistica="experiencia">
-                    5+
-                </strong>
-
-                <span>
-                    Años de experiencia
-                </span>
-
-            </div>
-
-
-
-            <div class="stat reveal">
-
-                <strong data-estadistica="satisfaccion">
-                    98%
-                </strong>
-
-                <span>
-                    Clientes satisfechos
-                </span>
-
-            </div>
-
-
-        </div>
-
-    </div>
+    <div
+        class="container stats-grid"
+        data-estadisticas
+    ></div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -846,14 +569,14 @@
 
     <div class="container">
 
-
         <div class="section-heading section-heading-light reveal">
-
 
             <div>
 
                 <span class="eyebrow">
-                    NUESTRO PROCESO
+                    <span data-texto="procesoEtiqueta">
+                        NUESTRO PROCESO
+                    </span>
                 </span>
 
                 <h2 data-texto="tituloProceso">
@@ -863,136 +586,22 @@
             </div>
 
 
-            <p>
-                Un proceso simple, claro y pensado
-                para que cada etapa tenga sentido.
+            <p data-texto="subtituloProceso">
+                Un proceso simple, claro y pensado para que
+                cada etapa tenga sentido.
             </p>
 
-
         </div>
 
 
-
-        <div class="process-grid">
-
-
-            <article class="process-card reveal">
-
-
-                <span class="process-number">
-                    01
-                </span>
-
-
-                <div class="process-icon">
-                    ○
-                </div>
-
-
-                <h3>
-                    Hablamos
-                </h3>
-
-
-                <p>
-                    Conocemos tu negocio, tus objetivos
-                    y lo que necesitás.
-                </p>
-
-
-            </article>
-
-
-
-            <article class="process-card reveal">
-
-
-                <span class="process-number">
-                    02
-                </span>
-
-
-                <div class="process-icon">
-                    ◇
-                </div>
-
-
-                <h3>
-                    Planeamos
-                </h3>
-
-
-                <p>
-                    Organizamos las ideas y definimos
-                    el camino a seguir.
-                </p>
-
-
-            </article>
-
-
-
-            <article class="process-card reveal">
-
-
-                <span class="process-number">
-                    03
-                </span>
-
-
-                <div class="process-icon">
-                    +
-                </div>
-
-
-                <h3>
-                    Creamos
-                </h3>
-
-
-                <p>
-                    Convertimos el concepto en una
-                    solución concreta.
-                </p>
-
-
-            </article>
-
-
-
-            <article class="process-card reveal">
-
-
-                <span class="process-number">
-                    04
-                </span>
-
-
-                <div class="process-icon">
-                    ✓
-                </div>
-
-
-                <h3>
-                    Entregamos
-                </h3>
-
-
-                <p>
-                    Revisamos cada detalle y dejamos
-                    todo listo para vos.
-                </p>
-
-
-            </article>
-
-
-        </div>
+        <div
+            class="process-grid"
+            data-proceso
+        ></div>
 
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -1006,13 +615,14 @@
 
     <div class="container">
 
-
         <div class="section-heading reveal">
-
 
             <div>
 
-                <span class="eyebrow">
+                <span
+                    class="eyebrow"
+                    data-texto="galeriaEtiqueta"
+                >
                     TRABAJOS
                 </span>
 
@@ -1023,98 +633,24 @@
             </div>
 
 
-            <p>
-                Una selección de proyectos y momentos
-                que representan nuestra forma de trabajar.
+            <p data-texto="subtituloGaleria">
+                Una selección de proyectos y momentos que
+                representan nuestra forma de trabajar.
             </p>
 
-
         </div>
 
 
-
-        <div class="gallery-grid">
-
-
-            <article class="gallery-item gallery-item-large reveal">
-
-                <img
-                    src="img/IMG-20260503-WA0083.jpg"
-                    data-imagen="galeria1"
-                    alt="Trabajo destacado"
-                    loading="lazy"
-                >
-
-                <div class="gallery-overlay">
-
-                    <span>
-                        01
-                    </span>
-
-                    <strong>
-                        Proyecto destacado
-                    </strong>
-
-                </div>
-
-            </article>
-
-
-
-            <article class="gallery-item reveal">
-
-                <img
-                    src="img/IMG-20260503-WA0083.jpg"
-                    data-imagen="galeria2"
-                    alt="Proyecto realizado"
-                    loading="lazy"
-                >
-
-                <div class="gallery-overlay">
-
-                    <span>
-                        02
-                    </span>
-
-                    <strong>
-                        Proyecto
-                    </strong>
-
-                </div>
-
-            </article>
-
-
-
-            <article class="gallery-item reveal">
-
-                <img
-                    src="img/IMG-20260503-WA0083.jpg"
-                    data-imagen="galeria3"
-                    alt="Detalle del trabajo"
-                    loading="lazy"
-                >
-
-                <div class="gallery-overlay">
-
-                    <span>
-                        03
-                    </span>
-
-                    <strong>
-                        Detalle
-                    </strong>
-
-                </div>
-
-            </article>
-
-
-        </div>
+        <div
+            class="gallery-grid"
+            data-galeria
+        ></div>
 
     </div>
 
 </section>
+
+
 <!-- =====================================================
      TESTIMONIOS
 ====================================================== -->
@@ -1123,12 +659,14 @@
 
     <div class="container">
 
-
         <div class="section-heading reveal">
 
             <div>
 
-                <span class="eyebrow">
+                <span
+                    class="eyebrow"
+                    data-texto="testimoniosEtiqueta"
+                >
                     EXPERIENCIAS
                 </span>
 
@@ -1138,128 +676,23 @@
 
             </div>
 
-            <p>
-                La confianza se construye con cada
-                proyecto y cada experiencia.
+
+            <p data-texto="subtituloTestimonios">
+                La confianza se construye con cada proyecto
+                y cada experiencia.
             </p>
 
         </div>
 
 
-
-        <div class="testimonials-grid">
-
-
-            <article class="testimonial reveal">
-
-                <div class="testimonial-stars">
-                    ★★★★★
-                </div>
-
-                <blockquote>
-                    “Desde el primer contacto fueron muy
-                    profesionales. Volveríamos a elegirlos.”
-                </blockquote>
-
-                <div class="testimonial-author">
-
-                    <div class="testimonial-avatar">
-                        L
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Laura G.
-                        </strong>
-
-                        <span>
-                            Cliente
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-
-            <article class="testimonial reveal">
-
-                <div class="testimonial-stars">
-                    ★★★★★
-                </div>
-
-                <blockquote>
-                    “Se nota la atención al detalle y el
-                    compromiso con cada proyecto.”
-                </blockquote>
-
-                <div class="testimonial-author">
-
-                    <div class="testimonial-avatar">
-                        A
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Andrés P.
-                        </strong>
-
-                        <span>
-                            Cliente
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-
-            <article class="testimonial reveal">
-
-                <div class="testimonial-stars">
-                    ★★★★★
-                </div>
-
-                <blockquote>
-                    “Excelente atención y un resultado
-                    que superó nuestras expectativas.”
-                </blockquote>
-
-                <div class="testimonial-author">
-
-                    <div class="testimonial-avatar">
-                        M
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Martina R.
-                        </strong>
-
-                        <span>
-                            Cliente
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-        </div>
+        <div
+            class="testimonials-grid"
+            data-testimonios
+        ></div>
 
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -1272,16 +705,17 @@
 
         <div class="cta reveal">
 
-
             <div>
 
-                <span class="eyebrow">
+                <span
+                    class="eyebrow"
+                    data-texto="ctaEtiqueta"
+                >
                     ¿TENÉS UN PROYECTO?
                 </span>
 
-                <h2>
-                    Hagamos algo<br>
-                    increíble juntos.
+                <h2 data-texto="tituloCta">
+                    Hagamos algo increíble juntos.
                 </h2>
 
             </div>
@@ -1292,21 +726,19 @@
                 class="btn btn-light"
             >
 
-                Empezar un proyecto
-
-                <span>
-                    ↗
+                <span data-texto="botonCta">
+                    Empezar un proyecto
                 </span>
 
-            </a>
+                <span>↗</span>
 
+            </a>
 
         </div>
 
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -1323,8 +755,10 @@
 
         <div class="contact-content reveal">
 
-
-            <span class="eyebrow">
+            <span
+                class="eyebrow"
+                data-texto="contactoEtiqueta"
+            >
                 CONTACTO
             </span>
 
@@ -1335,8 +769,8 @@
 
 
             <p data-texto="textoContacto">
-                Contanos qué necesitás y nos ponemos
-                en contacto con vos.
+                Contanos qué necesitás y nos ponemos en
+                contacto con vos.
             </p>
 
 
@@ -1355,9 +789,7 @@
 
                     <div>
 
-                        <small>
-                            Email
-                        </small>
+                        <small>Email</small>
 
                         <strong>
                             hola@tudominio.com
@@ -1366,7 +798,6 @@
                     </div>
 
                 </a>
-
 
 
                 <a
@@ -1381,9 +812,7 @@
 
                     <div>
 
-                        <small>
-                            Teléfono
-                        </small>
+                        <small>Teléfono</small>
 
                         <strong>
                             +54 9 11 XXXX-XXXX
@@ -1394,7 +823,6 @@
                 </a>
 
 
-
                 <div class="contact-detail">
 
                     <span class="contact-icon">
@@ -1403,9 +831,7 @@
 
                     <div>
 
-                        <small>
-                            Ubicación
-                        </small>
+                        <small>Ubicación</small>
 
                         <strong data-ciudad>
                             Buenos Aires, Argentina
@@ -1416,7 +842,6 @@
                 </div>
 
 
-
                 <div class="contact-detail">
 
                     <span class="contact-icon">
@@ -1425,9 +850,7 @@
 
                     <div>
 
-                        <small>
-                            Horarios
-                        </small>
+                        <small>Horarios</small>
 
                         <strong data-horario>
                             Lunes a viernes · 9:00 a 18:00
@@ -1437,28 +860,27 @@
 
                 </div>
 
-
             </div>
 
         </div>
 
 
-
         <div class="contact-card reveal">
 
-
-            <span class="contact-card-label">
+            <span
+                class="contact-card-label"
+                data-texto="contactoCardEtiqueta"
+            >
                 RESPUESTA RÁPIDA
             </span>
 
 
-            <h3>
-                ¿Querés hablar<br>
-                directamente?
+            <h3 data-texto="contactoCardTitulo">
+                ¿Querés hablar directamente?
             </h3>
 
 
-            <p>
+            <p data-texto="contactoCardTexto">
                 Escribinos por WhatsApp y contanos
                 brevemente qué necesitás.
             </p>
@@ -1472,16 +894,13 @@
                 rel="noopener"
             >
 
-                <span>
+                <span data-texto="contactoBoton">
                     Abrir WhatsApp
                 </span>
 
-                <strong>
-                    ↗
-                </strong>
+                <strong>↗</strong>
 
             </a>
-
 
         </div>
 
@@ -1490,9 +909,7 @@
 </section>
 
 
-
 </main>
-
 
 
 <!-- =====================================================
@@ -1505,7 +922,6 @@
 
 
         <div class="footer-brand">
-
 
             <a
                 href="#inicio"
@@ -1520,63 +936,39 @@
 
 
             <p data-descripcion>
-                Soluciones pensadas para negocios
-                que quieren crecer.
+                Soluciones profesionales pensadas para negocios
+                que quieren crecer y destacarse.
             </p>
-
 
         </div>
 
 
-
         <div class="footer-column">
 
-
-            <span>
-                NAVEGACIÓN
-            </span>
-
+            <span>NAVEGACIÓN</span>
 
             <div class="footer-links">
 
-                <a href="#inicio">
-                    Inicio
-                </a>
+                <a href="#inicio">Inicio</a>
 
-                <a href="#servicios">
-                    Servicios
-                </a>
+                <a href="#servicios">Servicios</a>
 
-                <a href="#nosotros">
-                    Nosotros
-                </a>
+                <a href="#nosotros">Nosotros</a>
 
-                <a href="#proceso">
-                    Proceso
-                </a>
+                <a href="#proceso">Proceso</a>
 
-                <a href="#galeria">
-                    Galería
-                </a>
+                <a href="#galeria">Galería</a>
 
-                <a href="#contacto">
-                    Contacto
-                </a>
+                <a href="#contacto">Contacto</a>
 
             </div>
-
 
         </div>
 
 
-
         <div class="footer-column">
 
-
-            <span>
-                REDES
-            </span>
-
+            <span>REDES</span>
 
             <div class="footer-links">
 
@@ -1591,32 +983,30 @@
 
                 <a
                     href="#"
-                    data-whatsapp
+                    data-facebook
                     target="_blank"
                     rel="noopener"
                 >
-                    WhatsApp ↗
+                    Facebook ↗
                 </a>
 
                 <a
                     href="#"
-                    data-email
+                    data-tiktok
+                    target="_blank"
+                    rel="noopener"
                 >
-                    Email ↗
+                    TikTok ↗
                 </a>
 
             </div>
 
-
         </div>
-
 
     </div>
 
 
-
     <div class="container footer-bottom">
-
 
         <span>
 
@@ -1627,7 +1017,7 @@
                 NOMBRE.
             </span>
 
-            Todos los derechos reservados.
+            · Todos los derechos reservados.
 
         </span>
 
@@ -1636,15 +1026,13 @@
             Diseñado con intención.
         </span>
 
-
     </div>
 
 </footer>
 
 
-
 <!-- =====================================================
-     WHATSAPP FLOTANTE
+     WHATSAPP
 ====================================================== -->
 
 <a
@@ -1656,14 +1044,11 @@
     aria-label="Contactar por WhatsApp"
 >
 
-    <span>
-        WhatsApp
-    </span>
+    <span>WhatsApp</span>
 
     ↗
 
 </a>
-
 
 
 <!-- =====================================================
@@ -1679,16 +1064,11 @@
 </button>
 
 
-
-<!-- =====================================================
-     SCRIPTS
-====================================================== -->
-
 <script src="config/config.js"></script>
 
 <script src="script.js"></script>
 
-
 </body>
 
 </html>
+     
