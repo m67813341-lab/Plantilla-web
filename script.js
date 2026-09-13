@@ -1,18 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
-       ELEMENTOS PRINCIPALES
-    ===================================================== */
-
-    const body = document.body;
-    const header = document.querySelector(".header");
-    const nav = document.querySelector(".nav");
-    const menuBtn = document.querySelector(".menu-btn");
-    const backTop = document.querySelector(".back-top");
-    const progress = document.querySelector(".scroll-progress");
-
-
-    /* =====================================================
        CONFIGURACIÓN
     ===================================================== */
 
@@ -26,32 +14,214 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       FUNCIONES AUXILIARES
+       ELEMENTOS
+    ===================================================== */
+
+    const root = document.documentElement;
+    const body = document.body;
+
+    const header =
+        document.querySelector(".header");
+
+    const nav =
+        document.querySelector(".nav");
+
+    const menuBtn =
+        document.querySelector(".menu-btn");
+
+    const backTop =
+        document.querySelector(".back-top");
+
+    const progress =
+        document.querySelector(".scroll-progress");
+
+
+    /* =====================================================
+       FUNCIONES GENERALES
     ===================================================== */
 
     function setText(selector, value) {
 
-        document.querySelectorAll(selector).forEach(element => {
+        if (
+            value === undefined ||
+            value === null
+        ) {
+            return;
+        }
 
-            if (value !== undefined && value !== null) {
+        document
+            .querySelectorAll(selector)
+            .forEach(element => {
 
                 element.textContent = value;
 
-            }
-
-        });
+            });
 
     }
 
 
+    function setAttribute(
+        selector,
+        attribute,
+        value
+    ) {
+
+        if (!value) return;
+
+        document
+            .querySelectorAll(selector)
+            .forEach(element => {
+
+                element.setAttribute(
+                    attribute,
+                    value
+                );
+
+            });
+
+    }
+
+
+    /* =====================================================
+       COLORES
+    ===================================================== */
+
+    if (CONFIG.colores) {
+
+        root.style.setProperty(
+            "--black",
+            CONFIG.colores.principal
+        );
+
+        root.style.setProperty(
+            "--dark",
+            CONFIG.colores.principal
+        );
+
+        root.style.setProperty(
+            "--white",
+            CONFIG.colores.fondo
+        );
+
+        root.style.setProperty(
+            "--cream",
+            CONFIG.colores.secundario
+        );
+
+        root.style.setProperty(
+            "--gray",
+            CONFIG.colores.textoSuave
+        );
+
+        root.style.setProperty(
+            "--text",
+            CONFIG.colores.texto
+        );
+
+        root.style.setProperty(
+            "--acento",
+            CONFIG.colores.acento
+        );
+
+    }
+
+
+    /* =====================================================
+       INFORMACIÓN GENERAL
+    ===================================================== */
+
+    setText(
+        "[data-negocio]",
+        CONFIG.negocio.nombre
+    );
+
+    setText(
+        "[data-categoria]",
+        CONFIG.negocio.categoria
+    );
+
+    setText(
+        "[data-slogan]",
+        CONFIG.negocio.slogan
+    );
+
+    setText(
+        "[data-descripcion]",
+        CONFIG.negocio.descripcion
+    );
+
+    setText(
+        "[data-mensaje-hero]",
+        CONFIG.negocio.mensajeHero
+    );
+
+    setText(
+        "[data-etiqueta-hero]",
+        CONFIG.negocio.etiquetaHero
+    );
+
+
+    /* =====================================================
+       SEO
+    ===================================================== */
+
+    if (CONFIG.seo) {
+
+        if (CONFIG.seo.titulo) {
+
+            document.title =
+                CONFIG.seo.titulo;
+
+        }
+
+        setAttribute(
+            'meta[name="description"]',
+            "content",
+            CONFIG.seo.descripcion
+        );
+
+        setAttribute(
+            'meta[name="theme-color"]',
+            "content",
+            CONFIG.seo.color
+        );
+
+        setAttribute(
+            'meta[property="og:title"]',
+            "content",
+            CONFIG.seo.titulo
+        );
+
+        setAttribute(
+            'meta[property="og:description"]',
+            "content",
+            CONFIG.seo.descripcion
+        );
+
+        setAttribute(
+            'meta[property="og:image"]',
+            "content",
+            CONFIG.seo.imagen
+        );
+
+    }
+
+
+    /* =====================================================
+       IMÁGENES
+    ===================================================== */
+
     function setImage(key) {
 
-        const image = CONFIG.imagenes?.[key];
+        const image =
+            CONFIG.imagenes?.[key];
 
         if (!image) return;
 
         document
-            .querySelectorAll(`[data-imagen="${key}"]`)
+            .querySelectorAll(
+                `[data-imagen="${key}"]`
+            )
             .forEach(element => {
 
                 element.src = image;
@@ -61,158 +231,596 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       INFORMACIÓN DEL NEGOCIO
-    ===================================================== */
-    // Aplicar colores desde CONFIG
-    const root = document.documentElement;
+    Object
+        .keys(CONFIG.imagenes || {})
+        .forEach(key => {
 
-    if (CONFIG.colores) {
-        root.style.setProperty("--black", CONFIG.colores.principal);
-        root.style.setProperty("--dark", CONFIG.colores.principal);
-        root.style.setProperty("--white", CONFIG.colores.fondo);
-        root.style.setProperty("--cream", CONFIG.colores.secundario);
-        root.style.setProperty("--gray", CONFIG.colores.textoSuave);
-        root.style.setProperty("--acento", CONFIG.colores.acento);
-        root.style.setProperty("--text", CONFIG.colores.texto);
-    }
-    setText(
-        "[data-negocio]",
-        CONFIG.negocio.nombre
-    );
+            setImage(key);
 
-
-    setText(
-        "[data-descripcion]",
-        CONFIG.negocio.descripcion
-    );
-
-
-    setText(
-        "[data-categoria]",
-        CONFIG.negocio.categoria
-    );
+        });
 
 
     /* =====================================================
        TEXTOS
     ===================================================== */
 
-    setText(
-        '[data-texto="subtituloServicios"]',
-        CONFIG.textos.subtituloServicios
-    );
+    Object
+        .keys(CONFIG.textos || {})
+        .forEach(key => {
 
+            setText(
+                `[data-texto="${key}"]`,
+                CONFIG.textos[key]
+            );
 
-    setText(
-        '[data-texto="tituloNosotros"]',
-        CONFIG.textos.tituloNosotros
-    );
-
-
-    setText(
-        '[data-texto="tituloProceso"]',
-        CONFIG.textos.tituloProceso
-    );
-
-
-    setText(
-        '[data-texto="tituloGaleria"]',
-        CONFIG.textos.tituloGaleria
-    );
-
-
-    setText(
-        '[data-texto="tituloTestimonios"]',
-        CONFIG.textos.tituloTestimonios
-    );
-
-
-    setText(
-        '[data-texto="tituloContacto"]',
-        CONFIG.textos.tituloContacto
-    );
-
-
-    setText(
-        '[data-texto="textoContacto"]',
-        CONFIG.textos.textoContacto
-    );
+        });
 
 
     /* =====================================================
-       IMÁGENES
+       BOTONES
     ===================================================== */
 
-    Object.keys(CONFIG.imagenes || {}).forEach(key => {
+    Object
+        .keys(CONFIG.botones || {})
+        .forEach(key => {
 
-        setImage(key);
+            setText(
+                `[data-boton="${key}"]`,
+                CONFIG.botones[key]
+            );
 
-    });
+        });
+
+
+    setText(
+        '[data-boton="header"]',
+        "Hablemos"
+    );
 
 
     /* =====================================================
        ESTADÍSTICAS
     ===================================================== */
 
-    setText(
-        '[data-estadistica="clientes"]',
-        CONFIG.estadisticas.clientes
-    );
+    const statsContainer =
+        document.querySelector(
+            "[data-estadisticas]"
+        );
 
 
-    setText(
-        '[data-estadistica="proyectos"]',
-        CONFIG.estadisticas.proyectos
-    );
+    if (
+        statsContainer &&
+        Array.isArray(CONFIG.estadisticas)
+    ) {
+
+        CONFIG.estadisticas.forEach(
+            (stat, index) => {
+
+                const article =
+                    document.createElement("div");
+
+                article.className =
+                    "stat reveal";
+
+                article.style.setProperty(
+                    "--delay",
+                    `${index * 0.08}s`
+                );
 
 
-    setText(
-        '[data-estadistica="experiencia"]',
-        CONFIG.estadisticas.experiencia
-    );
+                const strong =
+                    document.createElement("strong");
+
+                strong.textContent =
+                    stat.numero;
 
 
-    setText(
-        '[data-estadistica="satisfaccion"]',
-        CONFIG.estadisticas.satisfaccion
-    );
+                const span =
+                    document.createElement("span");
+
+                span.textContent =
+                    stat.texto;
+
+
+                article.appendChild(strong);
+
+                article.appendChild(span);
+
+                statsContainer.appendChild(article);
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ESTADÍSTICAS DEL HERO
+    ===================================================== */
+
+    if (
+        Array.isArray(CONFIG.estadisticas)
+    ) {
+
+        const clientes =
+            CONFIG.estadisticas.find(
+                item =>
+                    item.texto
+                        ?.toLowerCase()
+                        .includes("cliente")
+            );
+
+        const experiencia =
+            CONFIG.estadisticas.find(
+                item =>
+                    item.texto
+                        ?.toLowerCase()
+                        .includes("experiencia")
+            );
+
+
+        if (clientes) {
+
+            setText(
+                '[data-hero-estadistica="clientes"]',
+                clientes.numero
+            );
+
+            setText(
+                "[data-hero-badge]",
+                clientes.numero
+            );
+
+        }
+
+
+        if (experiencia) {
+
+            setText(
+                '[data-hero-estadistica="experiencia"]',
+                experiencia.numero
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SERVICIOS
+    ===================================================== */
+
+    const servicesContainer =
+        document.querySelector(
+            "[data-servicios]"
+        );
+
+
+    if (
+        servicesContainer &&
+        Array.isArray(CONFIG.servicios)
+    ) {
+
+        CONFIG.servicios.forEach(
+            (service, index) => {
+
+                const article =
+                    document.createElement("article");
+
+                article.className =
+                    "service-card reveal";
+
+                article.style.setProperty(
+                    "--delay",
+                    `${index * 0.08}s`
+                );
+
+
+                const top =
+                    document.createElement("div");
+
+                top.className =
+                    "service-top";
+
+
+                const number =
+                    document.createElement("span");
+
+                number.className =
+                    "service-number";
+
+                number.textContent =
+                    service.numero;
+
+
+                const icon =
+                    document.createElement("span");
+
+                icon.className =
+                    "service-icon";
+
+                icon.textContent =
+                    service.icono;
+
+
+                top.appendChild(number);
+
+                top.appendChild(icon);
+
+
+                const title =
+                    document.createElement("h3");
+
+                title.textContent =
+                    service.titulo;
+
+
+                const description =
+                    document.createElement("p");
+
+                description.textContent =
+                    service.descripcion;
+
+
+                const link =
+                    document.createElement("a");
+
+                link.href =
+                    "#contacto";
+
+                link.innerHTML =
+                    `${service.enlace} <span>→</span>`;
+
+
+                article.appendChild(top);
+
+                article.appendChild(title);
+
+                article.appendChild(description);
+
+                article.appendChild(link);
+
+                servicesContainer.appendChild(
+                    article
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       PROCESO
+    ===================================================== */
+
+    const processContainer =
+        document.querySelector(
+            "[data-proceso]"
+        );
+
+
+    if (
+        processContainer &&
+        Array.isArray(CONFIG.proceso)
+    ) {
+
+        CONFIG.proceso.forEach(
+            (item, index) => {
+
+                const article =
+                    document.createElement("article");
+
+                article.className =
+                    "process-card reveal";
+
+                article.style.setProperty(
+                    "--delay",
+                    `${index * 0.08}s`
+                );
+
+
+                const number =
+                    document.createElement("span");
+
+                number.className =
+                    "process-number";
+
+                number.textContent =
+                    item.numero;
+
+
+                const icon =
+                    document.createElement("div");
+
+                icon.className =
+                    "process-icon";
+
+                icon.textContent =
+                    item.icono;
+
+
+                const title =
+                    document.createElement("h3");
+
+                title.textContent =
+                    item.titulo;
+
+
+                const description =
+                    document.createElement("p");
+
+                description.textContent =
+                    item.descripcion;
+
+
+                article.appendChild(number);
+
+                article.appendChild(icon);
+
+                article.appendChild(title);
+
+                article.appendChild(description);
+
+
+                processContainer.appendChild(
+                    article
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       GALERÍA
+    ===================================================== */
+
+    const galleryContainer =
+        document.querySelector(
+            "[data-galeria]"
+        );
+
+
+    if (
+        galleryContainer &&
+        Array.isArray(CONFIG.galeria)
+    ) {
+
+        CONFIG.galeria.forEach(
+            (item, index) => {
+
+                const article =
+                    document.createElement("article");
+
+                article.className =
+                    "gallery-item reveal";
+
+
+                if (index === 0) {
+
+                    article.classList.add(
+                        "gallery-item-large"
+                    );
+
+                }
+
+
+                const image =
+                    document.createElement("img");
+
+                image.src =
+                    CONFIG.imagenes?.[item.imagen] || "";
+
+                image.alt =
+                    item.titulo;
+
+                image.loading =
+                    "lazy";
+
+
+                const overlay =
+                    document.createElement("div");
+
+                overlay.className =
+                    "gallery-overlay";
+
+
+                const number =
+                    document.createElement("span");
+
+                number.textContent =
+                    item.numero;
+
+
+                const title =
+                    document.createElement("strong");
+
+                title.textContent =
+                    item.titulo;
+
+
+                overlay.appendChild(number);
+
+                overlay.appendChild(title);
+
+
+                article.appendChild(image);
+
+                article.appendChild(overlay);
+
+
+                galleryContainer.appendChild(
+                    article
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       TESTIMONIOS
+    ===================================================== */
+
+    const testimonialsContainer =
+        document.querySelector(
+            "[data-testimonios]"
+        );
+
+
+    if (
+        testimonialsContainer &&
+        Array.isArray(CONFIG.testimonios)
+    ) {
+
+        CONFIG.testimonios.forEach(
+            (item, index) => {
+
+                const article =
+                    document.createElement("article");
+
+                article.className =
+                    "testimonial reveal";
+
+                article.style.setProperty(
+                    "--delay",
+                    `${index * 0.08}s`
+                );
+
+
+                const stars =
+                    document.createElement("div");
+
+                stars.className =
+                    "testimonial-stars";
+
+                stars.textContent =
+                    "★★★★★";
+
+
+                const quote =
+                    document.createElement("blockquote");
+
+                quote.textContent =
+                    `“${item.texto}”`;
+
+
+                const author =
+                    document.createElement("div");
+
+                author.className =
+                    "testimonial-author";
+
+
+                const avatar =
+                    document.createElement("div");
+
+                avatar.className =
+                    "testimonial-avatar";
+
+                avatar.textContent =
+                    item.inicial;
+
+
+                const info =
+                    document.createElement("div");
+
+
+                const name =
+                    document.createElement("strong");
+
+                name.textContent =
+                    item.nombre;
+
+
+                const type =
+                    document.createElement("span");
+
+                type.textContent =
+                    item.tipo;
+
+
+                info.appendChild(name);
+
+                info.appendChild(type);
+
+
+                author.appendChild(avatar);
+
+                author.appendChild(info);
+
+
+                article.appendChild(stars);
+
+                article.appendChild(quote);
+
+                article.appendChild(author);
+
+
+                testimonialsContainer.appendChild(
+                    article
+                );
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
        CONTACTO
     ===================================================== */
 
-    document
-        .querySelectorAll("[data-whatsapp]")
-        .forEach(element => {
+    const whatsappNumber =
+        CONFIG.contacto?.whatsapp;
 
-            const number = CONFIG.contacto.whatsapp;
 
-            if (number) {
+    if (whatsappNumber) {
+
+        const message =
+            encodeURIComponent(
+                CONFIG.contacto.mensajeWhatsapp || ""
+            );
+
+
+        document
+            .querySelectorAll(
+                "[data-whatsapp]"
+            )
+            .forEach(element => {
 
                 element.href =
-                    `https://wa.me/${number}`;
+                    `https://wa.me/${whatsappNumber}?text=${message}`;
 
-            }
+            });
 
-        });
+    }
 
 
     document
         .querySelectorAll("[data-email]")
         .forEach(element => {
 
+            const email =
+                CONFIG.contacto.email;
+
+            if (!email) return;
+
             element.href =
-                `mailto:${CONFIG.contacto.email}`;
+                `mailto:${email}`;
 
-            if (
-                element.tagName === "STRONG" ||
-                element.classList.contains("contact-detail")
-            ) {
 
-                element.textContent =
-                    CONFIG.contacto.email;
+            const strong =
+                element.querySelector("strong");
+
+
+            if (strong) {
+
+                strong.textContent =
+                    email;
 
             }
 
@@ -223,16 +831,23 @@ document.addEventListener("DOMContentLoaded", () => {
         .querySelectorAll("[data-telefono]")
         .forEach(element => {
 
+            const phone =
+                CONFIG.contacto.telefono;
+
+            if (!phone) return;
+
             element.href =
-                `tel:${CONFIG.contacto.telefono}`;
+                `tel:${phone}`;
+
 
             const strong =
                 element.querySelector("strong");
 
+
             if (strong) {
 
                 strong.textContent =
-                    CONFIG.contacto.telefono;
+                    phone;
 
             }
 
@@ -243,64 +858,52 @@ document.addEventListener("DOMContentLoaded", () => {
        REDES SOCIALES
     ===================================================== */
 
-    document
-        .querySelectorAll("[data-instagram]")
-        .forEach(element => {
+    const socialMap = {
 
-            if (CONFIG.redes.instagram) {
+        instagram:
+            CONFIG.redes?.instagram,
 
-                element.href =
-                    CONFIG.redes.instagram;
+        facebook:
+            CONFIG.redes?.facebook,
 
-            }
+        tiktok:
+            CONFIG.redes?.tiktok,
 
-        });
+        youtube:
+            CONFIG.redes?.youtube
 
-
-    document
-        .querySelectorAll("[data-facebook]")
-        .forEach(element => {
-
-            if (CONFIG.redes.facebook) {
-
-                element.href =
-                    CONFIG.redes.facebook;
-
-            }
-
-        });
+    };
 
 
-    document
-        .querySelectorAll("[data-tiktok]")
-        .forEach(element => {
+    Object
+        .entries(socialMap)
+        .forEach(([network, url]) => {
 
-            if (CONFIG.redes.tiktok) {
+            document
+                .querySelectorAll(
+                    `[data-${network}]`
+                )
+                .forEach(element => {
 
-                element.href =
-                    CONFIG.redes.tiktok;
+                    if (url) {
 
-            }
+                        element.href =
+                            url;
 
-        });
+                    } else {
 
+                        element.style.display =
+                            "none";
 
-    document
-        .querySelectorAll("[data-youtube]")
-        .forEach(element => {
+                    }
 
-            if (CONFIG.redes.youtube) {
-
-                element.href =
-                    CONFIG.redes.youtube;
-
-            }
+                });
 
         });
 
 
     /* =====================================================
-       UBICACIÓN Y HORARIO
+       UBICACIÓN
     ===================================================== */
 
     setText(
@@ -316,111 +919,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       AÑO AUTOMÁTICO
+       AÑO
     ===================================================== */
 
-    document
-        .querySelectorAll("[data-year]")
-        .forEach(element => {
-
-            element.textContent =
-                new Date().getFullYear();
-
-        });
-
-
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
-    function updateHeader() {
-
-        if (!header) return;
-
-        if (window.scrollY > 30) {
-
-            header.classList.add("scrolled");
-
-        } else {
-
-            header.classList.remove("scrolled");
-
-        }
-
-    }
-
-
-    /* =====================================================
-       BARRA DE PROGRESO
-    ===================================================== */
-
-    function updateProgress() {
-
-        if (!progress) return;
-
-        const scrollTop =
-            window.scrollY;
-
-        const documentHeight =
-            document.documentElement.scrollHeight
-            - window.innerHeight;
-
-
-        if (documentHeight <= 0) {
-
-            progress.style.width = "0%";
-
-            return;
-
-        }
-
-
-        const percentage =
-            (scrollTop / documentHeight) * 100;
-
-
-        progress.style.width =
-            `${percentage}%`;
-
-    }
-
-
-    /* =====================================================
-       BOTÓN VOLVER ARRIBA
-    ===================================================== */
-
-    function updateBackTop() {
-
-        if (!backTop) return;
-
-        if (window.scrollY > 500) {
-
-            backTop.classList.add("show");
-
-        } else {
-
-            backTop.classList.remove("show");
-
-        }
-
-    }
-
-
-    if (backTop) {
-
-        backTop.addEventListener("click", () => {
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-
-            });
-
-        });
-
-    }
+    setText(
+        "[data-year]",
+        new Date().getFullYear()
+    );
 
 
     /* =====================================================
@@ -433,7 +938,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         nav.classList.remove("open");
 
-        body.classList.remove("menu-open");
+        body.classList.remove(
+            "menu-open"
+        );
 
         menuBtn.setAttribute(
             "aria-expanded",
@@ -445,32 +952,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (menuBtn && nav) {
 
-        menuBtn.setAttribute(
-            "aria-expanded",
-            "false"
+        menuBtn.addEventListener(
+            "click",
+            () => {
+
+                const isOpen =
+                    nav.classList.toggle(
+                        "open"
+                    );
+
+
+                body.classList.toggle(
+                    "menu-open",
+                    isOpen
+                );
+
+
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    isOpen
+                        ? "true"
+                        : "false"
+                );
+
+            }
         );
-
-
-        menuBtn.addEventListener("click", () => {
-
-            const isOpen =
-                nav.classList.toggle("open");
-
-
-            body.classList.toggle(
-                "menu-open",
-                isOpen
-            );
-
-
-            menuBtn.setAttribute(
-                "aria-expanded",
-                isOpen
-                    ? "true"
-                    : "false"
-            );
-
-        });
 
 
         nav
@@ -502,23 +1008,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       ANIMACIONES REVEAL
+       REVEAL
     ===================================================== */
 
-    const revealElements =
-        document.querySelectorAll(".reveal");
+    function activateReveal() {
+
+        const elements =
+            document.querySelectorAll(
+                ".reveal"
+            );
 
 
-    if ("IntersectionObserver" in window) {
+        if (
+            !("IntersectionObserver" in window)
+        ) {
 
-        const revealObserver =
+            elements.forEach(element => {
+
+                element.classList.add(
+                    "active"
+                );
+
+            });
+
+            return;
+
+        }
+
+
+        const observer =
             new IntersectionObserver(
-                (entries, observer) => {
+                (entries, observerInstance) => {
 
                     entries.forEach(entry => {
 
-                        if (!entry.isIntersecting)
+                        if (
+                            !entry.isIntersecting
+                        ) {
                             return;
+                        }
 
 
                         entry.target.classList.add(
@@ -526,7 +1054,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
 
-                        observer.unobserve(
+                        observerInstance.unobserve(
                             entry.target
                         );
 
@@ -534,80 +1062,129 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 },
                 {
-                    threshold: 0.12,
+                    threshold: 0.10,
 
                     rootMargin:
-                        "0px 0px -40px 0px"
+                        "0px 0px -30px 0px"
                 }
             );
 
 
-        revealElements.forEach(element => {
+        elements.forEach(element => {
 
-            revealObserver.observe(element);
-
-        });
-
-    } else {
-
-        revealElements.forEach(element => {
-
-            element.classList.add("active");
+            observer.observe(element);
 
         });
 
     }
 
 
+    activateReveal();
+
+
     /* =====================================================
-       DELAY DE TARJETAS
+       HEADER
     ===================================================== */
 
-    const groups = [
+    function updateHeader() {
 
-        ".services-grid",
+        if (!header) return;
 
-        ".testimonials-grid",
+        header.classList.toggle(
+            "scrolled",
+            window.scrollY > 30
+        );
 
-        ".process-grid",
-
-        ".stats-grid"
-
-    ];
-
-
-    groups.forEach(selector => {
-
-        const container =
-            document.querySelector(selector);
-
-
-        if (!container) return;
-
-
-        Array
-            .from(container.children)
-            .forEach((item, index) => {
-
-                item.style.setProperty(
-                    "--delay",
-                    `${index * 0.08}s`
-                );
-
-            });
-
-    });
+    }
 
 
     /* =====================================================
-       PARALLAX DEL HERO
+       PROGRESO
+    ===================================================== */
+
+    function updateProgress() {
+
+        if (!progress) return;
+
+        const scrollTop =
+            window.scrollY;
+
+        const maxScroll =
+            document.documentElement
+                .scrollHeight
+            - window.innerHeight;
+
+
+        if (maxScroll <= 0) {
+
+            progress.style.width =
+                "0%";
+
+            return;
+
+        }
+
+
+        const percentage =
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    (scrollTop / maxScroll) * 100
+                )
+            );
+
+
+        progress.style.width =
+            `${percentage}%`;
+
+    }
+
+
+    /* =====================================================
+       VOLVER ARRIBA
+    ===================================================== */
+
+    function updateBackTop() {
+
+        if (!backTop) return;
+
+        backTop.classList.toggle(
+            "show",
+            window.scrollY > 600
+        );
+
+    }
+
+
+    if (backTop) {
+
+        backTop.addEventListener(
+            "click",
+            () => {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       PARALLAX
     ===================================================== */
 
     const heroImage =
-        document.querySelector(".hero-image img");
+        document.querySelector(
+            ".hero-image img"
+        );
 
 
-    const prefersReducedMotion =
+    const reducedMotion =
         window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
@@ -615,52 +1192,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (
         heroImage &&
-        !prefersReducedMotion
+        !reducedMotion
     ) {
 
         let ticking = false;
 
 
-        function updateParallax() {
-
-            if (ticking) return;
-
-
-            window.requestAnimationFrame(() => {
-
-                const scroll =
-                    window.scrollY;
-
-
-                if (
-                    scroll <
-                    window.innerHeight
-                ) {
-
-                    const movement =
-                        scroll * 0.08;
-
-
-                    heroImage.style.transform =
-                        `translateY(${movement}px) scale(1.02)`;
-
-                }
-
-
-                ticking = false;
-
-            });
-
-
-            ticking = true;
-
-        }
-
-
         window.addEventListener(
             "scroll",
-            updateParallax,
-            { passive: true }
+            () => {
+
+                if (ticking) return;
+
+                window.requestAnimationFrame(
+                    () => {
+
+                        const scroll =
+                            window.scrollY;
+
+
+                        if (
+                            scroll <
+                            window.innerHeight
+                        ) {
+
+                            heroImage.style.transform =
+                                `translateY(${scroll * 0.06}px) scale(1.025)`;
+
+                        }
+
+
+                        ticking = false;
+
+                    }
+                );
+
+
+                ticking = true;
+
+            },
+            {
+                passive: true
+            }
         );
 
     }
@@ -671,30 +1244,32 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     document
-        .querySelectorAll('a[href^="#"]')
+        .querySelectorAll(
+            'a[href^="#"]'
+        )
         .forEach(link => {
 
             link.addEventListener(
                 "click",
                 event => {
 
-                    const targetId =
-                        link.getAttribute("href");
+                    const id =
+                        link.getAttribute(
+                            "href"
+                        );
 
 
                     if (
-                        !targetId ||
-                        targetId === "#"
+                        !id ||
+                        id === "#"
                     ) {
-
                         return;
-
                     }
 
 
                     const target =
                         document.querySelector(
-                            targetId
+                            id
                         );
 
 
@@ -705,11 +1280,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     target.scrollIntoView({
-
                         behavior: "smooth",
-
                         block: "start"
-
                     });
 
                 }
@@ -736,7 +1308,9 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener(
         "scroll",
         handleScroll,
-        { passive: true }
+        {
+            passive: true
+        }
     );
 
 
@@ -751,7 +1325,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "resize",
         () => {
 
-            if (window.innerWidth > 768) {
+            if (
+                window.innerWidth > 768
+            ) {
 
                 closeMenu();
 
@@ -770,3 +1346,4 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+               
