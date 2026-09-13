@@ -4,246 +4,864 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nombre del Negocio</title>
+    <title>NOMBRE — Soluciones que hacen la diferencia</title>
+
+    <meta
+        name="description"
+        content="Una presencia digital profesional para mostrar tu negocio, tus servicios y tus productos."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="estilo.css">
 </head>
 
 <body>
 
-    <!-- BARRA DE NAVEGACIÓN -->
+    <!-- =========================
+         SCROLL PROGRESS
+    ========================== -->
+
+    <div class="scroll-progress"></div>
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header>
-        <div class="logo">NOMBRE</div>
+
+        <a href="#inicio" class="logo">
+            NOMBRE<span>.</span>
+        </a>
+
+        <button
+            class="menu-btn"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <nav>
+
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
             <a href="#nosotros">Nosotros</a>
+            <a href="#proceso">Proceso</a>
             <a href="#galeria">Galería</a>
-            <a href="#contacto">Contacto</a>
+            <a href="#contacto" class="nav-cta">Contacto</a>
+
         </nav>
+
     </header>
 
 
-    <!-- INICIO -->
-    <section id="inicio" class="hero">
+    <main>
 
-        <div class="hero-contenido">
-            <p class="etiqueta">BIENVENIDO</p>
+        <!-- =========================
+             HERO
+        ========================== -->
 
-            <h1>Tu negocio,<br>un poco más cerca.</h1>
+        <section class="hero" id="inicio">
 
-            <p>
-                Descubrí nuestros productos y servicios
-                y contactanos fácilmente.
-            </p>
+            <div class="hero-content reveal">
 
-            <div class="botones">
-                <a href="#servicios" class="boton">Ver más</a>
+                <div class="eyebrow">
+                    Calidad · Confianza · Experiencia
+                </div>
 
-                <a href="https://wa.me/549XXXXXXXXXX"
-                   class="boton boton-secundario">
-                    WhatsApp
-                </a>
+                <h1>
+                    Tu negocio merece
+                    <em>verse increíble.</em>
+                </h1>
+
+                <p class="hero-description">
+                    Una presencia profesional, moderna y pensada para
+                    mostrar lo mejor de tu negocio y conectar con tus clientes.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#servicios" class="btn">
+                        Conocé nuestros servicios →
+                    </a>
+
+                    <a href="#contacto" class="btn btn-light">
+                        Hablemos
+                    </a>
+
+                </div>
+
             </div>
-        </div>
-
-        <div class="hero-imagen">
-            <img src="img/IMG-20260503-WA0083.jpg" alt="Imagen del negocio">
-        </div>
-
-    </section>
 
 
-    <!-- SERVICIOS -->
-    <section id="servicios" class="seccion">
+            <div class="hero-visual reveal">
 
-        <div class="titulo-seccion">
-            <p class="etiqueta">LO QUE OFRECEMOS</p>
+                <div class="hero-image">
 
-            <h2>Productos y servicios</h2>
+                    <img
+                        src="img/IMG-20260503-WA0083.jpg"
+                        alt="Imagen principal del negocio"
+                    >
 
-            <p>
-                Conocé algunas de las cosas que tenemos para vos.
-            </p>
-        </div>
-
-
-        <div class="tarjetas">
-
-            <article class="tarjeta">
-
-                <img src="img/IMG-20260503-WA0083.jpg"
-                     alt="Producto o servicio">
-
-                <div class="tarjeta-contenido">
-
-                    <h3>Servicio / Producto 1</h3>
-
-                    <p>
-                        Descripción breve del producto o servicio.
-                    </p>
-
-                    <strong>$20.000</strong>
+                    <div class="hero-badge">
+                        <strong>+100</strong>
+                        <span>Clientes satisfechos</span>
+                    </div>
 
                 </div>
 
-            </article>
+            </div>
 
 
-            <article class="tarjeta">
+            <div class="scroll-hint">
+                <span>↓</span>
+                Descubrí más
+            </div>
 
-                <img src="img/IMG-20260503-WA0083.jpg"
-                     alt="Producto o servicio">
+        </section>
 
-                <div class="tarjeta-contenido">
 
-                    <h3>Servicio / Producto 2</h3>
+        <!-- =========================
+             MARQUEE
+        ========================== -->
+
+        <div class="marquee">
+
+            <div class="marquee-track">
+
+                <span>CALIDAD</span>
+                <span>•</span>
+                <span>CONFIANZA</span>
+                <span>•</span>
+                <span>PROFESIONALISMO</span>
+                <span>•</span>
+                <span>EXPERIENCIA</span>
+                <span>•</span>
+
+                <span>CALIDAD</span>
+                <span>•</span>
+                <span>CONFIANZA</span>
+                <span>•</span>
+                <span>PROFESIONALISMO</span>
+                <span>•</span>
+                <span>EXPERIENCIA</span>
+                <span>•</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             SERVICIOS
+        ========================== -->
+
+        <section class="section" id="servicios">
+
+            <div class="section-header reveal">
+
+                <div class="section-label">
+                    01 — Servicios
+                </div>
+
+                <h2>
+                    Todo lo que necesitás,
+                    <em>en un solo lugar.</em>
+                </h2>
+
+                <p class="section-intro">
+                    Soluciones pensadas para ayudarte a conseguir mejores
+                    resultados y hacer crecer tu proyecto.
+                </p>
+
+            </div>
+
+
+            <div class="services-grid">
+
+                <article class="service-card reveal">
+
+                    <div class="service-number">
+                        01
+                    </div>
+
+                    <div class="service-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        Servicio profesional
+                    </h3>
 
                     <p>
-                        Descripción breve del producto o servicio.
+                        Trabajamos con atención al detalle para ofrecer
+                        resultados de calidad y una experiencia excelente.
                     </p>
 
-                    <strong>$25.000</strong>
+                    <a href="#contacto">
+                        Saber más →
+                    </a>
+
+                </article>
+
+
+                <article class="service-card reveal">
+
+                    <div class="service-number">
+                        02
+                    </div>
+
+                    <div class="service-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        Soluciones a medida
+                    </h3>
+
+                    <p>
+                        Cada cliente es diferente. Adaptamos nuestro trabajo
+                        a lo que realmente necesitás.
+                    </p>
+
+                    <a href="#contacto">
+                        Saber más →
+                    </a>
+
+                </article>
+
+
+                <article class="service-card reveal">
+
+                    <div class="service-number">
+                        03
+                    </div>
+
+                    <div class="service-icon">
+                        +
+                    </div>
+
+                    <h3>
+                        Atención personalizada
+                    </h3>
+
+                    <p>
+                        Estamos para acompañarte durante todo el proceso,
+                        desde la primera consulta hasta el resultado final.
+                    </p>
+
+                    <a href="#contacto">
+                        Saber más →
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FEATURED / NOSOTROS
+        ========================== -->
+
+        <section class="section" id="nosotros">
+
+            <div class="featured">
+
+                <div class="featured-image reveal">
+
+                    <img
+                        src="img/IMG-20260503-WA0083.jpg"
+                        alt="Nuestro trabajo"
+                    >
+
+                    <div class="featured-tag">
+                        Nuestra esencia
+                    </div>
 
                 </div>
 
-            </article>
 
+                <div class="featured-content reveal">
 
-            <article class="tarjeta">
+                    <div class="section-label">
+                        02 — Nosotros
+                    </div>
 
-                <img src="img/IMG-20260503-WA0083.jpg"
-                     alt="Producto o servicio">
-
-                <div class="tarjeta-contenido">
-
-                    <h3>Servicio / Producto 3</h3>
+                    <h2>
+                        Hacemos las cosas
+                        <em>con intención.</em>
+                    </h2>
 
                     <p>
-                        Descripción breve del producto o servicio.
+                        Creemos que un buen trabajo no se trata solamente
+                        del resultado. También importa el proceso, la
+                        atención y la confianza que construimos con cada
+                        persona que nos elige.
                     </p>
 
-                    <strong>$30.000</strong>
+                    <ul class="feature-list">
+
+                        <li>
+                            Atención personalizada
+                        </li>
+
+                        <li>
+                            Compromiso con cada proyecto
+                        </li>
+
+                        <li>
+                            Calidad y dedicación
+                        </li>
+
+                        <li>
+                            Experiencia y profesionalismo
+                        </li>
+
+                    </ul>
+
+                    <a href="#contacto" class="btn">
+                        Conocé más sobre nosotros →
+                    </a>
 
                 </div>
 
-            </article>
+            </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- NOSOTROS -->
-    <section id="nosotros" class="seccion nosotros">
+        <!-- =========================
+             STATS
+        ========================== -->
 
-        <div class="nosotros-imagen">
+        <section class="section">
 
-            <img src="img/IMG-20260503-WA0083.jpg"
-                 alt="Nuestro negocio">
+            <div class="stats reveal">
 
-        </div>
+                <div class="stat">
+                    <strong>+100</strong>
+                    <span>Clientes</span>
+                </div>
 
+                <div class="stat">
+                    <strong>5+</strong>
+                    <span>Años de experiencia</span>
+                </div>
 
-        <div class="nosotros-texto">
+                <div class="stat">
+                    <strong>98%</strong>
+                    <span>Satisfacción</span>
+                </div>
 
-            <p class="etiqueta">SOBRE NOSOTROS</p>
+                <div class="stat">
+                    <strong>24h</strong>
+                    <span>Respuesta</span>
+                </div>
 
-            <h2>Un negocio pensado para vos.</h2>
+            </div>
 
-            <p>
-                Somos un emprendimiento dedicado a ofrecer
-                productos y servicios de calidad, buscando siempre
-                brindar una buena atención.
-            </p>
-
-            <p>
-                Queremos que tengas una experiencia simple,
-                rápida y agradable.
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- GALERÍA -->
-    <section id="galeria" class="seccion">
-
-        <div class="titulo-seccion">
-
-            <p class="etiqueta">CONOCENOS</p>
-
-            <h2>Galería</h2>
-
-        </div>
+        </section>
 
 
-        <div class="galeria">
+        <!-- =========================
+             PROCESO
+        ========================== -->
 
-            <img src="img/IMG-20260503-WA0083.jpg"
-                 alt="Foto del negocio">
+        <section class="section process" id="proceso">
 
-            <img src="img/IMG-20260503-WA0083.jpg"
-                 alt="Foto del negocio">
+            <div class="section-header reveal">
 
-            <img src="img/IMG-20260503-WA0083.jpg"
-                 alt="Foto del negocio">
+                <div class="section-label">
+                    03 — Proceso
+                </div>
 
-        </div>
+                <h2>
+                    Simple, claro
+                    <em>y sin vueltas.</em>
+                </h2>
 
-    </section>
+                <p class="section-intro">
+                    Queremos que trabajar con nosotros sea fácil desde
+                    el primer contacto.
+                </p>
 
-
-    <!-- CONTACTO -->
-    <section id="contacto" class="contacto">
-
-        <p class="etiqueta">CONTACTO</p>
-
-        <h2>¿Querés consultarnos?</h2>
-
-        <p>
-            Escribinos y te respondemos lo antes posible.
-        </p>
+            </div>
 
 
-        <div class="contacto-botones">
+            <div class="process-grid">
 
-            <a href="https://wa.me/549XXXXXXXXXX"
-               class="boton">
-                WhatsApp
-            </a>
+                <article class="process-card reveal">
 
-            <a href="https://instagram.com/"
-               class="boton boton-secundario">
-                Instagram
-            </a>
+                    <div class="process-number">
+                        01
+                    </div>
 
-        </div>
+                    <h3>
+                        Hablamos
+                    </h3>
 
+                    <p>
+                        Nos contás qué necesitás y conocemos mejor tu idea,
+                        proyecto o negocio.
+                    </p>
 
-        <div class="datos">
-
-            <p>📍 Cañuelas, Buenos Aires</p>
-
-            <p>🕐 Lunes a sábado — 9:00 a 19:00</p>
-
-        </div>
-
-    </section>
+                </article>
 
 
-    <!-- PIE DE PÁGINA -->
+                <article class="process-card reveal">
+
+                    <div class="process-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Analizamos
+                    </h3>
+
+                    <p>
+                        Buscamos la mejor forma de resolverlo teniendo en
+                        cuenta tus objetivos.
+                    </p>
+
+                </article>
+
+
+                <article class="process-card reveal">
+
+                    <div class="process-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Trabajamos
+                    </h3>
+
+                    <p>
+                        Nos ponemos manos a la obra cuidando cada detalle
+                        del proyecto.
+                    </p>
+
+                </article>
+
+
+                <article class="process-card reveal">
+
+                    <div class="process-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Entregamos
+                    </h3>
+
+                    <p>
+                        Recibís el resultado final listo para usar y
+                        pensado para cumplir su objetivo.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             GALERÍA
+        ========================== -->
+
+        <section class="section" id="galeria">
+
+            <div class="section-header reveal">
+
+                <div class="section-label">
+                    04 — Galería
+                </div>
+
+                <h2>
+                    Mirá parte de
+                    <em>nuestro trabajo.</em>
+                </h2>
+
+                <p class="section-intro">
+                    Algunos ejemplos para que conozcas mejor lo que hacemos.
+                </p>
+
+            </div>
+
+
+            <div class="gallery-grid">
+
+                <div class="gallery-item reveal">
+
+                    <img
+                        src="img/IMG-20260503-WA0083.jpg"
+                        alt="Proyecto destacado"
+                    >
+
+                    <div class="gallery-overlay">
+                        <h3>Proyecto destacado</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-item reveal">
+
+                    <img
+                        src="img/IMG-20260503-WA0083.jpg"
+                        alt="Trabajo realizado"
+                    >
+
+                    <div class="gallery-overlay">
+                        <h3>Trabajo realizado</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-item reveal">
+
+                    <img
+                        src="img/IMG-20260503-WA0083.jpg"
+                        alt="Resultado final"
+                    >
+
+                    <div class="gallery-overlay">
+                        <h3>Resultado final</h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TESTIMONIOS
+        ========================== -->
+
+        <section class="section testimonials">
+
+            <div class="section-header reveal">
+
+                <div class="section-label">
+                    05 — Opiniones
+                </div>
+
+                <h2>
+                    Lo que dicen
+                    <em>nuestros clientes.</em>
+                </h2>
+
+            </div>
+
+
+            <div class="testimonial-grid">
+
+                <article class="testimonial reveal">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        “Excelente atención y muy buen resultado. Desde el
+                        primer momento estuvieron atentos a lo que necesitaba.”
+                    </p>
+
+                    <div class="testimonial-author">
+
+                        <div class="author-circle">
+                            M
+                        </div>
+
+                        <div class="author-info">
+                            <strong>Martín</strong>
+                            <span>Cliente</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="testimonial reveal">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        “Me gustó mucho la forma de trabajar. Todo fue claro,
+                        rápido y el resultado superó mis expectativas.”
+                    </p>
+
+                    <div class="testimonial-author">
+
+                        <div class="author-circle">
+                            L
+                        </div>
+
+                        <div class="author-info">
+                            <strong>Lucía</strong>
+                            <span>Cliente</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="testimonial reveal">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        “Muy recomendable. Se nota la dedicación y el cuidado
+                        que ponen en cada detalle.”
+                    </p>
+
+                    <div class="testimonial-author">
+
+                        <div class="author-circle">
+                            J
+                        </div>
+
+                        <div class="author-info">
+                            <strong>Julián</strong>
+                            <span>Cliente</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================== -->
+
+        <section class="cta">
+
+            <div class="cta-content reveal">
+
+                <div class="section-label">
+                    ¿Tenés un proyecto?
+                </div>
+
+                <h2>
+                    Hagámoslo
+                    <em>realidad.</em>
+                </h2>
+
+                <p>
+                    Contanos qué necesitás y vemos juntos cómo podemos
+                    ayudarte.
+                </p>
+
+                <a href="#contacto" class="btn btn-light">
+                    Empezar una conversación →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTACTO
+        ========================== -->
+
+        <section class="section" id="contacto">
+
+            <div class="contact">
+
+                <div class="contact-text reveal">
+
+                    <div class="section-label">
+                        06 — Contacto
+                    </div>
+
+                    <h2>
+                        ¿Hablamos?
+                    </h2>
+
+                    <p>
+                        Estamos a un mensaje de distancia. Escribinos y
+                        contanos qué necesitás.
+                    </p>
+
+
+                    <div class="contact-details">
+
+                        <div class="contact-detail">
+
+                            <div class="contact-detail-icon">
+                                ✉
+                            </div>
+
+                            <div>
+                                <strong>Email</strong>
+                                <span>hola@tumarca.com</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-detail">
+
+                            <div class="contact-detail-icon">
+                                ☎
+                            </div>
+
+                            <div>
+                                <strong>Teléfono</strong>
+                                <span>+54 9 11 0000-0000</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-detail">
+
+                            <div class="contact-detail-icon">
+                                ⌖
+                            </div>
+
+                            <div>
+                                <strong>Ubicación</strong>
+                                <span>Buenos Aires, Argentina</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-actions">
+
+                        <a
+                            href="https://wa.me/549XXXXXXXXXX"
+                            class="btn"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            WhatsApp →
+                        </a>
+
+                        <a
+                            href="mailto:hola@tumarca.com"
+                            class="btn btn-light"
+                        >
+                            Enviar email
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="featured-image reveal">
+
+                    <img
+                        src="img/IMG-20260503-WA0083.jpg"
+                        alt="Contacto"
+                    >
+
+                                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer>
 
-        <div class="logo">NOMBRE</div>
+        <div class="footer-inner">
 
-        <p>
-            © 2026 Nombre del Negocio
-        </p>
+            <div>
+
+                <a href="#inicio" class="logo">
+                    NOMBRE<span>.</span>
+                </a>
+
+                <p>
+                    Calidad, confianza y profesionalismo.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#contacto">Contacto</a>
+
+            </div>
+
+
+            <p>
+                © <span data-year></span> NOMBRE.
+            </p>
+
+        </div>
 
     </footer>
+
+
+    <!-- =========================
+         WHATSAPP FLOAT
+    ========================== -->
+
+    <a
+        href="https://wa.me/549XXXXXXXXXX"
+        class="whatsapp-float"
+        target="_blank"
+        rel="noopener"
+        aria-label="Contactar por WhatsApp"
+    >
+        ☎
+    </a>
+
+
+    <!-- =========================
+         BACK TO TOP
+    ========================== -->
+
+    <button
+        class="back-top"
+        aria-label="Volver arriba"
+    >
+        ↑
+    </button>
 
 
     <script src="script.js"></script>
