@@ -53,7 +53,7 @@ const CONFIG = {
 
         textoSuave: "#777777",
 
-        acento: "#c89b6d"
+        acento: "#ff0000"
 
     },
 
