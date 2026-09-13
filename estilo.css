@@ -1,0 +1,415 @@
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f5;
+    color: #202020;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+header {
+    width: 100%;
+    padding: 20px 7%;
+    background: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.5;
+}
+
+
+/* =========================
+   TEXTOS
+========================= */
+
+.etiqueta {
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    opacity: 0.6;
+}
+
+h1 {
+    font-size: clamp(42px, 6vw, 75px);
+    line-height: 1.05;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: clamp(32px, 5vw, 50px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+
+/* =========================
+   INICIO
+========================= */
+
+.hero {
+    min-height: 90vh;
+    padding: 70px 7%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-contenido {
+    max-width: 600px;
+}
+
+.hero-contenido > p:not(.etiqueta) {
+    max-width: 500px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.hero-imagen {
+    height: 600px;
+    overflow: hidden;
+}
+
+.hero-imagen img {
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+.botones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.boton {
+    display: inline-block;
+    padding: 14px 25px;
+
+    background: #202020;
+    color: white;
+
+    border: 1px solid #202020;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.boton:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
+}
+
+.boton-secundario {
+    background: transparent;
+    color: #202020;
+}
+
+
+/* =========================
+   SECCIONES
+========================= */
+
+.seccion {
+    padding: 100px 7%;
+}
+
+.titulo-seccion {
+    max-width: 650px;
+    margin-bottom: 50px;
+}
+
+.titulo-seccion > p:last-child {
+    color: #666;
+}
+
+
+/* =========================
+   TARJETAS
+========================= */
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.tarjeta {
+    background: white;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+}
+
+.tarjeta img {
+    height: 330px;
+    object-fit: cover;
+}
+
+.tarjeta-contenido {
+    padding: 25px;
+}
+
+.tarjeta-contenido p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.tarjeta-contenido strong {
+    font-size: 18px;
+}
+
+
+/* =========================
+   NOSOTROS
+========================= */
+
+.nosotros {
+    background: white;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.nosotros-imagen {
+    height: 500px;
+    overflow: hidden;
+}
+
+.nosotros-imagen img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.nosotros-texto {
+    max-width: 550px;
+}
+
+.nosotros-texto p:not(.etiqueta) {
+    color: #666;
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   GALERÍA
+========================= */
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.galeria img {
+    height: 350px;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.galeria img:hover {
+    transform: scale(1.02);
+}
+
+
+/* =========================
+   CONTACTO
+========================= */
+
+.contacto {
+    padding: 110px 7%;
+    text-align: center;
+    background: #202020;
+    color: white;
+}
+
+.contacto > p:not(.etiqueta) {
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.contacto .etiqueta {
+    color: #aaa;
+}
+
+.contacto-botones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contacto .boton {
+    background: white;
+    color: #202020;
+    border-color: white;
+}
+
+.contacto .boton-secundario {
+    background: transparent;
+    color: white;
+}
+
+.datos {
+    margin-top: 40px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 30px 7%;
+    background: #161616;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer p {
+    font-size: 13px;
+    color: #aaa;
+}
+
+
+/* =========================
+   CELULARES
+========================= */
+
+@media (max-width: 800px) {
+
+    header {
+        padding: 18px 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 50px 5%;
+        gap: 40px;
+    }
+
+    .hero-imagen {
+        height: 450px;
+        order: -1;
+    }
+
+    .seccion {
+        padding: 75px 5%;
+    }
+
+    .tarjetas {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta img {
+        height: 300px;
+    }
+
+    .nosotros {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .nosotros-imagen {
+        height: 400px;
+    }
+
+    .galeria {
+        grid-template-columns: 1fr;
+    }
+
+    .galeria img {
+        height: 350px;
+    }
+
+    .contacto {
+        padding: 80px 5%;
+    }
+
+    footer {
+        padding: 25px 5%;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+  }
