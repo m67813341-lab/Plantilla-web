@@ -1,5 +1,9 @@
 const CONFIG = {
 
+    // =================================================
+    // INFORMACIÓN DEL NEGOCIO
+    // =================================================
+
     negocio: {
 
         nombre: "NOMBRE.",
@@ -9,22 +13,69 @@ const CONFIG = {
         descripcion:
             "Soluciones profesionales pensadas para negocios que quieren crecer y destacarse.",
 
-        categoria:
-            "Servicios profesionales"
+        categoria: "Servicios profesionales"
 
     },
 
+
+    // =================================================
+    // IMÁGENES
+    // =================================================
+
+    imagenes: {
+
+        principal: "img/IMG-20260503-WA0083.jpg",
+
+        nosotros: "img/IMG-20260503-WA0083.jpg",
+
+        galeria1: "img/IMG-20260503-WA0083.jpg",
+
+        galeria2: "img/IMG-20260503-WA0083.jpg",
+
+        galeria3: "img/IMG-20260503-WA0083.jpg"
+
+    },
+
+
+    // =================================================
+    // COLORES
+    // =================================================
+
+    colores: {
+
+        principal: "#111111",
+
+        secundario: "#f7f7f5",
+
+        fondo: "#ffffff",
+
+        texto: "#111111",
+
+        textoSuave: "#777777",
+
+        acento: "#c89b6d"
+
+    },
+
+
+    // =================================================
+    // CONTACTO
+    // =================================================
 
     contacto: {
 
         whatsapp: "549XXXXXXXXXX",
 
-        email: "hola@tudominio.com",
+        telefono: "+54 9 11 XXXX-XXXX",
 
-        telefono: "+54 9 11 XXXX-XXXX"
+        email: "hola@tudominio.com"
 
     },
 
+
+    // =================================================
+    // REDES SOCIALES
+    // =================================================
 
     redes: {
 
@@ -39,24 +90,22 @@ const CONFIG = {
     },
 
 
+    // =================================================
+    // UBICACIÓN Y HORARIOS
+    // =================================================
+
     sitio: {
 
         ciudad: "Buenos Aires, Argentina",
 
-        horario:
-            "Lunes a viernes · 9:00 a 18:00"
+        horario: "Lunes a viernes · 9:00 a 18:00"
 
     },
 
 
-    marca: {
-
-        colorPrincipal: "#111111",
-
-        colorSecundario: "#f7f7f5"
-
-    },
-
+    // =================================================
+    // ESTADÍSTICAS
+    // =================================================
 
     estadisticas: {
 
@@ -67,6 +116,33 @@ const CONFIG = {
         experiencia: "5+",
 
         satisfaccion: "98%"
+
+    },
+
+
+    // =================================================
+    // TEXTOS PRINCIPALES
+    // =================================================
+
+    textos: {
+
+        tituloServicios: "Todo lo que tu negocio necesita.",
+
+        subtituloServicios:
+            "Soluciones pensadas para ayudarte a crecer y destacarte.",
+
+        tituloNosotros: "Una presencia que habla por tu negocio.",
+
+        tituloProceso: "Así trabajamos.",
+
+        tituloGaleria: "Nuestro trabajo.",
+
+        tituloTestimonios: "Lo que dicen nuestros clientes.",
+
+        tituloContacto: "Hablemos de tu próximo proyecto.",
+
+        textoContacto:
+            "Contanos qué necesitás y nos ponemos en contacto con vos."
 
     }
 
