@@ -1,5 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
 /* =========================
-   CONFIGURACIÓN GENERAL
+   VARIABLES
+========================= */
+
+:root {
+    --fondo: #f5f3ef;
+    --blanco: #ffffff;
+    --negro: #171717;
+    --gris: #666666;
+    --gris-claro: #e8e5df;
+    --acento: #9b7653;
+
+    --radio: 18px;
+    --sombra: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   GENERAL
 ========================= */
 
 * {
@@ -13,15 +32,16 @@ html {
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f7f7f5;
-    color: #202020;
+    font-family: "DM Sans", Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--negro);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
 
 img {
@@ -29,110 +49,161 @@ img {
     display: block;
 }
 
+::selection {
+    background: var(--negro);
+    color: white;
+}
+
 
 /* =========================
-   NAVEGACIÓN
+   BARRA DE NAVEGACIÓN
 ========================= */
 
 header {
-    width: 100%;
-    padding: 20px 7%;
-    background: white;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     position: sticky;
     top: 0;
     z-index: 1000;
 
-    border-bottom: 1px solid #e8e8e8;
+    width: 100%;
+    padding: 18px 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 .logo {
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 2px;
+    font-family: "Playfair Display", serif;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 nav {
     display: flex;
-    gap: 25px;
+    align-items: center;
+    gap: 30px;
 }
 
 nav a {
-    font-size: 14px;
-    transition: 0.3s;
+    position: relative;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
 }
 
-nav a:hover {
-    opacity: 0.5;
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+
+    width: 0;
+    height: 1px;
+
+    background: var(--negro);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 
 /* =========================
-   TEXTOS
+   TIPOGRAFÍA
 ========================= */
 
-.etiqueta {
-    font-size: 11px;
-    letter-spacing: 3px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    opacity: 0.6;
+h1,
+h2 {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
 }
 
 h1 {
-    font-size: clamp(42px, 6vw, 75px);
-    line-height: 1.05;
-    margin-bottom: 25px;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -2px;
 }
 
 h2 {
-    font-size: clamp(32px, 5vw, 50px);
-    line-height: 1.1;
-    margin-bottom: 20px;
+    font-size: clamp(35px, 5vw, 58px);
+    line-height: 1.05;
 }
 
 h3 {
     font-size: 20px;
-    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.etiqueta {
+    margin-bottom: 16px;
+
+    color: var(--acento);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
 }
 
 
 /* =========================
-   INICIO
+   HERO
 ========================= */
 
 .hero {
-    min-height: 90vh;
-    padding: 70px 7%;
+    min-height: calc(100vh - 72px);
+
+    padding: 70px 6%;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: 0.9fr 1.1fr;
     align-items: center;
+    gap: 70px;
 }
 
 .hero-contenido {
     max-width: 600px;
+
+    animation: aparecerIzquierda 0.9s ease both;
 }
 
 .hero-contenido > p:not(.etiqueta) {
-    max-width: 500px;
-    margin-bottom: 30px;
-    color: #555;
+    max-width: 480px;
+
+    margin-top: 25px;
+    margin-bottom: 32px;
+
+    color: var(--gris);
+    font-size: 17px;
 }
 
 .hero-imagen {
-    height: 600px;
+    height: min(680px, 75vh);
+
     overflow: hidden;
+    border-radius: 24px;
+
+    box-shadow: var(--sombra);
+
+    animation: aparecerDerecha 1s ease both;
 }
 
 .hero-imagen img {
+    width: 100%;
     height: 100%;
     object-fit: cover;
+
+    transition: transform 1s ease;
+}
+
+.hero-imagen:hover img {
+    transform: scale(1.04);
 }
 
 
@@ -140,35 +211,50 @@ h3 {
    BOTONES
 ========================= */
 
-.botones {
+.botones,
+.contacto-botones {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
 }
 
 .boton {
-    display: inline-block;
-    padding: 14px 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    background: #202020;
+    min-height: 50px;
+    padding: 0 26px;
+
+    border: 1px solid var(--negro);
+    border-radius: 100px;
+
+    background: var(--negro);
     color: white;
 
-    border: 1px solid #202020;
+    font-size: 13px;
+    font-weight: 600;
 
-    font-size: 14px;
-    font-weight: bold;
-
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .boton:hover {
-    transform: translateY(-2px);
-    opacity: 0.85;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .boton-secundario {
     background: transparent;
-    color: #202020;
+    color: var(--negro);
+}
+
+.boton-secundario:hover {
+    background: var(--negro);
+    color: white;
 }
 
 
@@ -177,16 +263,17 @@ h3 {
 ========================= */
 
 .seccion {
-    padding: 100px 7%;
+    padding: 120px 6%;
 }
 
 .titulo-seccion {
-    max-width: 650px;
-    margin-bottom: 50px;
+    max-width: 700px;
+    margin-bottom: 55px;
 }
 
 .titulo-seccion > p:last-child {
-    color: #666;
+    margin-top: 20px;
+    color: var(--gris);
 }
 
 
@@ -197,35 +284,53 @@ h3 {
 .tarjetas {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+    gap: 24px;
 }
 
 .tarjeta {
-    background: white;
     overflow: hidden;
-    transition: 0.3s;
+
+    background: var(--blanco);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: var(--radio);
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.03);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
 .tarjeta:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: var(--sombra);
 }
 
 .tarjeta img {
     height: 330px;
     object-fit: cover;
+
+    transition: transform 0.6s ease;
+}
+
+.tarjeta:hover img {
+    transform: scale(1.05);
 }
 
 .tarjeta-contenido {
-    padding: 25px;
+    padding: 27px;
 }
 
 .tarjeta-contenido p {
-    color: #666;
-    margin-bottom: 15px;
+    min-height: 48px;
+    margin: 9px 0 18px;
+
+    color: var(--gris);
+    font-size: 14px;
 }
 
 .tarjeta-contenido strong {
-    font-size: 18px;
+    font-size: 19px;
 }
 
 
@@ -234,31 +339,38 @@ h3 {
 ========================= */
 
 .nosotros {
-    background: white;
-
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 70px;
+    gap: 80px;
     align-items: center;
+
+    background: var(--blanco);
 }
 
 .nosotros-imagen {
-    height: 500px;
+    height: 600px;
     overflow: hidden;
+    border-radius: 22px;
 }
 
 .nosotros-imagen img {
     height: 100%;
     object-fit: cover;
+
+    transition: transform 0.8s ease;
+}
+
+.nosotros-imagen:hover img {
+    transform: scale(1.04);
 }
 
 .nosotros-texto {
-    max-width: 550px;
+    max-width: 580px;
 }
 
 .nosotros-texto p:not(.etiqueta) {
-    color: #666;
-    margin-bottom: 18px;
+    margin-top: 20px;
+    color: var(--gris);
 }
 
 
@@ -268,18 +380,29 @@ h3 {
 
 .galeria {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-auto-rows: 260px;
+    gap: 14px;
 }
 
 .galeria img {
-    height: 350px;
+    height: 100%;
     object-fit: cover;
-    transition: 0.3s;
+
+    border-radius: 16px;
+
+    transition:
+        transform 0.4s ease,
+        filter 0.4s ease;
+}
+
+.galeria img:first-child {
+    grid-row: span 2;
 }
 
 .galeria img:hover {
-    transform: scale(1.02);
+    transform: scale(1.025);
+    filter: brightness(0.9);
 }
 
 
@@ -288,31 +411,76 @@ h3 {
 ========================= */
 
 .contacto {
-    padding: 110px 7%;
+    position: relative;
+    overflow: hidden;
+
+    padding: 130px 6%;
+
     text-align: center;
-    background: #202020;
+
+    background: var(--negro);
     color: white;
 }
 
-.contacto > p:not(.etiqueta) {
-    color: #ccc;
-    margin-bottom: 30px;
+.contacto::before {
+    content: "";
+
+    position: absolute;
+    width: 400px;
+    height: 400px;
+
+    top: -200px;
+    left: -200px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contacto::after {
+    content: "";
+
+    position: absolute;
+    width: 500px;
+    height: 500px;
+
+    bottom: -300px;
+    right: -250px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contacto > * {
+    position: relative;
+    z-index: 2;
 }
 
 .contacto .etiqueta {
-    color: #aaa;
+    color: #b99b7b;
+}
+
+.contacto h2 {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contacto > p:not(.etiqueta) {
+    max-width: 500px;
+
+    margin: 22px auto 35px;
+
+    color: #bcbcbc;
 }
 
 .contacto-botones {
-    display: flex;
     justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
 }
 
 .contacto .boton {
     background: white;
-    color: #202020;
+    color: var(--negro);
     border-color: white;
 }
 
@@ -322,9 +490,15 @@ h3 {
 }
 
 .datos {
-    margin-top: 40px;
-    color: #bbb;
-    font-size: 14px;
+    margin-top: 45px;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+
+    color: #999;
+    font-size: 13px;
 }
 
 
@@ -333,29 +507,79 @@ h3 {
 ========================= */
 
 footer {
-    padding: 30px 7%;
-    background: #161616;
-    color: white;
+    padding: 30px 6%;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    background: #101010;
+    color: white;
+}
+
+footer .logo {
+    font-size: 20px;
 }
 
 footer p {
-    font-size: 13px;
-    color: #aaa;
+    color: #777;
+    font-size: 12px;
 }
 
 
 /* =========================
-   CELULARES
+   ANIMACIONES
 ========================= */
 
-@media (max-width: 800px) {
+.seccion,
+.contacto {
+    opacity: 0;
+    transform: translateY(25px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+.seccion.visible,
+.contacto.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes aparecerIzquierda {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes aparecerDerecha {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
 
     header {
-        padding: 18px 5%;
+        padding: 16px 5%;
     }
 
     nav {
@@ -363,18 +587,21 @@ footer p {
     }
 
     .hero {
+        min-height: auto;
+
         grid-template-columns: 1fr;
-        padding: 50px 5%;
         gap: 40px;
+
+        padding: 55px 5% 80px;
     }
 
     .hero-imagen {
-        height: 450px;
+        height: 480px;
         order: -1;
     }
 
     .seccion {
-        padding: 75px 5%;
+        padding: 85px 5%;
     }
 
     .tarjetas {
@@ -382,34 +609,74 @@ footer p {
     }
 
     .tarjeta img {
-        height: 300px;
+        height: 330px;
     }
 
     .nosotros {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 45px;
     }
 
     .nosotros-imagen {
-        height: 400px;
+        height: 430px;
     }
 
     .galeria {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 250px;
     }
 
-    .galeria img {
-        height: 350px;
+    .galeria img:first-child {
+        grid-row: span 1;
     }
 
     .contacto {
-        padding: 80px 5%;
+        padding: 90px 5%;
     }
 
     footer {
         padding: 25px 5%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 50px;
+        letter-spacing: -1px;
+    }
+
+    h2 {
+        font-size: 38px;
+    }
+
+    .hero-imagen {
+        height: 400px;
+        border-radius: 18px;
+    }
+
+    .botones {
         flex-direction: column;
-        gap: 10px;
+    }
+
+    .boton {
+        width: 100%;
+    }
+
+    .galeria {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 300px;
+    }
+
+    .datos {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 8px;
         text-align: center;
     }
-  }
+}
