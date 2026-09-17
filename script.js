@@ -1,683 +1,996 @@
+/* =========================================================
+   PLANTILLA WEB — SCRIPT PRINCIPAL
+   Sistema dinámico + animaciones + SEO + accesibilidad
+   ========================================================= */
+
+document.documentElement.classList.add("js");
+
 document.addEventListener("DOMContentLoaded", () => {
 
+    "use strict";
+
     /* =====================================================
-       CONFIGURACIÓN
-    ===================================================== */
+       1. SEGURIDAD / CONFIGURACIÓN
+       ===================================================== */
 
     if (typeof CONFIG === "undefined") {
-
-        console.error("CONFIG no está disponible.");
-
+        console.error("CONFIG no está definido.");
         return;
-
     }
 
 
     /* =====================================================
-       ELEMENTOS
-    ===================================================== */
+       2. UTILIDADES
+       ===================================================== */
 
-    const root = document.documentElement;
-    const body = document.body;
+    const $ = (selector, parent = document) =>
+        parent.querySelector(selector);
 
-    const header =
-        document.querySelector(".header");
+    const $$ = (selector, parent = document) =>
+        [...parent.querySelectorAll(selector)];
 
-    const nav =
-        document.querySelector(".nav");
+    const setText = (selector, value) => {
+        const element = $(selector);
 
-    const menuBtn =
-        document.querySelector(".menu-btn");
+        if (element && value !== undefined && value !== null) {
+            element.textContent = value;
+        }
+    };
 
-    const backTop =
-        document.querySelector(".back-top");
-
-    const progress =
-        document.querySelector(".scroll-progress");
-
-
-    /* =====================================================
-       FUNCIONES GENERALES
-    ===================================================== */
-
-    function setText(selector, value) {
+    const setAttr = (selector, attribute, value) => {
+        const element = $(selector);
 
         if (
-            value === undefined ||
-            value === null
+            element &&
+            value !== undefined &&
+            value !== null &&
+            value !== ""
         ) {
-            return;
+            element.setAttribute(attribute, value);
         }
+    };
 
-        document
-            .querySelectorAll(selector)
-            .forEach(element => {
+    const normalizeUrl = (url) => {
+        if (!url) return "";
 
-                element.textContent = value;
-
-            });
-
-    }
-
-
-    function setAttribute(
-        selector,
-        attribute,
-        value
-    ) {
-
-        if (!value) return;
-
-        document
-            .querySelectorAll(selector)
-            .forEach(element => {
-
-                element.setAttribute(
-                    attribute,
-                    value
-                );
-
-            });
-
-    }
-
-
-    /* =====================================================
-       COLORES
-    ===================================================== */
-
-    if (CONFIG.colores) {
-
-        root.style.setProperty(
-            "--black",
-            CONFIG.colores.principal
-        );
-
-        root.style.setProperty(
-            "--dark",
-            CONFIG.colores.principal
-        );
-
-        root.style.setProperty(
-            "--white",
-            CONFIG.colores.fondo
-        );
-
-        root.style.setProperty(
-            "--cream",
-            CONFIG.colores.secundario
-        );
-
-        root.style.setProperty(
-            "--gray",
-            CONFIG.colores.textoSuave
-        );
-
-        root.style.setProperty(
-            "--text",
-            CONFIG.colores.texto
-        );
-
-        root.style.setProperty(
-            "--acento",
-            CONFIG.colores.acento
-        );
-
-    }
-
-
-    /* =====================================================
-       INFORMACIÓN GENERAL
-    ===================================================== */
-
-    setText(
-        "[data-negocio]",
-        CONFIG.negocio.nombre
-    );
-
-    setText(
-        "[data-categoria]",
-        CONFIG.negocio.categoria
-    );
-
-    setText(
-        "[data-slogan]",
-        CONFIG.negocio.slogan
-    );
-
-    setText(
-        "[data-descripcion]",
-        CONFIG.negocio.descripcion
-    );
-
-    setText(
-        "[data-mensaje-hero]",
-        CONFIG.negocio.mensajeHero
-    );
-
-    setText(
-        "[data-etiqueta-hero]",
-        CONFIG.negocio.etiquetaHero
-    );
-
-
-    /* =====================================================
-       SEO
-    ===================================================== */
-
-    if (CONFIG.seo) {
-
-        if (CONFIG.seo.titulo) {
-
-            document.title =
-                CONFIG.seo.titulo;
-
+        try {
+            return new URL(url, window.location.href).href;
+        } catch {
+            return "";
         }
+    };
 
-        setAttribute(
-            'meta[name="description"]',
-            "content",
-            CONFIG.seo.descripcion
-        );
+    const escapeText = (value) => {
+        if (value === undefined || value === null) return "";
+        return String(value);
+    };
 
-        setAttribute(
+
+    /* =====================================================
+       3. DATOS PRINCIPALES
+       ===================================================== */
+
+    const negocio = CONFIG.negocio || {};
+    const seo = CONFIG.seo || {};
+    const imagenes = CONFIG.imagenes || {};
+    const colores = CONFIG.colores || {};
+    const contacto = CONFIG.contacto || {};
+    const redes = CONFIG.redes || {};
+    const sitio = CONFIG.sitio || {};
+    const textos = CONFIG.textos || {};
+    const botones = CONFIG.botones || {};
+
+
+    /* =====================================================
+       4. COLORES
+       ===================================================== */
+
+    const root = document.documentElement;
+
+    if (colores.principal) {
+        root.style.setProperty("--black", colores.principal);
+    }
+
+    if (colores.secundario) {
+        root.style.setProperty("--cream", colores.secundario);
+    }
+
+    if (colores.fondo) {
+        root.style.setProperty("--white", colores.fondo);
+    }
+
+    if (colores.texto) {
+        root.style.setProperty("--text", colores.texto);
+    }
+
+    if (colores.textoSuave) {
+        root.style.setProperty("--text-soft", colores.textoSuave);
+        root.style.setProperty("--gray", colores.textoSuave);
+    }
+
+    if (colores.acento) {
+        root.style.setProperty("--acento", colores.acento);
+    }
+
+
+    /* =====================================================
+       5. INFORMACIÓN GENERAL
+       ===================================================== */
+
+    $$("[data-negocio]").forEach(element => {
+        element.textContent = negocio.nombre || "";
+    });
+
+    $$("[data-slogan]").forEach(element => {
+        element.textContent = negocio.slogan || "";
+    });
+
+    $$("[data-descripcion]").forEach(element => {
+        element.textContent = negocio.descripcion || "";
+    });
+
+    $$("[data-categoria]").forEach(element => {
+        element.textContent = negocio.categoria || "";
+    });
+
+    $$("[data-etiqueta-hero]").forEach(element => {
+        element.textContent = negocio.etiquetaHero || "";
+    });
+
+    $$("[data-mensaje-hero]").forEach(element => {
+        element.textContent = negocio.mensajeHero || "";
+    });
+
+
+    /* =====================================================
+       6. MARQUEE
+       ===================================================== */
+
+    const marqueeItems = $$(".marquee-item");
+
+    if (marqueeItems.length && negocio.textoMarquee) {
+        marqueeItems.forEach(item => {
+            item.textContent = negocio.textoMarquee;
+        });
+    }
+
+
+    /* =====================================================
+       7. SEO
+       ===================================================== */
+
+    if (seo.titulo) {
+        document.title = seo.titulo;
+    } else if (negocio.nombre) {
+        document.title = negocio.nombre;
+    }
+
+    setAttr('meta[name="description"]', "content", seo.descripcion);
+
+    if (seo.color) {
+        setAttr(
             'meta[name="theme-color"]',
             "content",
-            CONFIG.seo.color
+            seo.color
         );
-
-        setAttribute(
-            'meta[property="og:title"]',
-            "content",
-            CONFIG.seo.titulo
-        );
-
-        setAttribute(
-            'meta[property="og:description"]',
-            "content",
-            CONFIG.seo.descripcion
-        );
-
-        setAttribute(
-            'meta[property="og:image"]',
-            "content",
-            CONFIG.seo.imagen
-        );
-
     }
 
+    const currentUrl = normalizeUrl(
+        sitio.url || window.location.href
+    );
 
-    /* =====================================================
-       IMÁGENES
-    ===================================================== */
+    const seoImage = normalizeUrl(
+        seo.imagen || imagenes.nosotros || imagenes.principal
+    );
 
-    function setImage(key) {
+    setAttr(
+        'meta[property="og:title"]',
+        "content",
+        seo.titulo || negocio.nombre
+    );
 
-        const image =
-            CONFIG.imagenes?.[key];
+    setAttr(
+        'meta[property="og:description"]',
+        "content",
+        seo.descripcion || negocio.descripcion
+    );
 
-        if (!image) return;
+    setAttr(
+        'meta[property="og:image"]',
+        "content",
+        seoImage
+    );
 
-        document
-            .querySelectorAll(
-                `[data-imagen="${key}"]`
-            )
-            .forEach(element => {
+    setAttr(
+        'meta[property="og:url"]',
+        "content",
+        currentUrl
+    );
 
-                element.src = image;
+    setAttr(
+        'meta[property="og:site_name"]',
+        "content",
+        negocio.nombre
+    );
 
-            });
+    setAttr(
+        'meta[name="twitter:title"]',
+        "content",
+        seo.titulo || negocio.nombre
+    );
 
-    }
+    setAttr(
+        'meta[name="twitter:description"]',
+        "content",
+        seo.descripcion || negocio.descripcion
+    );
 
-
-    Object
-        .keys(CONFIG.imagenes || {})
-        .forEach(key => {
-
-            setImage(key);
-
-        });
-
-
-    /* =====================================================
-       TEXTOS
-    ===================================================== */
-
-    Object
-        .keys(CONFIG.textos || {})
-        .forEach(key => {
-
-            setText(
-                `[data-texto="${key}"]`,
-                CONFIG.textos[key]
-            );
-
-        });
-
-
-    /* =====================================================
-       BOTONES
-    ===================================================== */
-
-    Object
-        .keys(CONFIG.botones || {})
-        .forEach(key => {
-
-            setText(
-                `[data-boton="${key}"]`,
-                CONFIG.botones[key]
-            );
-
-        });
-
-
-    setText(
-        '[data-boton="header"]',
-        "Hablemos"
+    setAttr(
+        'meta[name="twitter:image"]',
+        "content",
+        seoImage
     );
 
 
     /* =====================================================
-       ESTADÍSTICAS
-    ===================================================== */
+       8. CANONICAL
+       ===================================================== */
 
-    const statsContainer =
-        document.querySelector(
-            "[data-estadisticas]"
-        );
+    const canonical = $("link[rel='canonical']");
 
-
-    if (
-        statsContainer &&
-        Array.isArray(CONFIG.estadisticas)
-    ) {
-
-        CONFIG.estadisticas.forEach(
-            (stat, index) => {
-
-                const article =
-                    document.createElement("div");
-
-                article.className =
-                    "stat reveal";
-
-                article.style.setProperty(
-                    "--delay",
-                    `${index * 0.08}s`
-                );
+    if (canonical && currentUrl) {
+        canonical.href = currentUrl;
+    }
 
 
-                const strong =
-                    document.createElement("strong");
+    /* =====================================================
+       9. FAVICON
+       ===================================================== */
 
-                strong.textContent =
-                    stat.numero;
+    if (seo.favicon) {
+
+        $$("link[rel='icon']").forEach(link => {
+            link.href = seo.favicon;
+        });
+
+        $$("link[rel='apple-touch-icon']").forEach(link => {
+            link.href = seo.favicon;
+        });
+    }
 
 
-                const span =
-                    document.createElement("span");
+    /* =====================================================
+       10. IMÁGENES
+       ===================================================== */
 
-                span.textContent =
-                    stat.texto;
+    const imageMap = {
+        principal: imagenes.principal,
+        nosotros: imagenes.nosotros
+    };
 
+    Object.entries(imageMap).forEach(([key, source]) => {
 
-                article.appendChild(strong);
+        if (!source) return;
 
-                article.appendChild(span);
+        $$(`[data-imagen="${key}"]`).forEach(image => {
 
-                statsContainer.appendChild(article);
+            image.src = source;
 
+            if (!image.alt) {
+                image.alt =
+                    `${negocio.nombre || "Negocio"} — ${key}`;
             }
-        );
+        });
+    });
 
+
+    /* =====================================================
+       11. TEXTOS DE SECCIONES
+       ===================================================== */
+
+    const textMap = {
+
+        "servicios-etiqueta":
+            textos.serviciosEtiqueta,
+
+        "titulo-servicios":
+            textos.tituloServicios,
+
+        "subtitulo-servicios":
+            textos.subtituloServicios,
+
+        "nosotros-etiqueta":
+            textos.nosotrosEtiqueta,
+
+        "titulo-nosotros":
+            textos.tituloNosotros,
+
+        "nosotros-texto-1":
+            textos.nosotrosTexto1,
+
+        "nosotros-texto-2":
+            textos.nosotrosTexto2,
+
+        "proceso-etiqueta":
+            textos.procesoEtiqueta,
+
+        "titulo-proceso":
+            textos.tituloProceso,
+
+        "subtitulo-proceso":
+            textos.subtituloProceso,
+
+        "galeria-etiqueta":
+            textos.galeriaEtiqueta,
+
+        "titulo-galeria":
+            textos.tituloGaleria,
+
+        "subtitulo-galeria":
+            textos.subtituloGaleria,
+
+        "testimonios-etiqueta":
+            textos.testimoniosEtiqueta,
+
+        "titulo-testimonios":
+            textos.tituloTestimonios,
+
+        "subtitulo-testimonios":
+            textos.subtituloTestimonios,
+
+        "faq-etiqueta":
+            textos.faqEtiqueta,
+
+        "titulo-faq":
+            textos.tituloFaq,
+
+        "subtitulo-faq":
+            textos.subtituloFaq,
+
+        "cta-etiqueta":
+            textos.ctaEtiqueta,
+
+        "titulo-cta":
+            textos.tituloCta,
+
+        "contacto-etiqueta":
+            textos.contactoEtiqueta,
+
+        "titulo-contacto":
+            textos.tituloContacto,
+
+        "texto-contacto":
+            textos.textoContacto,
+
+        "contacto-card-etiqueta":
+            textos.contactoCardEtiqueta,
+
+        "contacto-card-titulo":
+            textos.contactoCardTitulo,
+
+        "contacto-card-texto":
+            textos.contactoCardTexto,
+
+        "contacto-boton":
+            textos.contactoBoton,
+
+        "beneficios-etiqueta":
+            textos.beneficiosEtiqueta,
+
+        "titulo-beneficios":
+            textos.tituloBeneficios,
+
+        "subtitulo-beneficios":
+            textos.subtituloBeneficios
+    };
+
+    Object.entries(textMap).forEach(([key, value]) => {
+
+        if (value === undefined) return;
+
+        $$(`[data-texto="${key}"]`).forEach(element => {
+            element.textContent = value;
+        });
+    });
+
+
+    /* =====================================================
+       12. BOTONES
+       ===================================================== */
+
+    setText("[data-boton='hero-principal']", botones.heroPrincipal);
+    setText("[data-boton='hero-secundario']", botones.heroSecundario);
+    setText("[data-boton='nosotros']", botones.nosotros);
+    setText("[data-boton='cta']", textos.botonCta);
+
+
+    /* =====================================================
+       13. HEADER CTA
+       ===================================================== */
+
+    const headerButton = $("[data-header-cta]");
+
+    if (headerButton) {
+        headerButton.textContent =
+            botones.header || "Hablemos";
     }
 
 
     /* =====================================================
-       ESTADÍSTICAS DEL HERO
-    ===================================================== */
+       14. ESTADÍSTICAS
+       ===================================================== */
 
-    if (
-        Array.isArray(CONFIG.estadisticas)
-    ) {
+    const statsContainer = $("[data-estadisticas]");
 
-        const clientes =
-            CONFIG.estadisticas.find(
-                item =>
-                    item.texto
-                        ?.toLowerCase()
-                        .includes("cliente")
+    if (statsContainer && Array.isArray(CONFIG.estadisticas)) {
+
+        statsContainer.innerHTML = "";
+
+        CONFIG.estadisticas.forEach((stat, index) => {
+
+            const item = document.createElement("div");
+
+            item.className = "stat reveal";
+            item.style.setProperty(
+                "--delay",
+                `${index * 0.08}s`
             );
 
-        const experiencia =
-            CONFIG.estadisticas.find(
-                item =>
-                    item.texto
-                        ?.toLowerCase()
-                        .includes("experiencia")
-            );
+            const number = document.createElement("strong");
 
+            number.className = "stat-number";
+            number.textContent = stat.numero || "";
 
-        if (clientes) {
+            const text = document.createElement("span");
 
-            setText(
-                '[data-hero-estadistica="clientes"]',
-                clientes.numero
-            );
+            text.className = "stat-label";
+            text.textContent = stat.texto || "";
 
-            setText(
-                "[data-hero-badge]",
-                clientes.numero
-            );
+            item.appendChild(number);
+            item.appendChild(text);
 
-        }
-
-
-        if (experiencia) {
-
-            setText(
-                '[data-hero-estadistica="experiencia"]',
-                experiencia.numero
-            );
-
-        }
-
+            statsContainer.appendChild(item);
+        });
     }
 
 
     /* =====================================================
-       SERVICIOS
-    ===================================================== */
+       15. HERO STATS
+       ===================================================== */
 
-    const servicesContainer =
-        document.querySelector(
-            "[data-servicios]"
-        );
+    const heroStats = $$(".hero-stat");
 
+    if (heroStats.length && Array.isArray(CONFIG.estadisticas)) {
+
+        const stats = CONFIG.estadisticas;
+
+        heroStats.forEach((item, index) => {
+
+            if (!stats[index]) return;
+
+            const number = $(".hero-stat-number", item);
+            const label = $(".hero-stat-label", item);
+
+            if (number) {
+                number.textContent =
+                    stats[index].numero || "";
+            }
+
+            if (label) {
+                label.textContent =
+                    stats[index].texto || "";
+            }
+        });
+    }
+
+
+    /* =====================================================
+       16. SERVICIOS
+       ===================================================== */
+
+    const servicesContainer = $("[data-servicios]");
 
     if (
         servicesContainer &&
         Array.isArray(CONFIG.servicios)
     ) {
 
-        CONFIG.servicios.forEach(
-            (service, index) => {
+        servicesContainer.innerHTML = "";
 
-                const article =
-                    document.createElement("article");
+        CONFIG.servicios.forEach((service, index) => {
 
-                article.className =
-                    "service-card reveal";
+            const article =
+                document.createElement("article");
 
-                article.style.setProperty(
-                    "--delay",
-                    `${index * 0.08}s`
-                );
+            article.className =
+                "service-card reveal";
 
+            article.style.setProperty(
+                "--delay",
+                `${index * 0.08}s`
+            );
 
-                const top =
-                    document.createElement("div");
+            const top =
+                document.createElement("div");
 
-                top.className =
-                    "service-top";
+            top.className = "service-card-top";
 
+            const number =
+                document.createElement("span");
 
-                const number =
-                    document.createElement("span");
+            number.className = "service-number";
+            number.textContent =
+                service.numero || "";
 
-                number.className =
-                    "service-number";
+            const icon =
+                document.createElement("span");
 
-                number.textContent =
-                    service.numero;
+            icon.className = "service-icon";
+            icon.textContent =
+                service.icono || "↗";
 
+            top.appendChild(number);
+            top.appendChild(icon);
 
-                const icon =
-                    document.createElement("span");
+            const title =
+                document.createElement("h3");
 
-                icon.className =
-                    "service-icon";
+            title.textContent =
+                service.titulo || "";
 
-                icon.textContent =
-                    service.icono;
+            const description =
+                document.createElement("p");
 
+            description.textContent =
+                service.descripcion || "";
 
-                top.appendChild(number);
+            article.appendChild(top);
+            article.appendChild(title);
+            article.appendChild(description);
 
-                top.appendChild(icon);
-
-
-                const title =
-                    document.createElement("h3");
-
-                title.textContent =
-                    service.titulo;
-
-
-                const description =
-                    document.createElement("p");
-
-                description.textContent =
-                    service.descripcion;
-
+            if (service.enlace) {
 
                 const link =
                     document.createElement("a");
 
                 link.href =
-                    "#contacto";
+                    service.url || "#contacto";
 
-                link.innerHTML =
-                    `${service.enlace} <span>→</span>`;
+                link.className =
+                    "service-link";
 
-
-                article.appendChild(top);
-
-                article.appendChild(title);
-
-                article.appendChild(description);
+                link.textContent =
+                    service.enlace;
 
                 article.appendChild(link);
-
-                servicesContainer.appendChild(
-                    article
-                );
-
             }
-        );
 
+            servicesContainer.appendChild(article);
+        });
     }
 
 
     /* =====================================================
-       PROCESO
-    ===================================================== */
+       17. BENEFICIOS
+       ===================================================== */
 
-    const processContainer =
-        document.querySelector(
-            "[data-proceso]"
+    const benefitsContainer = $("[data-beneficios]");
+
+    if (benefitsContainer) {
+
+        const benefits =
+            Array.isArray(CONFIG.beneficios)
+                ? CONFIG.beneficios
+                : [
+                    {
+                        icono: "✓",
+                        titulo: "Pensado para tu negocio",
+                        descripcion:
+                            "Cada detalle se adapta a tus necesidades."
+                    },
+                    {
+                        icono: "◇",
+                        titulo: "Diseño profesional",
+                        descripcion:
+                            "Una presencia digital clara y moderna."
+                    },
+                    {
+                        icono: "↗",
+                        titulo: "Enfocado en resultados",
+                        descripcion:
+                            "Todo está pensado para ayudarte a crecer."
+                    }
+                ];
+
+        benefitsContainer.innerHTML = "";
+
+        benefits.forEach((benefit, index) => {
+
+            const article =
+                document.createElement("article");
+
+            article.className =
+                "benefit-card reveal";
+
+            article.style.setProperty(
+                "--delay",
+                `${index * 0.08}s`
+            );
+
+            const icon =
+                document.createElement("span");
+
+            icon.className = "benefit-icon";
+            icon.textContent =
+                benefit.icono || "✓";
+
+            const title =
+                document.createElement("h3");
+
+            title.textContent =
+                benefit.titulo || "";
+
+            const description =
+                document.createElement("p");
+
+            description.textContent =
+                benefit.descripcion || "";
+
+            article.appendChild(icon);
+            article.appendChild(title);
+            article.appendChild(description);
+
+            benefitsContainer.appendChild(article);
+        });
+    }
+
+
+    /* =====================================================
+       18. PUNTOS DE NOSOTROS
+       ===================================================== */
+
+    const points = [
+        1,
+        2,
+        3
+    ];
+
+    points.forEach(number => {
+
+        setText(
+            `[data-nosotros-punto="${number}-titulo"]`,
+            textos[`nosotrosPunto${number}Titulo`]
         );
 
+        setText(
+            `[data-nosotros-punto="${number}-texto"]`,
+            textos[`nosotrosPunto${number}Texto`]
+        );
+    });
+
+
+    /* =====================================================
+       19. PROCESO
+       ===================================================== */
+
+    const processContainer = $("[data-proceso]");
 
     if (
         processContainer &&
         Array.isArray(CONFIG.proceso)
     ) {
 
-        CONFIG.proceso.forEach(
-            (item, index) => {
+        processContainer.innerHTML = "";
 
-                const article =
-                    document.createElement("article");
+        CONFIG.proceso.forEach((step, index) => {
 
-                article.className =
-                    "process-card reveal";
+            const article =
+                document.createElement("article");
 
-                article.style.setProperty(
-                    "--delay",
-                    `${index * 0.08}s`
-                );
+            article.className =
+                "process-card reveal";
 
+            article.style.setProperty(
+                "--delay",
+                `${index * 0.08}s`
+            );
 
-                const number =
-                    document.createElement("span");
+            const number =
+                document.createElement("span");
 
-                number.className =
-                    "process-number";
+            number.className =
+                "process-number";
 
-                number.textContent =
-                    item.numero;
+            number.textContent =
+                step.numero || "";
 
+            const icon =
+                document.createElement("span");
 
-                const icon =
-                    document.createElement("div");
+            icon.className =
+                "process-icon";
 
-                icon.className =
-                    "process-icon";
+            icon.textContent =
+                step.icono || "○";
 
-                icon.textContent =
-                    item.icono;
+            const title =
+                document.createElement("h3");
 
+            title.textContent =
+                step.titulo || "";
 
-                const title =
-                    document.createElement("h3");
+            const description =
+                document.createElement("p");
 
-                title.textContent =
-                    item.titulo;
+            description.textContent =
+                step.descripcion || "";
 
+            article.appendChild(number);
+            article.appendChild(icon);
+            article.appendChild(title);
+            article.appendChild(description);
 
-                const description =
-                    document.createElement("p");
-
-                description.textContent =
-                    item.descripcion;
-
-
-                article.appendChild(number);
-
-                article.appendChild(icon);
-
-                article.appendChild(title);
-
-                article.appendChild(description);
-
-
-                processContainer.appendChild(
-                    article
-                );
-
-            }
-        );
-
+            processContainer.appendChild(article);
+        });
     }
 
 
     /* =====================================================
-       GALERÍA
-    ===================================================== */
+       20. GALERÍA
+       ===================================================== */
 
-    const galleryContainer =
-        document.querySelector(
-            "[data-galeria]"
-        );
-
+    const galleryContainer = $("[data-galeria]");
+    const galleryImages = [];
 
     if (
         galleryContainer &&
         Array.isArray(CONFIG.galeria)
     ) {
 
-        CONFIG.galeria.forEach(
-            (item, index) => {
+        galleryContainer.innerHTML = "";
 
-                const article =
-                    document.createElement("article");
+        CONFIG.galeria.forEach((item, index) => {
 
-                article.className =
-                    "gallery-item reveal";
+            const imageSource =
+                imagenes[item.imagen] || item.imagen || "";
 
+            if (!imageSource) return;
 
-                if (index === 0) {
+            galleryImages.push({
+                src: imageSource,
+                title: item.titulo || ""
+            });
 
-                    article.classList.add(
-                        "gallery-item-large"
-                    );
+            const figure =
+                document.createElement("figure");
 
-                }
+            figure.className =
+                "gallery-item reveal";
 
-
-                const image =
-                    document.createElement("img");
-
-                image.src =
-                    CONFIG.imagenes?.[item.imagen] || "";
-
-                image.alt =
-                    item.titulo;
-
-                image.loading =
-                    "lazy";
-
-
-                const overlay =
-                    document.createElement("div");
-
-                overlay.className =
-                    "gallery-overlay";
-
-
-                const number =
-                    document.createElement("span");
-
-                number.textContent =
-                    item.numero;
-
-
-                const title =
-                    document.createElement("strong");
-
-                title.textContent =
-                    item.titulo;
-
-
-                overlay.appendChild(number);
-
-                overlay.appendChild(title);
-
-
-                article.appendChild(image);
-
-                article.appendChild(overlay);
-
-
-                galleryContainer.appendChild(
-                    article
+            if (index === 0) {
+                figure.classList.add(
+                    "gallery-item-large"
                 );
-
             }
+
+            figure.style.setProperty(
+                "--delay",
+                `${index * 0.08}s`
+            );
+
+            const image =
+                document.createElement("img");
+
+            image.src = imageSource;
+            image.alt =
+                item.titulo ||
+                `${negocio.nombre || "Proyecto"} ${index + 1}`;
+
+            image.loading =
+                index === 0 ? "eager" : "lazy";
+
+            image.decoding = "async";
+
+            const overlay =
+                document.createElement("div");
+
+            overlay.className = "gallery-overlay";
+
+const number =
+    document.createElement("span");
+
+number.className =
+    "gallery-number";
+
+number.textContent =
+    item.numero || `0${index + 1}`;
+
+const title =
+    document.createElement("span");
+
+title.className =
+    "gallery-title";
+
+title.textContent =
+    item.titulo || "";
+
+overlay.appendChild(number);
+overlay.appendChild(title);
+
+figure.appendChild(image);
+figure.appendChild(overlay);
+
+figure.setAttribute("tabindex", "0");
+figure.setAttribute("role", "button");
+
+figure.setAttribute(
+    "aria-label",
+    `Ver ${item.titulo || "imagen"}`
+);
+
+figure.dataset.galleryIndex = index;
+
+galleryContainer.appendChild(figure);
+                /* =====================================================
+       21. LIGHTBOX
+       ===================================================== */
+
+    const lightbox = $("#lightbox");
+    const lightboxImage = $("#lightbox-image");
+    const lightboxCaption = $("#lightbox-caption");
+    const lightboxClose = $(".lightbox-close");
+    const lightboxPrev = $(".lightbox-prev");
+    const lightboxNext = $(".lightbox-next");
+
+    let currentGalleryIndex = 0;
+
+    const openLightbox = index => {
+
+        if (
+            !lightbox ||
+            !lightboxImage ||
+            !galleryImages.length
+        ) {
+            return;
+        }
+
+        currentGalleryIndex =
+            (index + galleryImages.length) %
+            galleryImages.length;
+
+        const item =
+            galleryImages[currentGalleryIndex];
+
+        lightboxImage.src = item.src;
+        lightboxImage.alt = item.title;
+
+        if (lightboxCaption) {
+            lightboxCaption.textContent =
+                item.title;
+        }
+
+        lightbox.classList.add("active");
+
+        document.body.classList.add(
+            "lightbox-open"
         );
 
+        lightbox.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        if (lightboxClose) {
+            lightboxClose.focus();
+        }
+    };
+
+    const closeLightbox = () => {
+
+        if (!lightbox) return;
+
+        lightbox.classList.remove("active");
+
+        document.body.classList.remove(
+            "lightbox-open"
+        );
+
+        lightbox.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (lightboxImage) {
+            lightboxImage.src = "";
+        }
+    };
+
+    const changeLightbox = direction => {
+
+        if (!galleryImages.length) return;
+
+        openLightbox(
+            currentGalleryIndex + direction
+        );
+    };
+
+
+    $$(".gallery-item").forEach(item => {
+
+        const index =
+            Number(item.dataset.galleryIndex);
+
+        item.addEventListener("click", () => {
+            openLightbox(index);
+        });
+
+        item.addEventListener("keydown", event => {
+
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+
+                event.preventDefault();
+
+                openLightbox(index);
+            }
+        });
+    });
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener(
+            "click",
+            closeLightbox
+        );
+    }
+
+    if (lightboxPrev) {
+        lightboxPrev.addEventListener(
+            "click",
+            () => changeLightbox(-1)
+        );
+    }
+
+    if (lightboxNext) {
+        lightboxNext.addEventListener(
+            "click",
+            () => changeLightbox(1)
+        );
+    }
+
+    if (lightbox) {
+
+        lightbox.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === lightbox
+                ) {
+                    closeLightbox();
+                }
+            }
+        );
     }
 
 
     /* =====================================================
-       TESTIMONIOS
-    ===================================================== */
+       22. TESTIMONIOS
+       ===================================================== */
 
     const testimonialsContainer =
-        document.querySelector(
-            "[data-testimonios]"
-        );
-
+        $("[data-testimonios]");
 
     if (
         testimonialsContainer &&
         Array.isArray(CONFIG.testimonios)
     ) {
 
+        testimonialsContainer.innerHTML = "";
+
         CONFIG.testimonios.forEach(
-            (item, index) => {
+            (testimonial, index) => {
 
                 const article =
                     document.createElement("article");
@@ -690,30 +1003,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     `${index * 0.08}s`
                 );
 
-
-                const stars =
+                const top =
                     document.createElement("div");
 
-                stars.className =
-                    "testimonial-stars";
-
-                stars.textContent =
-                    "★★★★★";
-
-
-                const quote =
-                    document.createElement("blockquote");
-
-                quote.textContent =
-                    `“${item.texto}”`;
-
-
-                const author =
-                    document.createElement("div");
-
-                author.className =
-                    "testimonial-author";
-
+                top.className =
+                    "testimonial-top";
 
                 const avatar =
                     document.createElement("div");
@@ -722,440 +1016,634 @@ document.addEventListener("DOMContentLoaded", () => {
                     "testimonial-avatar";
 
                 avatar.textContent =
-                    item.inicial;
+                    testimonial.inicial || "?";
 
-
-                const info =
+                const person =
                     document.createElement("div");
 
+                person.className =
+                    "testimonial-person";
 
                 const name =
                     document.createElement("strong");
 
                 name.textContent =
-                    item.nombre;
-
+                    testimonial.nombre || "";
 
                 const type =
                     document.createElement("span");
 
                 type.textContent =
-                    item.tipo;
+                    testimonial.tipo || "Cliente";
 
+                person.appendChild(name);
+                person.appendChild(type);
 
-                info.appendChild(name);
+                top.appendChild(avatar);
+                top.appendChild(person);
 
-                info.appendChild(type);
+                const text =
+                    document.createElement("p");
 
+                text.textContent =
+                    `“${testimonial.texto || ""}”`;
 
-                author.appendChild(avatar);
-
-                author.appendChild(info);
-
-
-                article.appendChild(stars);
-
-                article.appendChild(quote);
-
-                article.appendChild(author);
-
+                article.appendChild(top);
+                article.appendChild(text);
 
                 testimonialsContainer.appendChild(
                     article
                 );
-
             }
         );
-
     }
 
 
     /* =====================================================
-       CONTACTO
-    ===================================================== */
+       23. FAQ
+       ===================================================== */
 
-    const whatsappNumber =
-        CONFIG.contacto?.whatsapp;
+    const faqContainer = $("[data-faq]");
 
+    if (faqContainer) {
 
-    if (whatsappNumber) {
+        const faq =
+            Array.isArray(CONFIG.faq)
+                ? CONFIG.faq
+                : [];
 
-        const message =
-            encodeURIComponent(
-                CONFIG.contacto.mensajeWhatsapp || ""
+        faqContainer.innerHTML = "";
+
+        faq.forEach((item, index) => {
+
+            const wrapper =
+                document.createElement("div");
+
+            wrapper.className =
+                "faq-item reveal";
+
+            wrapper.style.setProperty(
+                "--delay",
+                `${index * 0.06}s`
             );
 
+            const button =
+                document.createElement("button");
 
-        document
-            .querySelectorAll(
-                "[data-whatsapp]"
-            )
-            .forEach(element => {
+            button.className =
+                "faq-question";
 
-                element.href =
-                    `https://wa.me/${whatsappNumber}?text=${message}`;
+            button.type = "button";
 
-            });
+            button.setAttribute(
+                "aria-expanded",
+                "false"
+            );
 
+            button.setAttribute(
+                "aria-controls",
+                `faq-answer-${index}`
+            );
+
+            const title =
+                document.createElement("span");
+
+            title.textContent =
+                item.pregunta || "";
+
+            const icon =
+                document.createElement("span");
+
+            icon.className =
+                "faq-icon";
+
+            icon.textContent = "+";
+
+            button.appendChild(title);
+            button.appendChild(icon);
+
+            const answer =
+                document.createElement("div");
+
+            answer.className =
+                "faq-answer";
+
+            answer.id =
+                `faq-answer-${index}`;
+
+            answer.hidden = true;
+
+            const paragraph =
+                document.createElement("p");
+
+            paragraph.textContent =
+                item.respuesta || "";
+
+            answer.appendChild(paragraph);
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        button.getAttribute(
+                            "aria-expanded"
+                        ) === "true";
+
+                    $$(".faq-question").forEach(
+                        otherButton => {
+
+                            otherButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+                            const otherAnswer =
+                                document.getElementById(
+                                    otherButton.getAttribute(
+                                        "aria-controls"
+                                    )
+                                );
+
+                            if (otherAnswer) {
+                                otherAnswer.hidden =
+                                    true;
+                            }
+
+                            const otherIcon =
+                                $(".faq-icon", otherButton);
+
+                            if (otherIcon) {
+                                otherIcon.textContent =
+                                    "+";
+                            }
+                        }
+                    );
+
+                    if (!isOpen) {
+
+                        button.setAttribute(
+                            "aria-expanded",
+                            "true"
+                        );
+
+                        answer.hidden = false;
+
+                        icon.textContent = "−";
+                    }
+                }
+            );
+
+            wrapper.appendChild(button);
+            wrapper.appendChild(answer);
+
+            faqContainer.appendChild(wrapper);
+        });
     }
 
 
-    document
-        .querySelectorAll("[data-email]")
-        .forEach(element => {
+    /* =====================================================
+       24. CTA
+       ===================================================== */
 
-            const email =
-                CONFIG.contacto.email;
+    const ctaButton =
+        $("[data-boton='cta']");
 
-            if (!email) return;
+    if (ctaButton) {
+        ctaButton.textContent =
+            textos.botonCta ||
+            "Empezar un proyecto";
+    }
 
+
+    /* =====================================================
+       25. CONTACTO
+       ===================================================== */
+
+    const email = contacto.email || "";
+    const phone = contacto.telefono || "";
+    const whatsapp = contacto.whatsapp || "";
+
+    $$("[data-email]").forEach(element => {
+
+        element.textContent = email;
+
+        if (
+            element.tagName === "A" &&
+            email
+        ) {
             element.href =
                 `mailto:${email}`;
+        }
+    });
 
+    $$("[data-telefono]").forEach(element => {
 
-            const strong =
-                element.querySelector("strong");
+        element.textContent = phone;
 
-
-            if (strong) {
-
-                strong.textContent =
-                    email;
-
-            }
-
-        });
-
-
-    document
-        .querySelectorAll("[data-telefono]")
-        .forEach(element => {
-
-            const phone =
-                CONFIG.contacto.telefono;
-
-            if (!phone) return;
+        if (
+            element.tagName === "A" &&
+            phone
+        ) {
 
             element.href =
-                `tel:${phone}`;
+                `tel:${phone.replace(/[^\d+]/g, "")}`;
+        }
+    });
+
+    $$("[data-ciudad]").forEach(element => {
+        element.textContent =
+            sitio.ciudad || "";
+    });
+
+    $$("[data-horario]").forEach(element => {
+        element.textContent =
+            sitio.horario || "";
+    });
 
 
-            const strong =
-                element.querySelector("strong");
+    /* =====================================================
+       26. WHATSAPP
+       ===================================================== */
 
+    const whatsappMessage =
+        contacto.mensajeWhatsapp ||
+        "Hola, quiero consultar por sus servicios.";
 
-            if (strong) {
+    const cleanWhatsapp =
+        String(whatsapp)
+            .replace(/\D/g, "");
 
-                strong.textContent =
-                    phone;
+    if (cleanWhatsapp) {
 
-            }
+        const whatsappUrl =
+            `https://wa.me/${cleanWhatsapp}?text=${
+                encodeURIComponent(whatsappMessage)
+            }`;
 
+        $$("[data-whatsapp]").forEach(link => {
+
+            link.href = whatsappUrl;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
         });
+    }
 
 
     /* =====================================================
-       REDES SOCIALES
-    ===================================================== */
+       27. MAPA
+       ===================================================== */
 
-    const socialMap = {
+    const mapContainer = $("[data-mapa]");
+    const mapLink = $("[data-mapa-link]");
 
-        instagram:
-            CONFIG.redes?.instagram,
-
-        facebook:
-            CONFIG.redes?.facebook,
-
-        tiktok:
-            CONFIG.redes?.tiktok,
-
-        youtube:
-            CONFIG.redes?.youtube
-
-    };
-
-
-    Object
-        .entries(socialMap)
-        .forEach(([network, url]) => {
-
-            document
-                .querySelectorAll(
-                    `[data-${network}]`
-                )
-                .forEach(element => {
-
-                    if (url) {
-
-                        element.href =
-                            url;
-
-                    } else {
-
-                        element.style.display =
-                            "none";
-
-                    }
-
-                });
-
-        });
-
-
-    /* =====================================================
-       UBICACIÓN
-    ===================================================== */
-
-    setText(
-        "[data-ciudad]",
-        CONFIG.sitio.ciudad
-    );
-
-
-    setText(
-        "[data-horario]",
-        CONFIG.sitio.horario
-    );
-
-
-    /* =====================================================
-       AÑO
-    ===================================================== */
-
-    setText(
-        "[data-year]",
-        new Date().getFullYear()
-    );
-
-
-    /* =====================================================
-       MENÚ MOBILE
-    ===================================================== */
-
-    function closeMenu() {
-
-        if (!nav || !menuBtn) return;
-
-        nav.classList.remove("open");
-
-        body.classList.remove(
-            "menu-open"
+    const mapsUrl =
+        sitio.mapsUrl ||
+        (
+            sitio.ciudad
+                ? `https://www.google.com/maps/search/?api=1&query=${
+                    encodeURIComponent(sitio.ciudad)
+                }`
+                : ""
         );
 
-        menuBtn.setAttribute(
+    if (mapLink && mapsUrl) {
+
+        mapLink.href = mapsUrl;
+        mapLink.target = "_blank";
+        mapLink.rel = "noopener noreferrer";
+    }
+
+    if (
+        mapContainer &&
+        sitio.ciudad
+    ) {
+
+        const text =
+            $(".map-placeholder-text", mapContainer);
+
+        if (text) {
+            text.textContent =
+                sitio.ciudad;
+        }
+    }
+
+
+    /* =====================================================
+       28. REDES SOCIALES
+       ===================================================== */
+
+    const socialMap = {
+        instagram: redes.instagram,
+        facebook: redes.facebook,
+        tiktok: redes.tiktok,
+        youtube: redes.youtube
+    };
+
+    Object.entries(socialMap).forEach(
+        ([network, url]) => {
+
+            $$(`[data-red="${network}"]`)
+                .forEach(link => {
+
+                    if (!url) {
+
+                        link.hidden = true;
+                        return;
+                    }
+
+                    link.href = url;
+                    link.target = "_blank";
+                    link.rel =
+                        "noopener noreferrer";
+                });
+        }
+    );
+
+
+    /* =====================================================
+       29. LEGALES
+       ===================================================== */
+
+    if (CONFIG.legales) {
+
+        const legalMap = {
+            privacidad:
+                CONFIG.legales.privacidad,
+            terminos:
+                CONFIG.legales.terminos
+        };
+
+        Object.entries(legalMap).forEach(
+            ([type, url]) => {
+
+                if (!url) return;
+
+                $$(`[data-legal="${type}"]`)
+                    .forEach(link => {
+                        link.href = url;
+                    });
+            }
+        );
+    }
+
+
+    /* =====================================================
+       30. AÑO AUTOMÁTICO
+       ===================================================== */
+
+    $$("[data-year]").forEach(element => {
+        element.textContent =
+            new Date().getFullYear();
+    });
+
+
+    /* =====================================================
+       31. JSON-LD / DATOS ESTRUCTURADOS
+       ===================================================== */
+
+    const structuredData =
+        $("script[type='application/ld+json']");
+
+    if (structuredData) {
+
+        const data = {
+            "@context": "https://schema.org",
+            "@type":
+                sitio.tipoNegocio ||
+                "LocalBusiness",
+
+            "name":
+                negocio.nombre || "",
+
+            "description":
+                seo.descripcion ||
+                negocio.descripcion ||
+                "",
+
+            "url":
+                currentUrl,
+
+            "image":
+                seoImage
+        };
+
+        if (sitio.ciudad) {
+
+            data.address = {
+                "@type": "PostalAddress",
+                "addressLocality":
+                    sitio.ciudad
+            };
+        }
+
+        if (contacto.telefono) {
+            data.telephone =
+                contacto.telefono;
+        }
+
+        if (contacto.email) {
+            data.email =
+                contacto.email;
+        }
+
+        structuredData.textContent =
+            JSON.stringify(data);
+    }
+
+
+    /* =====================================================
+       32. MENÚ MOBILE
+       ===================================================== */
+
+    const menuButton = $(".menu-btn");
+    const navigation = $("#main-navigation");
+
+    const closeMenu = () => {
+
+        if (
+            !menuButton ||
+            !navigation
+        ) {
+            return;
+        }
+
+        menuButton.classList.remove(
+            "active"
+        );
+
+        navigation.classList.remove(
+            "active"
+        );
+
+        menuButton.setAttribute(
             "aria-expanded",
             "false"
         );
 
-    }
+        document.body.classList.remove(
+            "menu-open"
+        );
+    };
 
+    if (
+        menuButton &&
+        navigation
+    ) {
 
-    if (menuBtn && nav) {
-
-        menuBtn.addEventListener(
+        menuButton.addEventListener(
             "click",
             () => {
 
                 const isOpen =
-                    nav.classList.toggle(
-                        "open"
+                    navigation.classList.toggle(
+                        "active"
                     );
 
+                menuButton.classList.toggle(
+                    "active",
+                    isOpen
+                );
 
-                body.classList.toggle(
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+                document.body.classList.toggle(
                     "menu-open",
                     isOpen
                 );
-
-
-                menuBtn.setAttribute(
-                    "aria-expanded",
-                    isOpen
-                        ? "true"
-                        : "false"
-                );
-
             }
         );
-
-
-        nav
-            .querySelectorAll("a")
-            .forEach(link => {
-
-                link.addEventListener(
-                    "click",
-                    closeMenu
-                );
-
-            });
-
     }
 
+
+    /* =====================================================
+       33. CERRAR MENÚ AL HACER CLICK
+       ===================================================== */
+
+    $$("#main-navigation a").forEach(link => {
+
+        link.addEventListener(
+            "click",
+            closeMenu
+        );
+    });
+
+
+    /* =====================================================
+       34. ESCAPE
+       ===================================================== */
 
     document.addEventListener(
         "keydown",
         event => {
 
-            if (event.key === "Escape") {
-
-                closeMenu();
-
+            if (event.key !== "Escape") {
+                return;
             }
 
+            closeMenu();
+
+            if (
+                lightbox &&
+                lightbox.classList.contains("active")
+            ) {
+                closeLightbox();
+            }
         }
     );
 
 
     /* =====================================================
-       REVEAL
-    ===================================================== */
+       35. TECLAS LIGHTBOX
+       ===================================================== */
 
-    function activateReveal() {
+    document.addEventListener(
+        "keydown",
+        event => {
 
-        const elements =
-            document.querySelectorAll(
-                ".reveal"
-            );
+            if (
+                !lightbox ||
+                !lightbox.classList.contains("active")
+            ) {
+                return;
+            }
 
+            if (event.key === "ArrowLeft") {
+                changeLightbox(-1);
+            }
 
-        if (
-            !("IntersectionObserver" in window)
-        ) {
-
-            elements.forEach(element => {
-
-                element.classList.add(
-                    "active"
-                );
-
-            });
-
-            return;
-
+            if (event.key === "ArrowRight") {
+                changeLightbox(1);
+            }
         }
-
-
-        const observer =
-            new IntersectionObserver(
-                (entries, observerInstance) => {
-
-                    entries.forEach(entry => {
-
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
-                        }
-
-
-                        entry.target.classList.add(
-                            "active"
-                        );
-
-
-                        observerInstance.unobserve(
-                            entry.target
-                        );
-
-                    });
-
-                },
-                {
-                    threshold: 0.10,
-
-                    rootMargin:
-                        "0px 0px -30px 0px"
-                }
-            );
-
-
-        elements.forEach(element => {
-
-            observer.observe(element);
-
-        });
-
-    }
-
-
-    activateReveal();
+    );
 
 
     /* =====================================================
-       HEADER
-    ===================================================== */
+       36. HEADER SCROLL
+       ===================================================== */
 
-    function updateHeader() {
+    const header = $(".site-header");
+
+    const updateHeader = () => {
 
         if (!header) return;
 
-        header.classList.toggle(
-            "scrolled",
-            window.scrollY > 30
-        );
-
-    }
+        if (window.scrollY > 30) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+    };
 
 
     /* =====================================================
-       PROGRESO
-    ===================================================== */
+       37. PROGRESO DE SCROLL
+       ===================================================== */
 
-    function updateProgress() {
+    const progress =
+        $(".scroll-progress");
+
+    const updateProgress = () => {
 
         if (!progress) return;
 
         const scrollTop =
             window.scrollY;
 
-        const maxScroll =
-            document.documentElement
-                .scrollHeight
-            - window.innerHeight;
-
-
-        if (maxScroll <= 0) {
-
-            progress.style.width =
-                "0%";
-
-            return;
-
-        }
-
+        const documentHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
 
         const percentage =
-            Math.min(
-                100,
-                Math.max(
-                    0,
-                    (scrollTop / maxScroll) * 100
-                )
-            );
-
+            documentHeight > 0
+                ? (scrollTop / documentHeight) * 100
+                : 0;
 
         progress.style.width =
             `${percentage}%`;
-
-    }
+    };
 
 
     /* =====================================================
-       VOLVER ARRIBA
-    ===================================================== */
+       38. BACK TO TOP
+       ===================================================== */
 
-    function updateBackTop() {
+    const backTop = $(".back-top");
+
+    const updateBackTop = () => {
 
         if (!backTop) return;
 
-        backTop.classList.toggle(
-            "show",
-            window.scrollY > 600
-        );
-
-    }
-
+        if (window.scrollY > 600) {
+            backTop.classList.add("visible");
+        } else {
+            backTop.classList.remove("visible");
+        }
+    };
 
     if (backTop) {
 
@@ -1167,159 +1655,360 @@ document.addEventListener("DOMContentLoaded", () => {
                     top: 0,
                     behavior: "smooth"
                 });
-
             }
         );
-
     }
 
 
     /* =====================================================
-       PARALLAX
-    ===================================================== */
+       39. SCROLL OPTIMIZADO
+       ===================================================== */
+
+    let ticking = false;
+
+    const onScroll = () => {
+
+        if (ticking) return;
+
+        ticking = true;
+
+        requestAnimationFrame(() => {
+
+            updateHeader();
+            updateProgress();
+            updateBackTop();
+
+            ticking = false;
+        });
+    };
+
+    window.addEventListener(
+        "scroll",
+        onScroll,
+        { passive: true }
+    );
+
+    updateHeader();
+    updateProgress();
+    updateBackTop();
+
+
+        /* =====================================================
+       40. REVEAL ANIMATIONS
+       ===================================================== */
+
+    const revealElements =
+        $$(".reveal, .reveal-left, .reveal-right");
+
+    if (
+        "IntersectionObserver" in window &&
+        revealElements.length
+    ) {
+
+        const revealObserver =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (
+                            !entry.isIntersecting
+                        ) {
+                            return;
+                        }
+
+                        entry.target.classList.add(
+                            "active"
+                        );
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+                    });
+                },
+                {
+                    threshold: 0.10,
+                    rootMargin:
+                        "0px 0px -30px 0px"
+                }
+            );
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
+    } else {
+
+        revealElements.forEach(element => {
+            element.classList.add("active");
+        });
+    }
+
+
+    /* =====================================================
+       41. CONTADORES DE ESTADÍSTICAS
+       ===================================================== */
+
+    const parseNumber = value => {
+
+        const match =
+            String(value)
+                .replace(",", ".")
+                .match(/-?\d+(\.\d+)?/);
+
+        return match
+            ? Number(match[0])
+            : null;
+    };
+
+    const animateCounter = element => {
+
+        if (
+            !element ||
+            element.dataset.counted
+        ) {
+            return;
+        }
+
+        const original =
+            element.textContent.trim();
+
+        const number =
+            parseNumber(original);
+
+        if (number === null) return;
+
+        const suffix =
+            original.replace(
+                /-?\d+(\.\d+)?/,
+                ""
+            );
+
+        const duration = 1200;
+
+        const start =
+            performance.now();
+
+        const update = now => {
+
+            const progress =
+                Math.min(
+                    (now - start) / duration,
+                    1
+                );
+
+            const eased =
+                1 - Math.pow(1 - progress, 3);
+
+            const current =
+                number * eased;
+
+            const decimals =
+                number % 1 !== 0
+                    ? 1
+                    : 0;
+
+            element.textContent =
+                `${current.toFixed(decimals)}${suffix}`;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent =
+                    original;
+
+                element.dataset.counted =
+                    "true";
+            }
+        };
+
+        requestAnimationFrame(update);
+    };
+
+
+    if (
+        "IntersectionObserver" in window
+    ) {
+
+        const counterObserver =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (
+                            !entry.isIntersecting
+                        ) {
+                            return;
+                        }
+
+                        animateCounter(
+                            entry.target
+                        );
+
+                        counterObserver.unobserve(
+                            entry.target
+                        );
+                    });
+                },
+                {
+                    threshold: 0.5
+                }
+            );
+
+        $$(".stat-number").forEach(
+            element => {
+                counterObserver.observe(
+                    element
+                );
+            }
+        );
+    }
+
+
+    /* =====================================================
+       42. PARALLAX HERO
+       ===================================================== */
 
     const heroImage =
-        document.querySelector(
-            ".hero-image img"
-        );
+        $(".hero-image img");
 
-
-    const reducedMotion =
+    const reduceMotion =
         window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
 
-
     if (
         heroImage &&
-        !reducedMotion
+        !reduceMotion
     ) {
 
-        let ticking = false;
+        let parallaxTicking = false;
 
+        const updateParallax = () => {
+
+            if (parallaxTicking) return;
+
+            parallaxTicking = true;
+
+            requestAnimationFrame(() => {
+
+                const offset =
+                    Math.min(
+                        window.scrollY * 0.06,
+                        40
+                    );
+
+                heroImage.style.transform =
+                    `translate3d(0, ${offset}px, 0) scale(1.025)`;
+
+                parallaxTicking = false;
+            });
+        };
 
         window.addEventListener(
             "scroll",
-            () => {
-
-                if (ticking) return;
-
-                window.requestAnimationFrame(
-                    () => {
-
-                        const scroll =
-                            window.scrollY;
+            updateParallax,
+            { passive: true }
+        );
+    }
 
 
-                        if (
-                            scroll <
-                            window.innerHeight
-                        ) {
+    /* =====================================================
+       43. NAVEGACIÓN SUAVE
+       ===================================================== */
 
-                            heroImage.style.transform =
-                                `translateY(${scroll * 0.06}px) scale(1.025)`;
+    $$('a[href^="#"]').forEach(link => {
 
-                        }
+        link.addEventListener(
+            "click",
+            event => {
 
+                const href =
+                    link.getAttribute("href");
 
-                        ticking = false;
+                if (
+                    !href ||
+                    href === "#"
+                ) {
+                    return;
+                }
 
-                    }
+                const target =
+                    $(href);
+
+                if (!target) return;
+
+                event.preventDefault();
+
+                const headerHeight =
+                    header
+                        ? header.offsetHeight
+                        : 0;
+
+                const targetPosition =
+                    target.getBoundingClientRect().top +
+                    window.scrollY -
+                    headerHeight -
+                    15;
+
+                window.scrollTo({
+                    top: Math.max(
+                        targetPosition,
+                        0
+                    ),
+                    behavior:
+                        reduceMotion
+                            ? "auto"
+                            : "smooth"
+                });
+
+                history.replaceState(
+                    null,
+                    "",
+                    href
                 );
 
-
-                ticking = true;
-
-            },
-            {
-                passive: true
+                closeMenu();
             }
         );
-
-    }
+    });
 
 
     /* =====================================================
-       NAVEGACIÓN SUAVE
-    ===================================================== */
+       44. ARIA / ACCESIBILIDAD
+       ===================================================== */
 
-    document
-        .querySelectorAll(
-            'a[href^="#"]'
-        )
-        .forEach(link => {
+    if (menuButton) {
 
-            link.addEventListener(
-                "click",
-                event => {
-
-                    const id =
-                        link.getAttribute(
-                            "href"
-                        );
-
-
-                    if (
-                        !id ||
-                        id === "#"
-                    ) {
-                        return;
-                    }
-
-
-                    const target =
-                        document.querySelector(
-                            id
-                        );
-
-
-                    if (!target) return;
-
-
-                    event.preventDefault();
-
-
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                }
+        if (
+            !menuButton.hasAttribute(
+                "aria-label"
+            )
+        ) {
+            menuButton.setAttribute(
+                "aria-label",
+                "Abrir menú"
             );
+        }
+    }
 
-        });
+    if (lightbox) {
 
-
-    /* =====================================================
-       SCROLL
-    ===================================================== */
-
-    function handleScroll() {
-
-        updateHeader();
-
-        updateProgress();
-
-        updateBackTop();
-
+        lightbox.setAttribute(
+            "aria-hidden",
+            lightbox.classList.contains(
+                "active"
+            )
+                ? "false"
+                : "true"
+        );
     }
 
 
-    window.addEventListener(
-        "scroll",
-        handleScroll,
-        {
-            passive: true
-        }
-    );
-
-
-    handleScroll();
-
-
     /* =====================================================
-       RESIZE
-    ===================================================== */
+       45. RESIZE
+       ===================================================== */
 
     window.addEventListener(
         "resize",
@@ -1328,22 +2017,66 @@ document.addEventListener("DOMContentLoaded", () => {
             if (
                 window.innerWidth > 768
             ) {
-
                 closeMenu();
-
             }
-
-        }
+        },
+        { passive: true }
     );
 
 
     /* =====================================================
-       FINAL
-    ===================================================== */
+       46. API INTERNA
+       ===================================================== */
+
+    window.PlantillaWeb = {
+
+        config: CONFIG,
+
+        openLightbox,
+
+        closeLightbox,
+
+        changeLightbox,
+
+        scrollTo: selector => {
+
+            const target =
+                $(selector);
+
+            if (!target) return;
+
+            const headerHeight =
+                header
+                    ? header.offsetHeight
+                    : 0;
+
+            window.scrollTo({
+                top:
+                    target.offsetTop -
+                    headerHeight -
+                    15,
+
+                behavior:
+                    reduceMotion
+                        ? "auto"
+                        : "smooth"
+            });
+        }
+    };
+
+
+    /* =====================================================
+       47. MENSAJE DE DESARROLLO
+       ===================================================== */
 
     console.log(
-        "✨ Plantilla premium cargada correctamente."
+        `%c${negocio.nombre || "Plantilla Web"}%c`,
+        "font-size:18px;font-weight:bold;",
+        "font-size:14px;"
+    );
+
+    console.log(
+        "Plantilla Web cargada correctamente."
     );
 
 });
-               
