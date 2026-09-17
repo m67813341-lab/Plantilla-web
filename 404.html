@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
+
+    <title>Página no encontrada</title>
+
+    <link
+        rel="icon"
+        href="img/favicon.png"
+        type="image/png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background: #f7f7f5;
+            color: #111111;
+
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .error {
+            width: 100%;
+            max-width: 700px;
+
+            text-align: center;
+        }
+
+        .numero {
+            font-family: "Playfair Display", serif;
+
+            font-size: clamp(100px, 25vw, 220px);
+
+            line-height: .8;
+
+            letter-spacing: -8px;
+
+            margin-bottom: 35px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+
+            margin-bottom: 20px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: .18em;
+            text-transform: uppercase;
+
+            color: #777777;
+        }
+
+        h1 {
+            font-family: "Playfair Display", serif;
+
+            font-size: clamp(36px, 6vw, 64px);
+
+            line-height: 1;
+
+            margin-bottom: 20px;
+        }
+
+        p {
+            max-width: 520px;
+
+            margin: 0 auto 35px;
+
+            color: #777777;
+
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .boton {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 52px;
+
+            padding: 0 28px;
+
+            background: #111111;
+            color: #ffffff;
+
+            border-radius: 999px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition:
+                transform .3s ease,
+                background .3s ease;
+        }
+
+        .boton:hover {
+            transform: translateY(-3px);
+            background: #222222;
+        }
+
+        .marca {
+            margin-top: 60px;
+
+            color: #999999;
+
+            font-size: 12px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .numero {
+                letter-spacing: -4px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            p {
+                font-size: 15px;
+            }
+
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="error">
+
+        <div
+            class="numero"
+            aria-hidden="true"
+        >
+            404
+        </div>
+
+        <span class="etiqueta">
+            Página no encontrada
+        </span>
+
+        <h1>
+            Parece que esta página se perdió.
+        </h1>
+
+        <p>
+            La dirección que estás buscando no existe,
+            fue modificada o ya no está disponible.
+        </p>
+
+        <a
+            class="boton"
+            href="./"
+            aria-label="Volver al inicio"
+        >
+            Volver al inicio
+        </a>
+
+        <div class="marca">
+            Tu negocio merece verse increíble.
+        </div>
+
+    </main>
+
+</body>
+</html>
