@@ -1,28 +1,30 @@
 const CONFIG = {
 
     // =========================================================
-    // INFORMACIÓN GENERAL
+    // INFORMACIÓN GENERAL DEL NEGOCIO
     // =========================================================
 
     negocio: {
 
         nombre: "ALMA BOHO",
 
-        slogan: "Tu negocio merece verse increíble.",
+        slogan:
+            "Tu negocio merece verse increíble.",
 
         descripcion:
             "Soluciones profesionales pensadas para negocios que quieren crecer, destacarse y conectar con sus clientes.",
 
-        categoria: "PRUEBA ALMA BOHO",
+        categoria:
+            "ESTUDIO / SERVICIOS",
 
-        etiquetaHero: "ESTUDIO / SERVICIOS",
+        etiquetaHero:
+            "ESTUDIO / SERVICIOS",
 
         mensajeHero:
             "Creamos experiencias que hacen que tu negocio se vea tan bien como el trabajo que hacés.",
 
         textoMarquee:
             "CALIDAD • EXPERIENCIA • PROFESIONALISMO • DETALLE"
-
     },
 
 
@@ -41,9 +43,34 @@ const CONFIG = {
         imagen:
             "img/IMG-20260503-WA0083.jpg",
 
+        favicon:
+            "img/favicon.png",
+
         color:
             "#111111"
+    },
 
+
+    // =========================================================
+    // SITIO
+    // =========================================================
+
+    sitio: {
+
+        url:
+            "https://TU-USUARIO.github.io/TU-PAGINA/",
+
+        ciudad:
+            "Buenos Aires, Argentina",
+
+        horario:
+            "Lunes a viernes · 9:00 a 18:00",
+
+        tipoNegocio:
+            "ProfessionalService",
+
+        mapsUrl:
+            "https://www.google.com/maps/search/?api=1&query=Buenos+Aires,+Argentina"
     },
 
 
@@ -63,11 +90,10 @@ const CONFIG = {
             "img/IMG-20260503-WA0083.jpg",
 
         galeria2:
-            "img/IMG-20260503-WA0083.jpg",
+            "img/IMG-20260503-WA0087.jpg",
 
         galeria3:
             "img/IMG-20260503-WA0083.jpg"
-
     },
 
 
@@ -77,18 +103,23 @@ const CONFIG = {
 
     colores: {
 
-        principal: "#111111",
+        principal:
+            "#111111",
 
-        secundario: "#f7f7f5",
+        secundario:
+            "#f7f7f5",
 
-        fondo: "#ffffff",
+        fondo:
+            "#ffffff",
 
-        texto: "#111111",
+        texto:
+            "#111111",
 
-        textoSuave: "#777777",
+        textoSuave:
+            "#777777",
 
-        acento: "#0066ff"
-
+        acento:
+            "#0066ff"
     },
 
 
@@ -109,12 +140,11 @@ const CONFIG = {
 
         mensajeWhatsapp:
             "Hola, quiero consultar por sus servicios."
-
     },
 
 
     // =========================================================
-    // REDES
+    // REDES SOCIALES
     // =========================================================
 
     redes: {
@@ -130,22 +160,6 @@ const CONFIG = {
 
         youtube:
             ""
-
-    },
-
-
-    // =========================================================
-    // UBICACIÓN
-    // =========================================================
-
-    sitio: {
-
-        ciudad:
-            "Buenos Aires, Argentina",
-
-        horario:
-            "Lunes a viernes · 9:00 a 18:00"
-
     },
 
 
@@ -174,7 +188,6 @@ const CONFIG = {
             numero: "98%",
             texto: "Clientes satisfechos"
         }
-
     ],
 
 
@@ -186,34 +199,95 @@ const CONFIG = {
 
         {
             numero: "01",
+
             icono: "↗",
-            titulo: "Servicio principal",
+
+            titulo:
+                "Servicio principal",
+
             descripcion:
                 "Una solución profesional adaptada a las necesidades reales de cada cliente.",
+
             enlace:
-                "Saber más"
+                "Saber más",
+
+            url:
+                "#contacto"
         },
 
         {
             numero: "02",
+
             icono: "◇",
-            titulo: "Soluciones a medida",
+
+            titulo:
+                "Soluciones a medida",
+
             descripcion:
                 "Trabajamos cada proyecto buscando el mejor resultado posible.",
+
             enlace:
-                "Saber más"
+                "Saber más",
+
+            url:
+                "#contacto"
         },
 
         {
             numero: "03",
+
             icono: "+",
-            titulo: "Atención personalizada",
+
+            titulo:
+                "Atención personalizada",
+
             descripcion:
                 "Acompañamiento cercano desde el primer contacto hasta el resultado final.",
-            enlace:
-                "Saber más"
-        }
 
+            enlace:
+                "Saber más",
+
+            url:
+                "#contacto"
+        }
+    ],
+
+
+    // =========================================================
+    // BENEFICIOS
+    // =========================================================
+
+    beneficios: [
+
+        {
+            icono: "✦",
+
+            titulo:
+                "Diseñado para tu negocio",
+
+            descripcion:
+                "Cada parte de la experiencia puede adaptarse a la identidad y necesidades de tu negocio."
+        },
+
+        {
+            icono: "↗",
+
+            titulo:
+                "Pensado para convertir",
+
+            descripcion:
+                "La información importante queda clara para que tus clientes sepan qué hacés y cómo contactarte."
+        },
+
+        {
+            icono: "◇",
+
+            titulo:
+                "Experiencia profesional",
+
+            descripcion:
+                "Una presencia digital moderna ayuda a transmitir confianza desde el primer contacto."
+        }
     ],
 
 
@@ -225,36 +299,51 @@ const CONFIG = {
 
         {
             numero: "01",
+
             icono: "○",
-            titulo: "Hablamos",
+
+            titulo:
+                "Hablamos",
+
             descripcion:
                 "Conocemos tu negocio, tus objetivos y lo que necesitás."
         },
 
         {
             numero: "02",
+
             icono: "◇",
-            titulo: "Planeamos",
+
+            titulo:
+                "Planeamos",
+
             descripcion:
                 "Organizamos las ideas y definimos el camino a seguir."
         },
 
         {
             numero: "03",
+
             icono: "+",
-            titulo: "Creamos",
+
+            titulo:
+                "Creamos",
+
             descripcion:
                 "Convertimos el concepto en una solución concreta."
         },
 
         {
             numero: "04",
+
             icono: "✓",
-            titulo: "Entregamos",
+
+            titulo:
+                "Entregamos",
+
             descripcion:
                 "Revisamos cada detalle y dejamos todo listo para vos."
         }
-
     ],
 
 
@@ -266,22 +355,30 @@ const CONFIG = {
 
         {
             imagen: "galeria1",
+
             numero: "01",
-            titulo: "Proyecto destacado"
+
+            titulo:
+                "Proyecto destacado"
         },
 
         {
             imagen: "galeria2",
+
             numero: "02",
-            titulo: "Proyecto"
+
+            titulo:
+                "Proyecto"
         },
 
         {
             imagen: "galeria3",
-            numero: "03",
-            titulo: "Detalle"
-        }
 
+            numero: "03",
+
+            titulo:
+                "Detalle"
+        }
     ],
 
 
@@ -293,36 +390,92 @@ const CONFIG = {
 
         {
             inicial: "L",
-            nombre: "Laura G.",
-            tipo: "Cliente",
+
+            nombre:
+                "Laura G.",
+
+            tipo:
+                "Cliente",
+
             texto:
                 "Desde el primer contacto fueron muy profesionales. Volveríamos a elegirlos."
         },
 
         {
             inicial: "A",
-            nombre: "Andrés P.",
-            tipo: "Cliente",
+
+            nombre:
+                "Andrés P.",
+
+            tipo:
+                "Cliente",
+
             texto:
                 "Se nota la atención al detalle y el compromiso con cada proyecto."
         },
 
         {
             inicial: "M",
-            nombre: "Martina R.",
-            tipo: "Cliente",
+
+            nombre:
+                "Martina R.",
+
+            tipo:
+                "Cliente",
+
             texto:
                 "Excelente atención y un resultado que superó nuestras expectativas."
         }
-
     ],
 
 
     // =========================================================
-    // TEXTOS DE SECCIONES
+    // PREGUNTAS FRECUENTES
+    // =========================================================
+
+    faq: [
+
+        {
+            pregunta:
+                "¿Cómo puedo solicitar un presupuesto?",
+
+            respuesta:
+                "Podés comunicarte por WhatsApp, teléfono o email y contarnos brevemente qué necesitás."
+        },
+
+        {
+            pregunta:
+                "¿Trabajan con proyectos personalizados?",
+
+            respuesta:
+                "Sí. Cada proyecto puede adaptarse a las necesidades, objetivos e identidad de cada negocio."
+        },
+
+        {
+            pregunta:
+                "¿Cuánto demora un proyecto?",
+
+            respuesta:
+                "El tiempo depende del tipo y tamaño del proyecto. Luego de conocer tus necesidades podemos darte una estimación."
+        },
+
+        {
+            pregunta:
+                "¿Cómo puedo comunicarme?",
+
+            respuesta:
+                "Podés escribirnos directamente por WhatsApp o utilizar cualquiera de los medios de contacto disponibles en esta página."
+        }
+    ],
+
+
+    // =========================================================
+    // TEXTOS DE TODA LA PÁGINA
     // =========================================================
 
     textos: {
+
+        // SERVICIOS
 
         serviciosEtiqueta:
             "LO QUE HACEMOS",
@@ -333,6 +486,20 @@ const CONFIG = {
         subtituloServicios:
             "Soluciones pensadas para ayudarte a crecer, destacar y conectar con tus clientes.",
 
+
+        // BENEFICIOS
+
+        beneficiosEtiqueta:
+            "POR QUÉ ELEGIRNOS",
+
+        tituloBeneficios:
+            "Una experiencia pensada hasta el último detalle.",
+
+        subtituloBeneficios:
+            "Combinamos estrategia, diseño y atención para crear soluciones que realmente aporten valor.",
+
+
+        // NOSOTROS
 
         nosotrosEtiqueta:
             "QUIÉNES SOMOS",
@@ -347,6 +514,29 @@ const CONFIG = {
             "Cada proyecto comienza entendiendo qué necesita realmente cada negocio. Después convertimos esa idea en una experiencia clara, atractiva y profesional.",
 
 
+        // PUNTOS NOSOTROS
+
+        nosotrosPunto1Titulo:
+            "Pensado para vos",
+
+        nosotrosPunto1Texto:
+            "Cada detalle se adapta a tu identidad.",
+
+        nosotrosPunto2Titulo:
+            "Atención cercana",
+
+        nosotrosPunto2Texto:
+            "Estamos presentes durante todo el proceso.",
+
+        nosotrosPunto3Titulo:
+            "Calidad y detalle",
+
+        nosotrosPunto3Texto:
+            "Buscamos resultados que realmente destaquen.",
+
+
+        // PROCESO
+
         procesoEtiqueta:
             "NUESTRO PROCESO",
 
@@ -356,6 +546,8 @@ const CONFIG = {
         subtituloProceso:
             "Un proceso simple, claro y pensado para que cada etapa tenga sentido.",
 
+
+        // GALERÍA
 
         galeriaEtiqueta:
             "TRABAJOS",
@@ -367,6 +559,8 @@ const CONFIG = {
             "Una selección de proyectos y momentos que representan nuestra forma de trabajar.",
 
 
+        // TESTIMONIOS
+
         testimoniosEtiqueta:
             "EXPERIENCIAS",
 
@@ -376,6 +570,20 @@ const CONFIG = {
         subtituloTestimonios:
             "La confianza se construye con cada proyecto y cada experiencia.",
 
+
+        // FAQ
+
+        faqEtiqueta:
+            "PREGUNTAS FRECUENTES",
+
+        tituloFaq:
+            "¿Tenés alguna duda?",
+
+        subtituloFaq:
+            "Encontrá respuestas a algunas de las preguntas más frecuentes.",
+
+
+        // CTA
 
         ctaEtiqueta:
             "¿TENÉS UN PROYECTO?",
@@ -387,6 +595,8 @@ const CONFIG = {
             "Empezar un proyecto",
 
 
+        // CONTACTO
+
         contactoEtiqueta:
             "CONTACTO",
 
@@ -395,7 +605,6 @@ const CONFIG = {
 
         textoContacto:
             "Contanos qué necesitás y nos ponemos en contacto con vos.",
-
 
         contactoCardEtiqueta:
             "RESPUESTA RÁPIDA",
@@ -407,29 +616,7 @@ const CONFIG = {
             "Escribinos por WhatsApp y contanos brevemente qué necesitás.",
 
         contactoBoton:
-            "Abrir WhatsApp",
-
-
-        nosotrosPunto1Titulo:
-            "Pensado para vos",
-
-        nosotrosPunto1Texto:
-            "Cada detalle se adapta a tu identidad.",
-
-
-        nosotrosPunto2Titulo:
-            "Atención cercana",
-
-        nosotrosPunto2Texto:
-            "Estamos presentes durante todo el proceso.",
-
-
-        nosotrosPunto3Titulo:
-            "Calidad y detalle",
-
-        nosotrosPunto3Texto:
-            "Buscamos resultados que realmente destaquen."
-
+            "Abrir WhatsApp"
     },
 
 
@@ -446,8 +633,38 @@ const CONFIG = {
             "Ver servicios",
 
         nosotros:
-            "Conocé más sobre nosotros"
+            "Conocé más sobre nosotros",
 
+        header:
+            "Hablemos"
+    },
+
+
+    // =========================================================
+    // INFORMACIÓN LEGAL
+    // =========================================================
+
+    legales: {
+
+        privacidad:
+            "",
+
+        terminos:
+            ""
+    },
+
+
+    // =========================================================
+    // VERSIÓN DE LA PLANTILLA
+    // =========================================================
+
+    plantilla: {
+
+        nombre:
+            "Plantilla Web Premium",
+
+        version:
+            "1.0.0"
     }
 
 };
