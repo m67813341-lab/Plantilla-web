@@ -1,21 +1,20 @@
-/* =========================================================
-   PLANTILLA WEB — SCRIPT PRINCIPAL
-   Sistema dinámico + animaciones + SEO + accesibilidad
-   ========================================================= */
-
 document.documentElement.classList.add("js");
 
 document.addEventListener("DOMContentLoaded", () => {
 
     "use strict";
 
+
     /* =====================================================
-       1. SEGURIDAD / CONFIGURACIÓN
+       1. SEGURIDAD / CONFIG
        ===================================================== */
 
     if (typeof CONFIG === "undefined") {
+
         console.error("CONFIG no está definido.");
+
         return;
+
     }
 
 
@@ -23,21 +22,46 @@ document.addEventListener("DOMContentLoaded", () => {
        2. UTILIDADES
        ===================================================== */
 
-    const $ = (selector, parent = document) =>
-        parent.querySelector(selector);
+    const $ = (
+        selector,
+        parent = document
+    ) => parent.querySelector(selector);
 
-    const $$ = (selector, parent = document) =>
-        [...parent.querySelectorAll(selector)];
 
-    const setText = (selector, value) => {
+    const $$ = (
+        selector,
+        parent = document
+    ) => [
+        ...parent.querySelectorAll(selector)
+    ];
+
+
+    const setText = (
+        selector,
+        value
+    ) => {
+
         const element = $(selector);
 
-        if (element && value !== undefined && value !== null) {
+        if (
+            element &&
+            value !== undefined &&
+            value !== null
+        ) {
+
             element.textContent = value;
+
         }
+
     };
 
-    const setAttr = (selector, attribute, value) => {
+
+    const setAttr = (
+        selector,
+        attribute,
+        value
+    ) => {
+
         const element = $(selector);
 
         if (
@@ -46,70 +70,116 @@ document.addEventListener("DOMContentLoaded", () => {
             value !== null &&
             value !== ""
         ) {
-            element.setAttribute(attribute, value);
+
+            element.setAttribute(
+                attribute,
+                value
+            );
+
         }
+
     };
 
-    const normalizeUrl = (url) => {
+
+    const normalizeUrl = (
+        url = ""
+    ) => {
+
         if (!url) return "";
 
-        try {
-            return new URL(url, window.location.href).href;
-        } catch {
-            return "";
-        }
+        return String(url).trim();
+
     };
 
-    const escapeText = (value) => {
-        if (value === undefined || value === null) return "";
-        return String(value);
+
+    const escapeText = (
+        value = ""
+    ) => {
+
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+
     };
 
 
     /* =====================================================
-       3. DATOS PRINCIPALES
+       3. REFERENCIAS
        ===================================================== */
 
-    const negocio = CONFIG.negocio || {};
-    const seo = CONFIG.seo || {};
-    const imagenes = CONFIG.imagenes || {};
-    const colores = CONFIG.colores || {};
-    const contacto = CONFIG.contacto || {};
-    const redes = CONFIG.redes || {};
-    const sitio = CONFIG.sitio || {};
-    const textos = CONFIG.textos || {};
-    const botones = CONFIG.botones || {};
+    const root =
+        document.documentElement;
+
+    const body =
+        document.body;
 
 
     /* =====================================================
        4. COLORES
        ===================================================== */
 
-    const root = document.documentElement;
+    if (CONFIG.colores) {
 
-    if (colores.principal) {
-        root.style.setProperty("--black", colores.principal);
-    }
+        const colores =
+            CONFIG.colores;
 
-    if (colores.secundario) {
-        root.style.setProperty("--cream", colores.secundario);
-    }
+        if (colores.principal) {
 
-    if (colores.fondo) {
-        root.style.setProperty("--white", colores.fondo);
-    }
+            root.style.setProperty(
+                "--black",
+                colores.principal
+            );
 
-    if (colores.texto) {
-        root.style.setProperty("--text", colores.texto);
-    }
+        }
 
-    if (colores.textoSuave) {
-        root.style.setProperty("--text-soft", colores.textoSuave);
-        root.style.setProperty("--gray", colores.textoSuave);
-    }
+        if (colores.secundario) {
 
-    if (colores.acento) {
-        root.style.setProperty("--acento", colores.acento);
+            root.style.setProperty(
+                "--cream",
+                colores.secundario
+            );
+
+        }
+
+        if (colores.fondo) {
+
+            root.style.setProperty(
+                "--white",
+                colores.fondo
+            );
+
+        }
+
+        if (colores.texto) {
+
+            root.style.setProperty(
+                "--text",
+                colores.texto
+            );
+
+        }
+
+        if (colores.textoSuave) {
+
+            root.style.setProperty(
+                "--text-soft",
+                colores.textoSuave
+            );
+
+        }
+
+        if (colores.acento) {
+
+            root.style.setProperty(
+                "--acento",
+                colores.acento
+            );
+
+        }
+
     }
 
 
@@ -117,41 +187,56 @@ document.addEventListener("DOMContentLoaded", () => {
        5. INFORMACIÓN GENERAL
        ===================================================== */
 
-    $$("[data-negocio]").forEach(element => {
-        element.textContent = negocio.nombre || "";
-    });
+    if (CONFIG.negocio) {
 
-    $$("[data-slogan]").forEach(element => {
-        element.textContent = negocio.slogan || "";
-    });
+        setText(
+            "[data-negocio]",
+            CONFIG.negocio.nombre
+        );
 
-    $$("[data-descripcion]").forEach(element => {
-        element.textContent = negocio.descripcion || "";
-    });
+        setText(
+            "[data-slogan]",
+            CONFIG.negocio.slogan
+        );
 
-    $$("[data-categoria]").forEach(element => {
-        element.textContent = negocio.categoria || "";
-    });
+        setText(
+            "[data-descripcion]",
+            CONFIG.negocio.descripcion
+        );
 
-    $$("[data-etiqueta-hero]").forEach(element => {
-        element.textContent = negocio.etiquetaHero || "";
-    });
+        setText(
+            "[data-categoria]",
+            CONFIG.negocio.categoria
+        );
 
-    $$("[data-mensaje-hero]").forEach(element => {
-        element.textContent = negocio.mensajeHero || "";
-    });
+        setText(
+            "[data-etiqueta-hero]",
+            CONFIG.negocio.etiquetaHero
+        );
+
+        setText(
+            "[data-mensaje-hero]",
+            CONFIG.negocio.mensajeHero
+        );
+
+    }
 
 
     /* =====================================================
        6. MARQUEE
        ===================================================== */
 
-    const marqueeItems = $$(".marquee-item");
+    if (CONFIG.negocio?.textoMarquee) {
 
-    if (marqueeItems.length && negocio.textoMarquee) {
-        marqueeItems.forEach(item => {
-            item.textContent = negocio.textoMarquee;
-        });
+        $$(".marquee-text").forEach(
+            element => {
+
+                element.textContent =
+                    CONFIG.negocio.textoMarquee;
+
+            }
+        );
+
     }
 
 
@@ -159,87 +244,104 @@ document.addEventListener("DOMContentLoaded", () => {
        7. SEO
        ===================================================== */
 
-    if (seo.titulo) {
-        document.title = seo.titulo;
-    } else if (negocio.nombre) {
-        document.title = negocio.nombre;
-    }
+    if (CONFIG.seo) {
 
-    setAttr('meta[name="description"]', "content", seo.descripcion);
+        const seo =
+            CONFIG.seo;
 
-    if (seo.color) {
+
+        if (seo.titulo) {
+
+            document.title =
+                seo.titulo;
+
+        }
+
+
+        setAttr(
+            'meta[name="description"]',
+            "content",
+            seo.descripcion
+        );
+
+
         setAttr(
             'meta[name="theme-color"]',
             "content",
             seo.color
         );
+
+
+        setAttr(
+            'meta[name="author"]',
+            "content",
+            seo.autor
+        );
+
+
+        setAttr(
+            'meta[property="og:title"]',
+            "content",
+            seo.titulo
+        );
+
+
+        setAttr(
+            'meta[property="og:description"]',
+            "content",
+            seo.descripcion
+        );
+
+
+        setAttr(
+            'meta[property="og:image"]',
+            "content",
+            seo.imagen
+        );
+
+
+        setAttr(
+            'meta[name="twitter:title"]',
+            "content",
+            seo.titulo
+        );
+
+
+        setAttr(
+            'meta[name="twitter:description"]',
+            "content",
+            seo.descripcion
+        );
+
+
+        setAttr(
+            'meta[name="twitter:image"]',
+            "content",
+            seo.imagen
+        );
+
     }
-
-    const currentUrl = normalizeUrl(
-        sitio.url || window.location.href
-    );
-
-    const seoImage = normalizeUrl(
-        seo.imagen || imagenes.nosotros || imagenes.principal
-    );
-
-    setAttr(
-        'meta[property="og:title"]',
-        "content",
-        seo.titulo || negocio.nombre
-    );
-
-    setAttr(
-        'meta[property="og:description"]',
-        "content",
-        seo.descripcion || negocio.descripcion
-    );
-
-    setAttr(
-        'meta[property="og:image"]',
-        "content",
-        seoImage
-    );
-
-    setAttr(
-        'meta[property="og:url"]',
-        "content",
-        currentUrl
-    );
-
-    setAttr(
-        'meta[property="og:site_name"]',
-        "content",
-        negocio.nombre
-    );
-
-    setAttr(
-        'meta[name="twitter:title"]',
-        "content",
-        seo.titulo || negocio.nombre
-    );
-
-    setAttr(
-        'meta[name="twitter:description"]',
-        "content",
-        seo.descripcion || negocio.descripcion
-    );
-
-    setAttr(
-        'meta[name="twitter:image"]',
-        "content",
-        seoImage
-    );
 
 
     /* =====================================================
        8. CANONICAL
        ===================================================== */
 
-    const canonical = $("link[rel='canonical']");
+    if (CONFIG.sitio?.url) {
 
-    if (canonical && currentUrl) {
-        canonical.href = currentUrl;
+        setAttr(
+            'link[rel="canonical"]',
+            "href",
+            CONFIG.sitio.url
+        );
+
+
+        setAttr(
+            'meta[property="og:url"]',
+            "content",
+            CONFIG.sitio.url
+        );
+
     }
 
 
@@ -247,15 +349,14 @@ document.addEventListener("DOMContentLoaded", () => {
        9. FAVICON
        ===================================================== */
 
-    if (seo.favicon) {
+    if (CONFIG.seo?.favicon) {
 
-        $$("link[rel='icon']").forEach(link => {
-            link.href = seo.favicon;
-        });
+        setAttr(
+            'link[rel="icon"]',
+            "href",
+            CONFIG.seo.favicon
+        );
 
-        $$("link[rel='apple-touch-icon']").forEach(link => {
-            link.href = seo.favicon;
-        });
     }
 
 
@@ -263,156 +364,384 @@ document.addEventListener("DOMContentLoaded", () => {
        10. IMÁGENES
        ===================================================== */
 
-    const imageMap = {
-        principal: imagenes.principal,
-        nosotros: imagenes.nosotros
+    const imagenes =
+        CONFIG.imagenes || {};
+
+
+    /*
+       Esta función comprueba si una imagen existe.
+       Si no existe, deja un placeholder oscuro.
+    */
+
+    const prepararImagen = (
+        img,
+        src,
+        placeholder = "FOTO"
+    ) => {
+
+        if (!img) return;
+
+
+        const contenedor =
+            img.closest(
+                ".hero-image, .about-image, .gallery-item, .image-wrapper, figure"
+            ) || img.parentElement;
+
+
+        const mostrarPlaceholder = () => {
+
+            img.removeAttribute("src");
+
+            img.style.display =
+                "none";
+
+
+            if (contenedor) {
+
+                contenedor.classList.add(
+                    "foto-placeholder"
+                );
+
+                contenedor.setAttribute(
+                    "data-foto",
+                    placeholder
+                );
+
+            }
+
+        };
+
+
+        const mostrarImagen = () => {
+
+            img.style.display =
+                "";
+
+            if (contenedor) {
+
+                contenedor.classList.remove(
+                    "foto-placeholder"
+                );
+
+                contenedor.removeAttribute(
+                    "data-foto"
+                );
+
+            }
+
+        };
+
+
+        if (!src) {
+
+            mostrarPlaceholder();
+
+            return;
+
+        }
+
+
+        img.addEventListener(
+            "load",
+            mostrarImagen,
+            {
+                once: true
+            }
+        );
+
+
+        img.addEventListener(
+            "error",
+            mostrarPlaceholder,
+            {
+                once: true
+            }
+        );
+
+
+        img.src = src;
+
+
+        if (
+            img.complete &&
+            img.naturalWidth > 0
+        ) {
+
+            mostrarImagen();
+
+        }
+
     };
 
-    Object.entries(imageMap).forEach(([key, source]) => {
 
-        if (!source) return;
+    /*
+       Coloca una imagen desde CONFIG.
+    */
 
-        $$(`[data-imagen="${key}"]`).forEach(image => {
+    const colocarImagen = (
+        selector,
+        clave,
+        placeholder
+    ) => {
 
-            image.src = source;
+        const img =
+            $(selector);
 
-            if (!image.alt) {
-                image.alt =
-                    `${negocio.nombre || "Negocio"} — ${key}`;
-            }
-        });
-    });
+        if (!img) return;
+
+
+        const src =
+            imagenes[clave] || "";
+
+
+        prepararImagen(
+            img,
+            src,
+            placeholder
+        );
+
+
+        if (src) {
+
+            img.alt =
+                img.alt ||
+                placeholder;
+
+        }
+
+    };
+
+
+    colocarImagen(
+        '[data-imagen="principal"]',
+        "principal",
+        "FOTO PRINCIPAL"
+    );
+
+
+    colocarImagen(
+        '[data-imagen="nosotros"]',
+        "nosotros",
+        "FOTO DEL NEGOCIO"
+    );
 
 
     /* =====================================================
        11. TEXTOS DE SECCIONES
        ===================================================== */
 
-    const textMap = {
+    if (CONFIG.textos) {
 
-        "servicios-etiqueta":
-            textos.serviciosEtiqueta,
+        const textos =
+            CONFIG.textos;
 
-        "titulo-servicios":
-            textos.tituloServicios,
 
-        "subtitulo-servicios":
-            textos.subtituloServicios,
+        const textosMapa = {
 
-        "nosotros-etiqueta":
-            textos.nosotrosEtiqueta,
+            serviciosEtiqueta:
+                "[data-servicios-etiqueta]",
 
-        "titulo-nosotros":
-            textos.tituloNosotros,
+            tituloServicios:
+                "[data-titulo-servicios]",
 
-        "nosotros-texto-1":
-            textos.nosotrosTexto1,
+            subtituloServicios:
+                "[data-subtitulo-servicios]",
 
-        "nosotros-texto-2":
-            textos.nosotrosTexto2,
 
-        "proceso-etiqueta":
-            textos.procesoEtiqueta,
+            beneficiosEtiqueta:
+                "[data-beneficios-etiqueta]",
 
-        "titulo-proceso":
-            textos.tituloProceso,
+            tituloBeneficios:
+                "[data-titulo-beneficios]",
 
-        "subtitulo-proceso":
-            textos.subtituloProceso,
+            subtituloBeneficios:
+                "[data-subtitulo-beneficios]",
 
-        "galeria-etiqueta":
-            textos.galeriaEtiqueta,
 
-        "titulo-galeria":
-            textos.tituloGaleria,
+            nosotrosEtiqueta:
+                "[data-nosotros-etiqueta]",
 
-        "subtitulo-galeria":
-            textos.subtituloGaleria,
+            tituloNosotros:
+                "[data-titulo-nosotros]",
 
-        "testimonios-etiqueta":
-            textos.testimoniosEtiqueta,
+            nosotrosTexto1:
+                "[data-nosotros-texto-1]",
 
-        "titulo-testimonios":
-            textos.tituloTestimonios,
+            nosotrosTexto2:
+                "[data-nosotros-texto-2]",
 
-        "subtitulo-testimonios":
-            textos.subtituloTestimonios,
 
-        "faq-etiqueta":
-            textos.faqEtiqueta,
+            procesoEtiqueta:
+                "[data-proceso-etiqueta]",
 
-        "titulo-faq":
-            textos.tituloFaq,
+            tituloProceso:
+                "[data-titulo-proceso]",
 
-        "subtitulo-faq":
-            textos.subtituloFaq,
+            subtituloProceso:
+                "[data-subtitulo-proceso]",
 
-        "cta-etiqueta":
-            textos.ctaEtiqueta,
 
-        "titulo-cta":
-            textos.tituloCta,
+            galeriaEtiqueta:
+                "[data-galeria-etiqueta]",
 
-        "contacto-etiqueta":
-            textos.contactoEtiqueta,
+            tituloGaleria:
+                "[data-titulo-galeria]",
 
-        "titulo-contacto":
-            textos.tituloContacto,
+            subtituloGaleria:
+                "[data-subtitulo-galeria]",
 
-        "texto-contacto":
-            textos.textoContacto,
 
-        "contacto-card-etiqueta":
-            textos.contactoCardEtiqueta,
+            testimoniosEtiqueta:
+                "[data-testimonios-etiqueta]",
 
-        "contacto-card-titulo":
-            textos.contactoCardTitulo,
+            tituloTestimonios:
+                "[data-titulo-testimonios]",
 
-        "contacto-card-texto":
-            textos.contactoCardTexto,
+            subtituloTestimonios:
+                "[data-subtitulo-testimonios]",
 
-        "contacto-boton":
-            textos.contactoBoton,
 
-        "beneficios-etiqueta":
-            textos.beneficiosEtiqueta,
+            faqEtiqueta:
+                "[data-faq-etiqueta]",
 
-        "titulo-beneficios":
-            textos.tituloBeneficios,
+            tituloFaq:
+                "[data-titulo-faq]",
 
-        "subtitulo-beneficios":
-            textos.subtituloBeneficios
-    };
+            subtituloFaq:
+                "[data-subtitulo-faq]",
 
-    Object.entries(textMap).forEach(([key, value]) => {
 
-        if (value === undefined) return;
+            ctaEtiqueta:
+                "[data-cta-etiqueta]",
 
-        $$(`[data-texto="${key}"]`).forEach(element => {
-            element.textContent = value;
-        });
-    });
+            tituloCta:
+                "[data-titulo-cta]",
+
+            botonCta:
+                "[data-boton-cta]",
+
+
+            contactoEtiqueta:
+                "[data-contacto-etiqueta]",
+
+            tituloContacto:
+                "[data-titulo-contacto]",
+
+            textoContacto:
+                "[data-texto-contacto]",
+
+
+            contactoCardEtiqueta:
+                "[data-contacto-card-etiqueta]",
+
+            contactoCardTitulo:
+                "[data-contacto-card-titulo]",
+
+            contactoCardTexto:
+                "[data-contacto-card-texto]",
+
+            contactoBoton:
+                "[data-contacto-boton]",
+
+
+            nosotrosPunto1Titulo:
+                '[data-nosotros-punto="1-titulo"]',
+
+            nosotrosPunto1Texto:
+                '[data-nosotros-punto="1-texto"]',
+
+            nosotrosPunto2Titulo:
+                '[data-nosotros-punto="2-titulo"]',
+
+            nosotrosPunto2Texto:
+                '[data-nosotros-punto="2-texto"]',
+
+            nosotrosPunto3Titulo:
+                '[data-nosotros-punto="3-titulo"]',
+
+            nosotrosPunto3Texto:
+                '[data-nosotros-punto="3-texto"]'
+
+        };
+
+
+        Object.entries(
+            textosMapa
+        ).forEach(
+            ([clave, selector]) => {
+
+                if (
+                    textos[clave] !==
+                    undefined
+                ) {
+
+                    setText(
+                        selector,
+                        textos[clave]
+                    );
+
+                }
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
        12. BOTONES
        ===================================================== */
 
-    setText("[data-boton='hero-principal']", botones.heroPrincipal);
-    setText("[data-boton='hero-secundario']", botones.heroSecundario);
-    setText("[data-boton='nosotros']", botones.nosotros);
-    setText("[data-boton='cta']", textos.botonCta);
+    if (CONFIG.botones) {
+
+        setText(
+            '[data-boton="hero-principal"]',
+            CONFIG.botones.heroPrincipal
+        );
+
+
+        setText(
+            '[data-boton="hero-secundario"]',
+            CONFIG.botones.heroSecundario
+        );
+
+
+        setText(
+            '[data-boton="nosotros"]',
+            CONFIG.botones.nosotros
+        );
+
+
+        setText(
+            '[data-boton="cta"]',
+            CONFIG.botones.botonCta ||
+            CONFIG.textos?.botonCta
+        );
+
+
+        setText(
+            '[data-boton="header"]',
+            CONFIG.botones.header
+        );
+
+    }
 
 
     /* =====================================================
        13. HEADER CTA
        ===================================================== */
 
-    const headerButton = $("[data-header-cta]");
+    const headerButton =
+        $("[data-header-cta]");
 
-    if (headerButton) {
+    if (
+        headerButton &&
+        CONFIG.botones?.header
+    ) {
+
         headerButton.textContent =
-            botones.header || "Hablemos";
+            CONFIG.botones.header;
+
     }
 
 
@@ -420,37 +749,44 @@ document.addEventListener("DOMContentLoaded", () => {
        14. ESTADÍSTICAS
        ===================================================== */
 
-    const statsContainer = $("[data-estadisticas]");
+    const statsContainer =
+        $("[data-estadisticas]");
 
-    if (statsContainer && Array.isArray(CONFIG.estadisticas)) {
 
-        statsContainer.innerHTML = "";
+    if (
+        statsContainer &&
+        Array.isArray(
+            CONFIG.estadisticas
+        )
+    ) {
 
-        CONFIG.estadisticas.forEach((stat, index) => {
+        statsContainer.innerHTML =
+            CONFIG.estadisticas
+                .map(
+                    (item, index) => `
 
-            const item = document.createElement("div");
+                    <div
+                        class="stat reveal"
+                        style="--delay:${index * 0.08}s"
+                    >
 
-            item.className = "stat reveal";
-            item.style.setProperty(
-                "--delay",
-                `${index * 0.08}s`
-            );
+                        <strong
+                            class="stat-number"
+                            data-stat-value="${escapeText(item.numero)}"
+                        >
+                            ${escapeText(item.numero)}
+                        </strong>
 
-            const number = document.createElement("strong");
+                        <span>
+                            ${escapeText(item.texto)}
+                        </span>
 
-            number.className = "stat-number";
-            number.textContent = stat.numero || "";
+                    </div>
 
-            const text = document.createElement("span");
+                `
+                )
+                .join("");
 
-            text.className = "stat-label";
-            text.textContent = stat.texto || "";
-
-            item.appendChild(number);
-            item.appendChild(text);
-
-            statsContainer.appendChild(item);
-        });
     }
 
 
@@ -458,29 +794,41 @@ document.addEventListener("DOMContentLoaded", () => {
        15. HERO STATS
        ===================================================== */
 
-    const heroStats = $$(".hero-stat");
+    const heroStats =
+        $("[data-hero-stats]");
 
-    if (heroStats.length && Array.isArray(CONFIG.estadisticas)) {
 
-        const stats = CONFIG.estadisticas;
+    if (heroStats) {
 
-        heroStats.forEach((item, index) => {
+        const stats =
+            CONFIG.estadisticas || [];
 
-            if (!stats[index]) return;
 
-            const number = $(".hero-stat-number", item);
-            const label = $(".hero-stat-label", item);
+        const seleccionados =
+            stats.slice(0, 2);
 
-            if (number) {
-                number.textContent =
-                    stats[index].numero || "";
-            }
 
-            if (label) {
-                label.textContent =
-                    stats[index].texto || "";
-            }
-        });
+        heroStats.innerHTML =
+            seleccionados
+                .map(
+                    item => `
+
+                    <div class="hero-stat">
+
+                        <strong>
+                            ${escapeText(item.numero)}
+                        </strong>
+
+                        <span>
+                            ${escapeText(item.texto)}
+                        </span>
+
+                    </div>
+
+                `
+                )
+                .join("");
+
     }
 
 
@@ -488,85 +836,61 @@ document.addEventListener("DOMContentLoaded", () => {
        16. SERVICIOS
        ===================================================== */
 
-    const servicesContainer = $("[data-servicios]");
+    const servicesContainer =
+        $("[data-servicios]");
+
 
     if (
         servicesContainer &&
-        Array.isArray(CONFIG.servicios)
+        Array.isArray(
+            CONFIG.servicios
+        )
     ) {
 
-        servicesContainer.innerHTML = "";
+        servicesContainer.innerHTML =
+            CONFIG.servicios
+                .map(
+                    (item, index) => `
 
-        CONFIG.servicios.forEach((service, index) => {
+                    <article
+                        class="service-card reveal"
+                        style="--delay:${index * 0.08}s"
+                    >
 
-            const article =
-                document.createElement("article");
+                        <div class="service-top">
 
-            article.className =
-                "service-card reveal";
+                            <span class="service-number">
+                                ${escapeText(item.numero)}
+                            </span>
 
-            article.style.setProperty(
-                "--delay",
-                `${index * 0.08}s`
-            );
+                            <span class="service-icon">
+                                ${escapeText(item.icono)}
+                            </span>
 
-            const top =
-                document.createElement("div");
+                        </div>
 
-            top.className = "service-card-top";
+                        <h3>
+                            ${escapeText(item.titulo)}
+                        </h3>
 
-            const number =
-                document.createElement("span");
+                        <p>
+                            ${escapeText(item.descripcion)}
+                        </p>
 
-            number.className = "service-number";
-            number.textContent =
-                service.numero || "";
+                        <a
+                            href="${normalizeUrl(item.url || "#contacto")}"
+                            class="service-link"
+                        >
+                            ${escapeText(item.enlace || "Saber más")}
+                            <span aria-hidden="true">↗</span>
+                        </a>
 
-            const icon =
-                document.createElement("span");
+                    </article>
 
-            icon.className = "service-icon";
-            icon.textContent =
-                service.icono || "↗";
+                `
+                )
+                .join("");
 
-            top.appendChild(number);
-            top.appendChild(icon);
-
-            const title =
-                document.createElement("h3");
-
-            title.textContent =
-                service.titulo || "";
-
-            const description =
-                document.createElement("p");
-
-            description.textContent =
-                service.descripcion || "";
-
-            article.appendChild(top);
-            article.appendChild(title);
-            article.appendChild(description);
-
-            if (service.enlace) {
-
-                const link =
-                    document.createElement("a");
-
-                link.href =
-                    service.url || "#contacto";
-
-                link.className =
-                    "service-link";
-
-                link.textContent =
-                    service.enlace;
-
-                article.appendChild(link);
-            }
-
-            servicesContainer.appendChild(article);
-        });
     }
 
 
@@ -574,164 +898,141 @@ document.addEventListener("DOMContentLoaded", () => {
        17. BENEFICIOS
        ===================================================== */
 
-    const benefitsContainer = $("[data-beneficios]");
+    const benefitsContainer =
+        $("[data-beneficios]");
+
 
     if (benefitsContainer) {
 
-        const benefits =
-            Array.isArray(CONFIG.beneficios)
+        const beneficios =
+            Array.isArray(
+                CONFIG.beneficios
+            )
                 ? CONFIG.beneficios
-                : [
-                    {
-                        icono: "✓",
-                        titulo: "Pensado para tu negocio",
-                        descripcion:
-                            "Cada detalle se adapta a tus necesidades."
-                    },
-                    {
-                        icono: "◇",
-                        titulo: "Diseño profesional",
-                        descripcion:
-                            "Una presencia digital clara y moderna."
-                    },
-                    {
-                        icono: "↗",
-                        titulo: "Enfocado en resultados",
-                        descripcion:
-                            "Todo está pensado para ayudarte a crecer."
-                    }
-                ];
+                : [];
 
-        benefitsContainer.innerHTML = "";
 
-        benefits.forEach((benefit, index) => {
+        benefitsContainer.innerHTML =
+            beneficios
+                .map(
+                    (item, index) => `
 
-            const article =
-                document.createElement("article");
+                    <article
+                        class="benefit-card reveal"
+                        style="--delay:${index * 0.08}s"
+                    >
 
-            article.className =
-                "benefit-card reveal";
+                        <div class="benefit-icon">
+                            ${escapeText(item.icono)}
+                        </div>
 
-            article.style.setProperty(
-                "--delay",
-                `${index * 0.08}s`
-            );
+                        <h3>
+                            ${escapeText(item.titulo)}
+                        </h3>
 
-            const icon =
-                document.createElement("span");
+                        <p>
+                            ${escapeText(item.descripcion)}
+                        </p>
 
-            icon.className = "benefit-icon";
-            icon.textContent =
-                benefit.icono || "✓";
+                    </article>
 
-            const title =
-                document.createElement("h3");
+                `
+                )
+                .join("");
 
-            title.textContent =
-                benefit.titulo || "";
-
-            const description =
-                document.createElement("p");
-
-            description.textContent =
-                benefit.descripcion || "";
-
-            article.appendChild(icon);
-            article.appendChild(title);
-            article.appendChild(description);
-
-            benefitsContainer.appendChild(article);
-        });
     }
 
 
     /* =====================================================
-       18. PUNTOS DE NOSOTROS
+       18. NOSOTROS — PUNTOS
        ===================================================== */
 
-    const points = [
-        1,
-        2,
-        3
-    ];
-
-    points.forEach(number => {
+    if (CONFIG.textos) {
 
         setText(
-            `[data-nosotros-punto="${number}-titulo"]`,
-            textos[`nosotrosPunto${number}Titulo`]
+            '[data-nosotros-punto="1-titulo"]',
+            CONFIG.textos.nosotrosPunto1Titulo
         );
 
         setText(
-            `[data-nosotros-punto="${number}-texto"]`,
-            textos[`nosotrosPunto${number}Texto`]
+            '[data-nosotros-punto="1-texto"]',
+            CONFIG.textos.nosotrosPunto1Texto
         );
-    });
+
+        setText(
+            '[data-nosotros-punto="2-titulo"]',
+            CONFIG.textos.nosotrosPunto2Titulo
+        );
+
+        setText(
+            '[data-nosotros-punto="2-texto"]',
+            CONFIG.textos.nosotrosPunto2Texto
+        );
+
+        setText(
+            '[data-nosotros-punto="3-titulo"]',
+            CONFIG.textos.nosotrosPunto3Titulo
+        );
+
+        setText(
+            '[data-nosotros-punto="3-texto"]',
+            CONFIG.textos.nosotrosPunto3Texto
+        );
+
+    }
 
 
     /* =====================================================
        19. PROCESO
        ===================================================== */
 
-    const processContainer = $("[data-proceso]");
+    const processContainer =
+        $("[data-proceso]");
+
 
     if (
         processContainer &&
-        Array.isArray(CONFIG.proceso)
+        Array.isArray(
+            CONFIG.proceso
+        )
     ) {
 
-        processContainer.innerHTML = "";
+        processContainer.innerHTML =
+            CONFIG.proceso
+                .map(
+                    (item, index) => `
 
-        CONFIG.proceso.forEach((step, index) => {
+                    <article
+                        class="process-card reveal"
+                        style="--delay:${index * 0.08}s"
+                    >
 
-            const article =
-                document.createElement("article");
+                        <div class="process-top">
 
-            article.className =
-                "process-card reveal";
+                            <span class="process-number">
+                                ${escapeText(item.numero)}
+                            </span>
 
-            article.style.setProperty(
-                "--delay",
-                `${index * 0.08}s`
-            );
+                            <span class="process-icon">
+                                ${escapeText(item.icono)}
+                            </span>
 
-            const number =
-                document.createElement("span");
+                        </div>
 
-            number.className =
-                "process-number";
+                        <h3>
+                            ${escapeText(item.titulo)}
+                        </h3>
 
-            number.textContent =
-                step.numero || "";
+                        <p>
+                            ${escapeText(item.descripcion)}
+                        </p>
 
-            const icon =
-                document.createElement("span");
+                    </article>
 
-            icon.className =
-                "process-icon";
+                `
+                )
+                .join("");
 
-            icon.textContent =
-                step.icono || "○";
-
-            const title =
-                document.createElement("h3");
-
-            title.textContent =
-                step.titulo || "";
-
-            const description =
-                document.createElement("p");
-
-            description.textContent =
-                step.descripcion || "";
-
-            article.appendChild(number);
-            article.appendChild(icon);
-            article.appendChild(title);
-            article.appendChild(description);
-
-            processContainer.appendChild(article);
-        });
     }
 
 
@@ -739,225 +1040,364 @@ document.addEventListener("DOMContentLoaded", () => {
        20. GALERÍA
        ===================================================== */
 
-    const galleryContainer = $("[data-galeria]");
+    const galleryContainer =
+        $("[data-galeria]");
+
+
     const galleryImages = [];
+
 
     if (
         galleryContainer &&
-        Array.isArray(CONFIG.galeria)
+        Array.isArray(
+            CONFIG.galeria
+        )
     ) {
 
         galleryContainer.innerHTML = "";
 
-        CONFIG.galeria.forEach((item, index) => {
 
-            const imageSource =
-                imagenes[item.imagen] || item.imagen || "";
+        CONFIG.galeria.forEach(
+            (item, index) => {
 
-            if (!imageSource) return;
+                const src =
+                    imagenes[item.imagen] ||
+                    "";
 
-            galleryImages.push({
-                src: imageSource,
-                title: item.titulo || ""
-            });
 
-            const figure =
-                document.createElement("figure");
+                galleryImages.push({
+                    src,
+                    titulo:
+                        item.titulo || ""
+                });
 
-            figure.className =
-                "gallery-item reveal";
 
-            if (index === 0) {
-                figure.classList.add(
-                    "gallery-item-large"
+                const figure =
+                    document.createElement(
+                        "figure"
+                    );
+
+
+                figure.className =
+                    "gallery-item reveal";
+
+
+                figure.style.setProperty(
+                    "--delay",
+                    `${index * 0.08}s`
                 );
+
+
+                figure.dataset.galleryIndex =
+                    index;
+
+
+                const img =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                img.loading =
+                    "lazy";
+
+
+                img.alt =
+                    item.titulo ||
+                    `Foto ${index + 1}`;
+
+
+                const caption =
+                    document.createElement(
+                        "figcaption"
+                    );
+
+
+                caption.innerHTML = `
+
+                    <span class="gallery-number">
+                        ${escapeText(item.numero || String(index + 1).padStart(2, "0"))}
+                    </span>
+
+                    <strong>
+                        ${escapeText(item.titulo || `Foto ${index + 1}`)}
+                    </strong>
+
+                `;
+
+
+                figure.appendChild(img);
+
+                figure.appendChild(caption);
+
+
+                galleryContainer.appendChild(
+                    figure
+                );
+
+
+                prepararImagen(
+                    img,
+                    src,
+                    `FOTO ${String(index + 1).padStart(2, "0")}`
+                );
+
+
+                figure.setAttribute(
+                    "tabindex",
+                    "0"
+                );
+
+
+                figure.setAttribute(
+                    "role",
+                    "button"
+                );
+
+
+                figure.setAttribute(
+                    "aria-label",
+                    `Ver ${item.titulo || "imagen"}`
+                );
+
             }
+        );
 
-            figure.style.setProperty(
-                "--delay",
-                `${index * 0.08}s`
-            );
+    }
 
-            const image =
-                document.createElement("img");
 
-            image.src = imageSource;
-            image.alt =
-                item.titulo ||
-                `${negocio.nombre || "Proyecto"} ${index + 1}`;
-
-            image.loading =
-                index === 0 ? "eager" : "lazy";
-
-            image.decoding = "async";
-
-            const overlay =
-                document.createElement("div");
-
-            overlay.className = "gallery-overlay";
-
-const number =
-    document.createElement("span");
-
-number.className =
-    "gallery-number";
-
-number.textContent =
-    item.numero || `0${index + 1}`;
-
-const title =
-    document.createElement("span");
-
-title.className =
-    "gallery-title";
-
-title.textContent =
-    item.titulo || "";
-
-overlay.appendChild(number);
-overlay.appendChild(title);
-
-figure.appendChild(image);
-figure.appendChild(overlay);
-
-figure.setAttribute("tabindex", "0");
-figure.setAttribute("role", "button");
-
-figure.setAttribute(
-    "aria-label",
-    `Ver ${item.titulo || "imagen"}`
-);
-
-figure.dataset.galleryIndex = index;
-
-galleryContainer.appendChild(figure);
-                /* =====================================================
+    /* =====================================================
        21. LIGHTBOX
        ===================================================== */
 
-    const lightbox = $("#lightbox");
-    const lightboxImage = $("#lightbox-image");
-    const lightboxCaption = $("#lightbox-caption");
-    const lightboxClose = $(".lightbox-close");
-    const lightboxPrev = $(".lightbox-prev");
-    const lightboxNext = $(".lightbox-next");
+    const lightbox =
+        $("#lightbox");
 
-    let currentGalleryIndex = 0;
+    const lightboxImage =
+        $("#lightbox-image");
 
-    const openLightbox = index => {
+    const lightboxCaption =
+        $("#lightbox-caption");
+
+    const lightboxClose =
+        $("#lightbox-close");
+
+    const lightboxPrev =
+        $("#lightbox-prev");
+
+    const lightboxNext =
+        $("#lightbox-next");
+
+
+    let currentGalleryIndex =
+        0;
+
+
+    const abrirLightbox = (
+        index
+    ) => {
 
         if (
             !lightbox ||
             !lightboxImage ||
             !galleryImages.length
-        ) {
-            return;
-        }
+        ) return;
 
-        currentGalleryIndex =
-            (index + galleryImages.length) %
-            galleryImages.length;
 
         const item =
-            galleryImages[currentGalleryIndex];
+            galleryImages[index];
 
-        lightboxImage.src = item.src;
-        lightboxImage.alt = item.title;
+
+        if (
+            !item ||
+            !item.src
+        ) return;
+
+
+        currentGalleryIndex =
+            index;
+
+
+        lightboxImage.src =
+            item.src;
+
+
+        lightboxImage.alt =
+            item.titulo || "Imagen";
+
 
         if (lightboxCaption) {
+
             lightboxCaption.textContent =
-                item.title;
+                item.titulo || "";
+
         }
 
-        lightbox.classList.add("active");
 
-        document.body.classList.add(
-            "lightbox-open"
+        lightbox.classList.add(
+            "active"
         );
+
 
         lightbox.setAttribute(
             "aria-hidden",
             "false"
         );
 
-        if (lightboxClose) {
-            lightboxClose.focus();
-        }
+
+        body.classList.add(
+            "lightbox-open"
+        );
+
     };
 
-    const closeLightbox = () => {
+
+    const cerrarLightbox = () => {
 
         if (!lightbox) return;
 
-        lightbox.classList.remove("active");
 
-        document.body.classList.remove(
-            "lightbox-open"
+        lightbox.classList.remove(
+            "active"
         );
+
 
         lightbox.setAttribute(
             "aria-hidden",
             "true"
         );
 
-        if (lightboxImage) {
-            lightboxImage.src = "";
-        }
-    };
 
-    const changeLightbox = direction => {
-
-        if (!galleryImages.length) return;
-
-        openLightbox(
-            currentGalleryIndex + direction
+        body.classList.remove(
+            "lightbox-open"
         );
+
     };
 
 
-    $$(".gallery-item").forEach(item => {
+    const cambiarLightbox = (
+        direccion
+    ) => {
 
-        const index =
-            Number(item.dataset.galleryIndex);
+        if (!galleryImages.length)
+            return;
 
-        item.addEventListener("click", () => {
-            openLightbox(index);
-        });
 
-        item.addEventListener("keydown", event => {
+        let nuevo =
+            currentGalleryIndex +
+            direccion;
 
-            if (
-                event.key === "Enter" ||
-                event.key === " "
-            ) {
 
-                event.preventDefault();
+        if (
+            nuevo < 0
+        ) {
 
-                openLightbox(index);
-            }
-        });
-    });
+            nuevo =
+                galleryImages.length - 1;
+
+        }
+
+
+        if (
+            nuevo >=
+            galleryImages.length
+        ) {
+
+            nuevo = 0;
+
+        }
+
+
+        abrirLightbox(
+            nuevo
+        );
+
+    };
+
+
+    $$(".gallery-item").forEach(
+        figure => {
+
+            figure.addEventListener(
+                "click",
+                () => {
+
+                    const index =
+                        Number(
+                            figure.dataset.galleryIndex
+                        );
+
+
+                    abrirLightbox(
+                        index
+                    );
+
+                }
+            );
+
+
+            figure.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key ===
+                        "Enter" ||
+                        event.key ===
+                        " "
+                    ) {
+
+                        event.preventDefault();
+
+
+                        const index =
+                            Number(
+                                figure.dataset.galleryIndex
+                            );
+
+
+                        abrirLightbox(
+                            index
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
 
     if (lightboxClose) {
+
         lightboxClose.addEventListener(
             "click",
-            closeLightbox
+            cerrarLightbox
         );
+
     }
+
 
     if (lightboxPrev) {
+
         lightboxPrev.addEventListener(
             "click",
-            () => changeLightbox(-1)
+            () => cambiarLightbox(-1)
         );
+
     }
 
+
     if (lightboxNext) {
+
         lightboxNext.addEventListener(
             "click",
-            () => changeLightbox(1)
+            () => cambiarLightbox(1)
         );
+
     }
+
 
     if (lightbox) {
 
@@ -966,12 +1406,17 @@ galleryContainer.appendChild(figure);
             event => {
 
                 if (
-                    event.target === lightbox
+                    event.target ===
+                    lightbox
                 ) {
-                    closeLightbox();
+
+                    cerrarLightbox();
+
                 }
+
             }
         );
+
     }
 
 
@@ -982,80 +1427,54 @@ galleryContainer.appendChild(figure);
     const testimonialsContainer =
         $("[data-testimonios]");
 
+
     if (
         testimonialsContainer &&
-        Array.isArray(CONFIG.testimonios)
+        Array.isArray(
+            CONFIG.testimonios
+        )
     ) {
 
-        testimonialsContainer.innerHTML = "";
+        testimonialsContainer.innerHTML =
+            CONFIG.testimonios
+                .map(
+                    (item, index) => `
 
-        CONFIG.testimonios.forEach(
-            (testimonial, index) => {
+                    <article
+                        class="testimonial reveal"
+                        style="--delay:${index * 0.08}s"
+                    >
 
-                const article =
-                    document.createElement("article");
+                        <div class="testimonial-top">
 
-                article.className =
-                    "testimonial reveal";
+                            <div class="testimonial-avatar">
+                                ${escapeText(item.inicial)}
+                            </div>
 
-                article.style.setProperty(
-                    "--delay",
-                    `${index * 0.08}s`
-                );
+                            <div>
 
-                const top =
-                    document.createElement("div");
+                                <strong class="testimonial-name">
+                                    ${escapeText(item.nombre)}
+                                </strong>
 
-                top.className =
-                    "testimonial-top";
+                                <span class="testimonial-type">
+                                    ${escapeText(item.tipo)}
+                                </span>
 
-                const avatar =
-                    document.createElement("div");
+                            </div>
 
-                avatar.className =
-                    "testimonial-avatar";
+                        </div>
 
-                avatar.textContent =
-                    testimonial.inicial || "?";
+                        <p>
+                            “${escapeText(item.texto)}”
+                        </p>
 
-                const person =
-                    document.createElement("div");
+                    </article>
 
-                person.className =
-                    "testimonial-person";
+                `
+                )
+                .join("");
 
-                const name =
-                    document.createElement("strong");
-
-                name.textContent =
-                    testimonial.nombre || "";
-
-                const type =
-                    document.createElement("span");
-
-                type.textContent =
-                    testimonial.tipo || "Cliente";
-
-                person.appendChild(name);
-                person.appendChild(type);
-
-                top.appendChild(avatar);
-                top.appendChild(person);
-
-                const text =
-                    document.createElement("p");
-
-                text.textContent =
-                    `“${testimonial.texto || ""}”`;
-
-                article.appendChild(top);
-                article.appendChild(text);
-
-                testimonialsContainer.appendChild(
-                    article
-                );
-            }
-        );
     }
 
 
@@ -1063,142 +1482,117 @@ galleryContainer.appendChild(figure);
        23. FAQ
        ===================================================== */
 
-    const faqContainer = $("[data-faq]");
+    const faqContainer =
+        $("[data-faq]");
 
-    if (faqContainer) {
 
-        const faq =
-            Array.isArray(CONFIG.faq)
-                ? CONFIG.faq
-                : [];
+    if (
+        faqContainer &&
+        Array.isArray(
+            CONFIG.faq
+        )
+    ) {
 
-        faqContainer.innerHTML = "";
+        faqContainer.innerHTML =
+            CONFIG.faq
+                .map(
+                    (item, index) => `
 
-        faq.forEach((item, index) => {
+                    <article
+                        class="faq-item reveal"
+                        style="--delay:${index * 0.06}s"
+                    >
 
-            const wrapper =
-                document.createElement("div");
+                        <button
+                            class="faq-question"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="faq-answer-${index}"
+                        >
 
-            wrapper.className =
-                "faq-item reveal";
+                            <span>
+                                ${escapeText(item.pregunta)}
+                            </span>
 
-            wrapper.style.setProperty(
-                "--delay",
-                `${index * 0.06}s`
-            );
+                            <span
+                                class="faq-icon"
+                                aria-hidden="true"
+                            >
+                                +
+                            </span>
 
-            const button =
-                document.createElement("button");
+                        </button>
 
-            button.className =
-                "faq-question";
+                        <div
+                            id="faq-answer-${index}"
+                            class="faq-answer"
+                        >
 
-            button.type = "button";
+                            <p>
+                                ${escapeText(item.respuesta)}
+                            </p>
 
-            button.setAttribute(
-                "aria-expanded",
-                "false"
-            );
+                        </div>
 
-            button.setAttribute(
-                "aria-controls",
-                `faq-answer-${index}`
-            );
+                    </article>
 
-            const title =
-                document.createElement("span");
+                `
+                )
+                .join("");
 
-            title.textContent =
-                item.pregunta || "";
 
-            const icon =
-                document.createElement("span");
+        $$(".faq-question", faqContainer)
+            .forEach(
+                button => {
 
-            icon.className =
-                "faq-icon";
+                    button.addEventListener(
+                        "click",
+                        () => {
 
-            icon.textContent = "+";
+                            const abierto =
+                                button.getAttribute(
+                                    "aria-expanded"
+                                ) === "true";
 
-            button.appendChild(title);
-            button.appendChild(icon);
 
-            const answer =
-                document.createElement("div");
+                            $$(".faq-question", faqContainer)
+                                .forEach(
+                                    other => {
 
-            answer.className =
-                "faq-answer";
+                                        other.setAttribute(
+                                            "aria-expanded",
+                                            "false"
+                                        );
 
-            answer.id =
-                `faq-answer-${index}`;
+                                        other
+                                            .closest(".faq-item")
+                                            ?.classList
+                                            .remove("active");
 
-            answer.hidden = true;
-
-            const paragraph =
-                document.createElement("p");
-
-            paragraph.textContent =
-                item.respuesta || "";
-
-            answer.appendChild(paragraph);
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const isOpen =
-                        button.getAttribute(
-                            "aria-expanded"
-                        ) === "true";
-
-                    $$(".faq-question").forEach(
-                        otherButton => {
-
-                            otherButton.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-
-                            const otherAnswer =
-                                document.getElementById(
-                                    otherButton.getAttribute(
-                                        "aria-controls"
-                                    )
+                                    }
                                 );
 
-                            if (otherAnswer) {
-                                otherAnswer.hidden =
-                                    true;
+
+                            if (!abierto) {
+
+                                button.setAttribute(
+                                    "aria-expanded",
+                                    "true"
+                                );
+
+                                button
+                                    .closest(".faq-item")
+                                    ?.classList
+                                    .add("active");
+
                             }
 
-                            const otherIcon =
-                                $(".faq-icon", otherButton);
-
-                            if (otherIcon) {
-                                otherIcon.textContent =
-                                    "+";
-                            }
                         }
                     );
 
-                    if (!isOpen) {
-
-                        button.setAttribute(
-                            "aria-expanded",
-                            "true"
-                        );
-
-                        answer.hidden = false;
-
-                        icon.textContent = "−";
-                    }
                 }
             );
 
-            wrapper.appendChild(button);
-            wrapper.appendChild(answer);
-
-            faqContainer.appendChild(wrapper);
-        });
     }
 
 
@@ -1206,87 +1600,129 @@ galleryContainer.appendChild(figure);
        24. CTA
        ===================================================== */
 
-    const ctaButton =
-        $("[data-boton='cta']");
-
-    if (ctaButton) {
-        ctaButton.textContent =
-            textos.botonCta ||
-            "Empezar un proyecto";
-    }
+    setText(
+        "[data-boton-cta]",
+        CONFIG.textos?.botonCta
+    );
 
 
     /* =====================================================
        25. CONTACTO
        ===================================================== */
 
-    const email = contacto.email || "";
-    const phone = contacto.telefono || "";
-    const whatsapp = contacto.whatsapp || "";
+    if (CONFIG.contacto) {
 
-    $$("[data-email]").forEach(element => {
+        const contacto =
+            CONFIG.contacto;
 
-        element.textContent = email;
 
-        if (
-            element.tagName === "A" &&
+        const whatsapp =
+            contacto.whatsapp;
+
+
+        const telefono =
+            contacto.telefono;
+
+
+        const email =
+            contacto.email;
+
+
+        setText(
+            "[data-email]",
             email
-        ) {
-            element.href =
-                `mailto:${email}`;
+        );
+
+
+        setText(
+            "[data-telefono]",
+            telefono
+        );
+
+
+        setText(
+            "[data-whatsapp]",
+            whatsapp
+        );
+
+
+        if (email) {
+
+            $$(
+                '[data-contacto="email"]'
+            ).forEach(
+                element => {
+
+                    element.href =
+                        `mailto:${email}`;
+
+                }
+            );
+
         }
-    });
 
-    $$("[data-telefono]").forEach(element => {
 
-        element.textContent = phone;
+        if (telefono) {
 
-        if (
-            element.tagName === "A" &&
-            phone
-        ) {
+            $$(
+                '[data-contacto="telefono"]'
+            ).forEach(
+                element => {
 
-            element.href =
-                `tel:${phone.replace(/[^\d+]/g, "")}`;
+                    element.href =
+                        `tel:${telefono.replace(/[^\d+]/g, "")}`;
+
+                }
+            );
+
         }
-    });
 
-    $$("[data-ciudad]").forEach(element => {
-        element.textContent =
-            sitio.ciudad || "";
-    });
-
-    $$("[data-horario]").forEach(element => {
-        element.textContent =
-            sitio.horario || "";
-    });
+    }
 
 
     /* =====================================================
        26. WHATSAPP
        ===================================================== */
 
-    const whatsappMessage =
-        contacto.mensajeWhatsapp ||
-        "Hola, quiero consultar por sus servicios.";
+    if (CONFIG.contacto?.whatsapp) {
 
-    const cleanWhatsapp =
-        String(whatsapp)
-            .replace(/\D/g, "");
+        const numero =
+            String(
+                CONFIG.contacto.whatsapp
+            ).replace(
+                /\D/g,
+                ""
+            );
 
-    if (cleanWhatsapp) {
 
-        const whatsappUrl =
-            `https://wa.me/${cleanWhatsapp}?text=${
-                encodeURIComponent(whatsappMessage)
-            }`;
+        const mensaje =
+            encodeURIComponent(
+                CONFIG.contacto.mensajeWhatsapp ||
+                "Hola, quiero consultar por sus servicios."
+            );
 
-        $$("[data-whatsapp]").forEach(link => {
 
-            link.href = whatsappUrl;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-        });
+        const url =
+            `https://wa.me/${numero}?text=${mensaje}`;
+
+
+        $$(
+            '[data-whatsapp-link]'
+        ).forEach(
+            link => {
+
+                link.href =
+                    url;
+
+                link.target =
+                    "_blank";
+
+                link.rel =
+                    "noopener noreferrer";
+
+            }
+        );
+
     }
 
 
@@ -1294,38 +1730,54 @@ galleryContainer.appendChild(figure);
        27. MAPA
        ===================================================== */
 
-    const mapContainer = $("[data-mapa]");
-    const mapLink = $("[data-mapa-link]");
+    const mapa =
+        $("[data-mapa]");
 
-    const mapsUrl =
-        sitio.mapsUrl ||
-        (
-            sitio.ciudad
-                ? `https://www.google.com/maps/search/?api=1&query=${
-                    encodeURIComponent(sitio.ciudad)
-                }`
-                : ""
-        );
 
-    if (mapLink && mapsUrl) {
+    if (mapa) {
 
-        mapLink.href = mapsUrl;
-        mapLink.target = "_blank";
-        mapLink.rel = "noopener noreferrer";
-    }
+        const mapsUrl =
+            CONFIG.sitio?.mapsUrl;
 
-    if (
-        mapContainer &&
-        sitio.ciudad
-    ) {
 
-        const text =
-            $(".map-placeholder-text", mapContainer);
+        const ciudad =
+            CONFIG.sitio?.ciudad ||
+            "";
 
-        if (text) {
-            text.textContent =
-                sitio.ciudad;
+
+        const mapaLink =
+            $("[data-mapa-link]");
+
+
+        const mapaTexto =
+            $("[data-mapa-texto]");
+
+
+        if (mapaTexto) {
+
+            mapaTexto.textContent =
+                ciudad ||
+                "Ubicación";
+
         }
+
+
+        if (
+            mapaLink &&
+            mapsUrl
+        ) {
+
+            mapaLink.href =
+                mapsUrl;
+
+            mapaLink.target =
+                "_blank";
+
+            mapaLink.rel =
+                "noopener noreferrer";
+
+        }
+
     }
 
 
@@ -1333,32 +1785,50 @@ galleryContainer.appendChild(figure);
        28. REDES SOCIALES
        ===================================================== */
 
-    const socialMap = {
-        instagram: redes.instagram,
-        facebook: redes.facebook,
-        tiktok: redes.tiktok,
-        youtube: redes.youtube
-    };
+    if (CONFIG.redes) {
 
-    Object.entries(socialMap).forEach(
-        ([network, url]) => {
+        Object.entries(
+            CONFIG.redes
+        ).forEach(
+            ([network, url]) => {
 
-            $$(`[data-red="${network}"]`)
-                .forEach(link => {
+                const links =
+                    $$(
+                        `[data-red="${network}"]`
+                    );
 
-                    if (!url) {
 
-                        link.hidden = true;
-                        return;
+                links.forEach(
+                    link => {
+
+                        if (url) {
+
+                            link.href =
+                                normalizeUrl(url);
+
+                            link.target =
+                                "_blank";
+
+                            link.rel =
+                                "noopener noreferrer";
+
+                            link.hidden =
+                                false;
+
+                        } else {
+
+                            link.hidden =
+                                true;
+
+                        }
+
                     }
+                );
 
-                    link.href = url;
-                    link.target = "_blank";
-                    link.rel =
-                        "noopener noreferrer";
-                });
-        }
-    );
+            }
+        );
+
+    }
 
 
     /* =====================================================
@@ -1367,124 +1837,150 @@ galleryContainer.appendChild(figure);
 
     if (CONFIG.legales) {
 
-        const legalMap = {
-            privacidad:
-                CONFIG.legales.privacidad,
-            terminos:
-                CONFIG.legales.terminos
-        };
+        const privacidad =
+            $("[data-legal='privacidad']");
 
-        Object.entries(legalMap).forEach(
-            ([type, url]) => {
+        const terminos =
+            $("[data-legal='terminos']");
 
-                if (!url) return;
 
-                $$(`[data-legal="${type}"]`)
-                    .forEach(link => {
-                        link.href = url;
-                    });
+        if (
+            privacidad &&
+            CONFIG.legales.privacidad
+        ) {
+
+            privacidad.href =
+                CONFIG.legales.privacidad;
+
+        }
+
+
+        if (
+            terminos &&
+            CONFIG.legales.terminos
+        ) {
+
+            terminos.href =
+                CONFIG.legales.terminos;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       30. AÑO ACTUAL
+       ===================================================== */
+
+    $$("[data-year]")
+        .forEach(
+            element => {
+
+                element.textContent =
+                    new Date().getFullYear();
+
             }
         );
-    }
 
 
     /* =====================================================
-       30. AÑO AUTOMÁTICO
+       31. JSON-LD
        ===================================================== */
 
-    $$("[data-year]").forEach(element => {
-        element.textContent =
-            new Date().getFullYear();
-    });
+    const businessType =
+        CONFIG.sitio?.tipoNegocio ||
+        "LocalBusiness";
 
 
-    /* =====================================================
-       31. JSON-LD / DATOS ESTRUCTURADOS
-       ===================================================== */
+    const structuredData = {
 
-    const structuredData =
-        $("script[type='application/ld+json']");
+        "@context":
+            "https://schema.org",
 
-    if (structuredData) {
+        "@type":
+            businessType,
 
-        const data = {
-            "@context": "https://schema.org",
+        name:
+            CONFIG.negocio?.nombre ||
+            "",
+
+        description:
+            CONFIG.seo?.descripcion ||
+            CONFIG.negocio?.descripcion ||
+            "",
+
+        url:
+            CONFIG.sitio?.url ||
+            "",
+
+        image:
+            CONFIG.seo?.imagen ||
+            "",
+
+        telephone:
+            CONFIG.contacto?.telefono ||
+            "",
+
+        email:
+            CONFIG.contacto?.email ||
+            "",
+
+        address: {
+
             "@type":
-                sitio.tipoNegocio ||
-                "LocalBusiness",
+                "PostalAddress",
 
-            "name":
-                negocio.nombre || "",
+            addressLocality:
+                CONFIG.sitio?.ciudad ||
+                ""
 
-            "description":
-                seo.descripcion ||
-                negocio.descripcion ||
-                "",
+        },
 
-            "url":
-                currentUrl,
+        sameAs:
+            Object.values(
+                CONFIG.redes || {}
+            ).filter(Boolean)
 
-            "image":
-                seoImage
-        };
+    };
 
-        if (sitio.ciudad) {
 
-            data.address = {
-                "@type": "PostalAddress",
-                "addressLocality":
-                    sitio.ciudad
-            };
-        }
+    let jsonLd =
+        $('script[type="application/ld+json"]');
 
-        if (contacto.telefono) {
-            data.telephone =
-                contacto.telefono;
-        }
 
-        if (contacto.email) {
-            data.email =
-                contacto.email;
-        }
+    if (!jsonLd) {
 
-        structuredData.textContent =
-            JSON.stringify(data);
+        jsonLd =
+            document.createElement(
+                "script"
+            );
+
+        jsonLd.type =
+            "application/ld+json";
+
+        document.head.appendChild(
+            jsonLd
+        );
+
     }
+
+
+    jsonLd.textContent =
+        JSON.stringify(
+            structuredData
+        );
 
 
     /* =====================================================
        32. MENÚ MOBILE
        ===================================================== */
 
-    const menuButton = $(".menu-btn");
-    const navigation = $("#main-navigation");
+    const menuButton =
+        $("#menu-toggle");
 
-    const closeMenu = () => {
+    const navigation =
+        $("#main-navigation");
 
-        if (
-            !menuButton ||
-            !navigation
-        ) {
-            return;
-        }
-
-        menuButton.classList.remove(
-            "active"
-        );
-
-        navigation.classList.remove(
-            "active"
-        );
-
-        menuButton.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        document.body.classList.remove(
-            "menu-open"
-        );
-    };
 
     if (
         menuButton &&
@@ -1495,41 +1991,74 @@ galleryContainer.appendChild(figure);
             "click",
             () => {
 
-                const isOpen =
-                    navigation.classList.toggle(
-                        "active"
-                    );
+                const abierto =
+                    menuButton.getAttribute(
+                        "aria-expanded"
+                    ) === "true";
 
-                menuButton.classList.toggle(
-                    "active",
-                    isOpen
-                );
 
                 menuButton.setAttribute(
                     "aria-expanded",
-                    String(isOpen)
+                    String(!abierto)
                 );
 
-                document.body.classList.toggle(
-                    "menu-open",
-                    isOpen
+
+                navigation.classList.toggle(
+                    "active",
+                    !abierto
                 );
+
+
+                body.classList.toggle(
+                    "menu-open",
+                    !abierto
+                );
+
             }
         );
+
     }
 
 
     /* =====================================================
-       33. CERRAR MENÚ AL HACER CLICK
+       33. CERRAR MENÚ AL NAVEGAR
        ===================================================== */
 
-    $$("#main-navigation a").forEach(link => {
+    $$(
+        "#main-navigation a"
+    ).forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            closeMenu
-        );
-    });
+            link.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        !menuButton ||
+                        !navigation
+                    ) return;
+
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+
+                    navigation.classList.remove(
+                        "active"
+                    );
+
+
+                    body.classList.remove(
+                        "menu-open"
+                    );
+
+                }
+            );
+
+        }
+    );
 
 
     /* =====================================================
@@ -1540,24 +2069,42 @@ galleryContainer.appendChild(figure);
         "keydown",
         event => {
 
-            if (event.key !== "Escape") {
-                return;
-            }
-
-            closeMenu();
-
             if (
-                lightbox &&
-                lightbox.classList.contains("active")
+                event.key ===
+                "Escape"
             ) {
-                closeLightbox();
+
+                cerrarLightbox();
+
+
+                if (
+                    menuButton &&
+                    navigation
+                ) {
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    navigation.classList.remove(
+                        "active"
+                    );
+
+                    body.classList.remove(
+                        "menu-open"
+                    );
+
+                }
+
             }
+
         }
     );
 
 
     /* =====================================================
-       35. TECLAS LIGHTBOX
+       35. TECLADO LIGHTBOX
        ===================================================== */
 
     document.addEventListener(
@@ -1565,19 +2112,31 @@ galleryContainer.appendChild(figure);
         event => {
 
             if (
-                !lightbox ||
-                !lightbox.classList.contains("active")
+                !lightbox?.classList.contains(
+                    "active"
+                )
+            ) return;
+
+
+            if (
+                event.key ===
+                "ArrowLeft"
             ) {
-                return;
+
+                cambiarLightbox(-1);
+
             }
 
-            if (event.key === "ArrowLeft") {
-                changeLightbox(-1);
+
+            if (
+                event.key ===
+                "ArrowRight"
+            ) {
+
+                cambiarLightbox(1);
+
             }
 
-            if (event.key === "ArrowRight") {
-                changeLightbox(1);
-            }
         }
     );
 
@@ -1586,64 +2145,83 @@ galleryContainer.appendChild(figure);
        36. HEADER SCROLL
        ===================================================== */
 
-    const header = $(".site-header");
+    const header =
+        $(".site-header");
 
-    const updateHeader = () => {
 
-        if (!header) return;
+    const updateHeader =
+        () => {
 
-        if (window.scrollY > 30) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-    };
+            if (!header) return;
+
+
+            header.classList.toggle(
+                "scrolled",
+                window.scrollY > 30
+            );
+
+        };
 
 
     /* =====================================================
-       37. PROGRESO DE SCROLL
+       37. SCROLL PROGRESS
        ===================================================== */
 
-    const progress =
-        $(".scroll-progress");
+    const scrollProgress =
+        $("#scroll-progress");
 
-    const updateProgress = () => {
 
-        if (!progress) return;
+    const updateScrollProgress =
+        () => {
 
-        const scrollTop =
-            window.scrollY;
+            if (!scrollProgress)
+                return;
 
-        const documentHeight =
-            document.documentElement.scrollHeight -
-            window.innerHeight;
 
-        const percentage =
-            documentHeight > 0
-                ? (scrollTop / documentHeight) * 100
-                : 0;
+            const scrollTop =
+                window.scrollY;
 
-        progress.style.width =
-            `${percentage}%`;
-    };
+
+            const scrollHeight =
+                document.documentElement.scrollHeight -
+                window.innerHeight;
+
+
+            const progress =
+                scrollHeight > 0
+                    ? scrollTop /
+                      scrollHeight
+                    : 0;
+
+
+            scrollProgress.style.transform =
+                `scaleX(${progress})`;
+
+        };
 
 
     /* =====================================================
        38. BACK TO TOP
        ===================================================== */
 
-    const backTop = $(".back-top");
+    const backTop =
+        $("#back-top");
 
-    const updateBackTop = () => {
 
-        if (!backTop) return;
+    const updateBackTop =
+        () => {
 
-        if (window.scrollY > 600) {
-            backTop.classList.add("visible");
-        } else {
-            backTop.classList.remove("visible");
-        }
-    };
+            if (!backTop)
+                return;
+
+
+            backTop.classList.toggle(
+                "visible",
+                window.scrollY > 600
+            );
+
+        };
+
 
     if (backTop) {
 
@@ -1655,8 +2233,10 @@ galleryContainer.appendChild(figure);
                     top: 0,
                     behavior: "smooth"
                 });
+
             }
         );
+
     }
 
 
@@ -1664,84 +2244,121 @@ galleryContainer.appendChild(figure);
        39. SCROLL OPTIMIZADO
        ===================================================== */
 
-    let ticking = false;
+    let ticking =
+        false;
 
-    const onScroll = () => {
 
-        if (ticking) return;
-
-        ticking = true;
-
-        requestAnimationFrame(() => {
+    const updateScroll =
+        () => {
 
             updateHeader();
-            updateProgress();
+
+            updateScrollProgress();
+
             updateBackTop();
 
-            ticking = false;
-        });
-    };
+
+            ticking =
+                false;
+
+        };
+
 
     window.addEventListener(
         "scroll",
-        onScroll,
-        { passive: true }
+        () => {
+
+            if (!ticking) {
+
+                requestAnimationFrame(
+                    updateScroll
+                );
+
+                ticking =
+                    true;
+
+            }
+
+        },
+        {
+            passive: true
+        }
     );
 
-    updateHeader();
-    updateProgress();
-    updateBackTop();
+
+    updateScroll();
 
 
-        /* =====================================================
+    /* =====================================================
        40. REVEAL ANIMATIONS
        ===================================================== */
 
     const revealElements =
-        $$(".reveal, .reveal-left, .reveal-right");
+        $$(".reveal");
+
 
     if (
-        "IntersectionObserver" in window &&
-        revealElements.length
+        "IntersectionObserver"
+        in window
     ) {
 
         const revealObserver =
             new IntersectionObserver(
                 entries => {
 
-                    entries.forEach(entry => {
+                    entries.forEach(
+                        entry => {
 
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "active"
+                                );
+
+
+                                revealObserver.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
                         }
+                    );
 
-                        entry.target.classList.add(
-                            "active"
-                        );
-
-                        revealObserver.unobserve(
-                            entry.target
-                        );
-                    });
                 },
                 {
                     threshold: 0.10,
+
                     rootMargin:
                         "0px 0px -30px 0px"
                 }
             );
 
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
+
+        revealElements.forEach(
+            element => {
+
+                revealObserver.observe(
+                    element
+                );
+
+            }
+        );
 
     } else {
 
-        revealElements.forEach(element => {
-            element.classList.add("active");
-        });
+        revealElements.forEach(
+            element => {
+
+                element.classList.add(
+                    "active"
+                );
+
+            }
+        );
+
     }
 
 
@@ -1749,120 +2366,167 @@ galleryContainer.appendChild(figure);
        41. CONTADORES DE ESTADÍSTICAS
        ===================================================== */
 
-    const parseNumber = value => {
+    const statNumbers =
+        $$(".stat-number");
 
-        const match =
-            String(value)
-                .replace(",", ".")
-                .match(/-?\d+(\.\d+)?/);
 
-        return match
-            ? Number(match[0])
-            : null;
-    };
+    const animarNumero =
+        element => {
 
-    const animateCounter = element => {
+            const valorOriginal =
+                element.dataset.statValue ||
+                element.textContent;
 
-        if (
-            !element ||
-            element.dataset.counted
-        ) {
-            return;
-        }
 
-        const original =
-            element.textContent.trim();
-
-        const number =
-            parseNumber(original);
-
-        if (number === null) return;
-
-        const suffix =
-            original.replace(
-                /-?\d+(\.\d+)?/,
-                ""
-            );
-
-        const duration = 1200;
-
-        const start =
-            performance.now();
-
-        const update = now => {
-
-            const progress =
-                Math.min(
-                    (now - start) / duration,
-                    1
+            const numero =
+                parseFloat(
+                    valorOriginal.replace(
+                        /[^\d.,-]/g,
+                        ""
+                    ).replace(
+                        ",",
+                        "."
+                    )
                 );
 
-            const eased =
-                1 - Math.pow(1 - progress, 3);
 
-            const current =
-                number * eased;
+            if (
+                Number.isNaN(numero)
+            ) return;
 
-            const decimals =
-                number % 1 !== 0
-                    ? 1
-                    : 0;
 
-            element.textContent =
-                `${current.toFixed(decimals)}${suffix}`;
+            const prefijo =
+                valorOriginal.match(
+                    /^[^\d-]*/
+                )?.[0] || "";
 
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            } else {
-                element.textContent =
-                    original;
 
-                element.dataset.counted =
-                    "true";
-            }
+            const sufijo =
+                valorOriginal.match(
+                    /[^\d.,-]+$/
+                )?.[0] || "";
+
+
+            const tieneDecimal =
+                valorOriginal.includes(".") ||
+                valorOriginal.includes(",");
+
+
+            const duracion =
+                1000;
+
+
+            const inicio =
+                performance.now();
+
+
+            const actualizar =
+                tiempo => {
+
+                    const progreso =
+                        Math.min(
+                            (tiempo - inicio) /
+                            duracion,
+                            1
+                        );
+
+
+                    const suavizado =
+                        1 -
+                        Math.pow(
+                            1 - progreso,
+                            3
+                        );
+
+
+                    const actual =
+                        numero *
+                        suavizado;
+
+
+                    element.textContent =
+                        prefijo +
+                        (
+                            tieneDecimal
+                                ? actual.toFixed(1)
+                                : Math.round(actual)
+                        ) +
+                        sufijo;
+
+
+                    if (
+                        progreso < 1
+                    ) {
+
+                        requestAnimationFrame(
+                            actualizar
+                        );
+
+                    } else {
+
+                        element.textContent =
+                            valorOriginal;
+
+                    }
+
+                };
+
+
+            requestAnimationFrame(
+                actualizar
+            );
+
         };
-
-        requestAnimationFrame(update);
-    };
 
 
     if (
-        "IntersectionObserver" in window
+        "IntersectionObserver"
+        in window &&
+        statNumbers.length
     ) {
 
-        const counterObserver =
+        const statsObserver =
             new IntersectionObserver(
                 entries => {
 
-                    entries.forEach(entry => {
+                    entries.forEach(
+                        entry => {
 
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                animarNumero(
+                                    entry.target
+                                );
+
+
+                                statsObserver.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
                         }
+                    );
 
-                        animateCounter(
-                            entry.target
-                        );
-
-                        counterObserver.unobserve(
-                            entry.target
-                        );
-                    });
                 },
                 {
                     threshold: 0.5
                 }
             );
 
-        $$(".stat-number").forEach(
+
+        statNumbers.forEach(
             element => {
-                counterObserver.observe(
+
+                statsObserver.observe(
                     element
                 );
+
             }
         );
+
     }
 
 
@@ -1873,44 +2537,63 @@ galleryContainer.appendChild(figure);
     const heroImage =
         $(".hero-image img");
 
-    const reduceMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
 
     if (
         heroImage &&
-        !reduceMotion
+        !window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches
     ) {
 
-        let parallaxTicking = false;
+        let parallaxTicking =
+            false;
 
-        const updateParallax = () => {
 
-            if (parallaxTicking) return;
+        const actualizarParallax =
+            () => {
 
-            parallaxTicking = true;
+                const scroll =
+                    window.scrollY;
 
-            requestAnimationFrame(() => {
 
-                const offset =
-                    Math.min(
-                        window.scrollY * 0.06,
-                        40
-                    );
+                if (
+                    scroll <
+                    window.innerHeight
+                ) {
 
-                heroImage.style.transform =
-                    `translate3d(0, ${offset}px, 0) scale(1.025)`;
+                    heroImage.style.transform =
+                        `translateY(${scroll * 0.06}px) scale(1.025)`;
 
-                parallaxTicking = false;
-            });
-        };
+                }
+
+
+                parallaxTicking =
+                    false;
+
+            };
+
 
         window.addEventListener(
             "scroll",
-            updateParallax,
-            { passive: true }
+            () => {
+
+                if (!parallaxTicking) {
+
+                    requestAnimationFrame(
+                        actualizarParallax
+                    );
+
+                    parallaxTicking =
+                        true;
+
+                }
+
+            },
+            {
+                passive: true
+            }
         );
+
     }
 
 
@@ -1918,91 +2601,80 @@ galleryContainer.appendChild(figure);
        43. NAVEGACIÓN SUAVE
        ===================================================== */
 
-    $$('a[href^="#"]').forEach(link => {
+    $$(
+        'a[href^="#"]'
+    ).forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            event => {
+            link.addEventListener(
+                "click",
+                event => {
 
-                const href =
-                    link.getAttribute("href");
+                    const id =
+                        link.getAttribute(
+                            "href"
+                        );
 
-                if (
-                    !href ||
-                    href === "#"
-                ) {
-                    return;
+
+                    if (
+                        !id ||
+                        id === "#"
+                    ) return;
+
+
+                    const destino =
+                        document.querySelector(
+                            id
+                        );
+
+
+                    if (!destino)
+                        return;
+
+
+                    event.preventDefault();
+
+
+                    destino.scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "start"
+                    });
+
                 }
+            );
 
-                const target =
-                    $(href);
-
-                if (!target) return;
-
-                event.preventDefault();
-
-                const headerHeight =
-                    header
-                        ? header.offsetHeight
-                        : 0;
-
-                const targetPosition =
-                    target.getBoundingClientRect().top +
-                    window.scrollY -
-                    headerHeight -
-                    15;
-
-                window.scrollTo({
-                    top: Math.max(
-                        targetPosition,
-                        0
-                    ),
-                    behavior:
-                        reduceMotion
-                            ? "auto"
-                            : "smooth"
-                });
-
-                history.replaceState(
-                    null,
-                    "",
-                    href
-                );
-
-                closeMenu();
-            }
-        );
-    });
+        }
+    );
 
 
     /* =====================================================
-       44. ARIA / ACCESIBILIDAD
+       44. ACCESIBILIDAD
        ===================================================== */
 
     if (menuButton) {
 
-        if (
-            !menuButton.hasAttribute(
-                "aria-label"
-            )
-        ) {
-            menuButton.setAttribute(
-                "aria-label",
-                "Abrir menú"
-            );
-        }
+        menuButton.setAttribute(
+            "aria-controls",
+            "main-navigation"
+        );
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
     }
 
-    if (lightbox) {
 
-        lightbox.setAttribute(
-            "aria-hidden",
-            lightbox.classList.contains(
-                "active"
-            )
-                ? "false"
-                : "true"
+    if (navigation) {
+
+        navigation.setAttribute(
+            "aria-label",
+            "Navegación principal"
         );
+
     }
 
 
@@ -2015,68 +2687,58 @@ galleryContainer.appendChild(figure);
         () => {
 
             if (
-                window.innerWidth > 768
+                window.innerWidth > 768 &&
+                menuButton &&
+                navigation
             ) {
-                closeMenu();
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                navigation.classList.remove(
+                    "active"
+                );
+
+                body.classList.remove(
+                    "menu-open"
+                );
+
             }
-        },
-        { passive: true }
+
+        }
     );
 
 
     /* =====================================================
-       46. API INTERNA
+       46. API PÚBLICA
        ===================================================== */
 
     window.PlantillaWeb = {
 
-        config: CONFIG,
+        config:
+            CONFIG,
 
-        openLightbox,
+        abrirLightbox,
 
-        closeLightbox,
+        cerrarLightbox,
 
-        changeLightbox,
+        cambiarLightbox,
 
-        scrollTo: selector => {
+        actualizarScroll:
+            updateScroll
 
-            const target =
-                $(selector);
-
-            if (!target) return;
-
-            const headerHeight =
-                header
-                    ? header.offsetHeight
-                    : 0;
-
-            window.scrollTo({
-                top:
-                    target.offsetTop -
-                    headerHeight -
-                    15,
-
-                behavior:
-                    reduceMotion
-                        ? "auto"
-                        : "smooth"
-            });
-        }
     };
 
 
     /* =====================================================
-       47. MENSAJE DE DESARROLLO
+       47. FINAL
        ===================================================== */
-
-    console.log(
-        `%c${negocio.nombre || "Plantilla Web"}%c`,
-        "font-size:18px;font-weight:bold;",
-        "font-size:14px;"
-    );
 
     console.log(
         "Plantilla Web cargada correctamente."
     );
+
 
 });
